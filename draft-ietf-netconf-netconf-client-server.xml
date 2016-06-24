@@ -1,0 +1,566 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY rfc2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY rfc3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY rfc4252 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml">
+<!ENTITY rfc4253 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4253.xml">
+<!ENTITY rfc4254 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4254.xml">
+<!ENTITY rfc5246 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
+<!ENTITY rfc6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
+<!ENTITY rfc6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
+<!ENTITY rfc6242 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml">
+<!ENTITY rfc6335 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6335.xml">
+<!ENTITY rfc6991 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml">
+<!ENTITY rfc7407 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7407.xml">
+<!ENTITY rfc7589 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7589.xml">
+]>
+
+<?rfc toc="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<?rfc linkmailto="no" ?>
+<?rfc editing="no" ?>
+<?rfc comments="yes" ?>
+<?rfc inline="yes"?>
+<?rfc rfcedstyle="yes"?>
+<?rfc-ext allow-markup-in-artwork="yes" ?>
+<?rfc-ext include-index="no" ?>
+<!--<?rfc strict="no"?> -->
+
+<rfc category="std"
+     ipr="trust200902"
+     docName="draft-ietf-netconf-netconf-client-server-latest" >
+    <front>
+        <title>NETCONF Client and Server Models</title>
+        <author initials="K.W." surname="Watsen" fullname="Kent Watsen">
+            <organization>Juniper Networks</organization>
+            <address>
+                <email>kwatsen@juniper.net</email>
+            </address>
+        </author>
+        <author initials="J.S." surname="Schoenwaelder" fullname="Juergen Schoenwaelder">
+            <organization>Jacobs University Bremen</organization>
+            <address>
+                <email>j.schoenwaelder@jacobs-university.de</email>
+            </address>
+        </author>
+        <date/>
+        <area>Operations</area>
+        <workgroup>NETCONF Working Group</workgroup>
+        <abstract>
+            <t>This document defines two YANG modules, one
+            to configure a NETCONF client and the other to configure a
+            NETCONF server.  Both modules support both the SSH and
+            TLS transports, and support both standard and call home
+            connections.</t>
+        </abstract>
+        <note title="Editorial Note (To be removed by RFC Editor)">
+          <t>This draft contains many placeholder values that need to be replaced
+          with finalized values at the time of publication.  This note summarizes
+          all of the substitutions that are needed.  No other RFC Editor
+          instructions are specified elsewhere in this document.</t>
+
+          <t>This document contains references to other drafts in progress, both in
+          the Normative References section, as well as in body text throughout.  
+          Please update the following references to reflect their final RFC assignments:
+            <list style="symbols">
+              <t>draft-ietf-netconf-system-keychain</t>
+              <t>draft-ietf-netconf-ssh-client-server</t>
+              <t>draft-ietf-netconf-tls-client-server</t>
+            </list>
+          </t>
+          <t>Artwork in this document contains shorthand references to drafts in 
+          progress.  Please apply the following replacements:
+            <list  style="symbols">
+              <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
+              <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-ssh-client-server</t>
+              <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
+            </list>
+          </t>
+          <t>Artwork in this document contains placeholder values for the date of publication of this
+          draft.  Please apply the following replacement:
+            <list  style="symbols">
+              <t><spanx style="verb">YYYY-MM-DD</spanx> --&gt; the publication date of this draft</t>
+            </list>
+          </t>
+          <t>The following two Appendix sections are to be removed prior to publication:
+            <list  style="symbols">
+              <t>Appendix A.  Change Log</t>
+              <t>Appendix B.  Open Issues</t>
+            </list>
+          </t>
+        </note>
+    </front>
+    <middle>
+
+        <section title="Introduction">
+
+            <t>This document defines two YANG <xref target="RFC6020"/> modules,
+            one to configure a NETCONF client and the other to configure a
+            NETCONF server (NETCONF is defined by <xref target="RFC6241"/>.
+            Both modules support both the SSH and TLS transports (SSH is 
+            defined in <xref target="RFC4252"/>, <xref target="RFC4253"/>, and
+            <xref target="RFC4254"/>, and TLS is defined in <xref target="RFC5246"/>)
+            and support both standard and call home connections (call home is 
+            defined in <xref target="draft-ietf-netconf-call-home"/>).</t>
+
+            <section title="Terminology">
+              <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
+              "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
+              and "OPTIONAL" in this document are to be interpreted as
+              described in RFC 2119 <xref target="RFC2119"/>.</t>
+            </section>
+
+            <section title="Tree Diagrams" anchor="tree-diagrams">
+            <t>A simplified graphical representation of the data models
+            is used in this document.  The meaning of the symbols in
+            these diagrams is as follows:
+              <list style="symbols">
+                <t>Brackets "[" and "]" enclose list keys.</t>
+                <t>Braces "{" and "}" enclose feature names, and indicate
+                that the named feature must be present for the subtree
+                to be present.</t>
+                <t>Abbreviations before data node names: "rw" means
+                configuration (read-write) and "ro" state data 
+                (read-only).</t>
+                <t>Symbols after data node names: "?" means an optional
+                node, "!" means a presence container, and "*" denotes a
+                list and leaf-list.</t>
+                <t>Parentheses enclose choice and case nodes, and case
+                nodes are also marked with a colon (":").</t>
+                <t>Ellipsis ("...") stands for contents of subtrees that
+                are not shown.</t>
+              </list>
+            </t>
+            </section>
+        </section>
+
+      <section title="The NETCONF Client Model" anchor="netconf-client-model">
+        <t>The NETCONF client model presented in this section supports both clients
+        initiating connections to servers, as well as clients listening
+        for connections from servers calling home.</t>
+
+        <t>This model supports both the SSH and TLS transport
+        protocols, using the SSH client and TLS client groupings defined in
+        <xref target="draft-ietf-netconf-ssh-client-server"/> and 
+        <xref target="draft-ietf-netconf-tls-client-server"/> respectively.</t>
+
+        <t>All private keys and trusted certificates are held in the
+        keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+
+        <t>YANG feature statements are used to enable implementations to advertise
+        which parts of the model the NETCONF client supports.</t>
+
+        <section title="Tree Diagram">
+          <t>Note: all lines are folded at column 71 with no '\' character.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt)
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+
+        <section title="Example Usage">
+          <t>The following example illustrates configuring a NETCONF
+          client to initiate connections, using both the SSH and TLS
+          transport protocols, as well as listening for call-home
+          connections, again using both the SSH and TLS transport
+          protocols.</t>
+          <t>This example is consistent with the examples presented in
+          Section 2.2 of <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-netconf-client.xml)
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+
+        <section title="YANG Model" anchor="ietf-netconf-client-module">
+          <t>This YANG module imports YANG types from <xref
+          target="RFC6991"/> and <xref target="RFC7407"/>.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+
+<CODE BEGINS> file "ietf-netconf-client@YYYY-MM-DD.yang"
+
+INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
+
+<CODE ENDS>
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+
+
+      <section title="The NETCONF Server Model" anchor="netconf-server-model">
+        <t>The NETCONF server model presented in this section supports servers
+        both listening for connections as well as initiating call-home
+        connections.</t>
+
+        <t>This model also supports both the SSH and TLS transport
+        protocols, using the SSH server and TLS server groupings defined in
+        <xref target="draft-ietf-netconf-ssh-client-server"/> and 
+        <xref target="draft-ietf-netconf-tls-client-server"/> respectively.
+
+        <t>All private keys and trusted certificates are held in the
+        keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+
+        <t>YANG feature statements are used to enable implementations to advertise
+        which parts of the model the NETCONF server supports.</t>
+
+        <section title="Tree Diagram">
+          <t>Note: all lines are folded at column 71 with no '\' character.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+
+        <section title="Example Usage">
+          <t>The following example illustrates configuring a NETCONF server
+          to listen for NETCONF client connections using both the SSH and 
+          TLS transport protocols, as well as configuring call-home to two
+          NETCONF clients, one using SSH and the other using TLS.</t>
+          <t>This example is consistent with the examples presented in
+          Section 2.2 of <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-netconf-server.xml)
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+
+        <section title="YANG Model" anchor="ietf-netconf-server-module">
+          <t>This YANG module imports YANG types from <xref
+          target="RFC6991"/> and <xref target="RFC7407"/>.</t>
+          <t>
+            <figure>
+              <artwork><![CDATA[
+
+<CODE BEGINS> file "ietf-netconf-server@YYYY-MM-DD.yang"
+
+INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
+
+<CODE ENDS>
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+
+      <section title="Design Considerations">
+        <t>Editorial: this section is a hold over from before, previously called
+        "Objectives".  It was only written two support the "server" (not the "client").
+        The question is if it's better to add the missing "client" parts, or remove
+        this section altogether.</t>
+
+        <t>The primary purpose of the YANG modules defined herein is
+        to enable the configuration of the NETCONF client and servers.
+        This scope includes the following objectives:</t>
+        <section title="Support all NETCONF transports">
+          <t>The YANG module should support all current NETCONF 
+          transports, namely NETCONF over SSH <xref target="RFC6242"/>, 
+          NETCONF over TLS <xref target="RFC7589"/>, and to be 
+          extensible to support future transports as necessary.</t>
+          <t>Because implementations may not support all transports,
+          the modules should use YANG &quot;feature&quot; statements
+          so that implementations can accurately advertise which
+          transports are supported.</t>
+        </section>
+        <section title="Enable each transport to select which keys to use">
+          <t>Servers may have a multiplicity of host-keys or server-certificates
+             from which subsets may be selected for specific uses.  For instance,
+             a NETCONF server may want to use one set of SSH host-keys when listening
+             on port 830, and a different set of SSH host-keys when calling
+             home.  The data models provided herein should enable configuration
+             of which keys to use on a per-use basis.</t>
+        </section>
+        <section title="Support authenticating NETCONF clients certificates">
+          <t>When a certificate is used to authenticate a NETCONF client,
+             there is a need to configure the server to know how to authenticate the 
+             certificates.  The server should be able to authenticate the client's
+             certificate either by using path-validation to a configured trust anchor
+             or by matching the client-certificate to one previously configured.</t>
+        </section>
+        <section title="Support mapping authenticated NETCONF client certificates to usernames">
+          <t>When a client certificate is used for TLS client authentication,
+             the NETCONF server must be able to derive a username from the 
+             authenticated certificate.  Thus the modules defined herein should enable
+             this mapping to be configured.</t>
+        </section>
+        <section title="Support both listening for connections and call home">
+          <t>The NETCONF protocols were originally defined as having the 
+          server opening a port to listen for client connections.  More recently
+          the NETCONF working group defined support for call-home 
+          (<xref target="draft-ietf-netconf-call-home"/>), enabling the server to
+          initiate the connection to the client.  Thus the modules defined herein
+          should enable configuration for both listening for connections and
+          calling home.  Because implementations may not support both listening
+          for connections and calling home, YANG &quot;feature&quot; statements
+          should be used so that implementation can accurately 
+          advertise the connection types it supports.</t>
+        </section>
+        <section title="For Call Home connections">
+          <t>The following objectives only pertain to call home connections.</t>
+          <section title="Support more than one NETCONF client">
+            <t>A NETCONF server may be managed by more than one NETCONF client.
+            For instance, a deployment may have one client for provisioning and
+            another for fault monitoring.  Therefore, when it is desired for a
+            server to initiate call home connections, it should be able to do
+            so to more than one client.</t>
+          </section>
+          <section title="Support NETCONF clients having more than one endpoint">
+            <t>A NETCONF client managing a NETCONF server may implement a 
+            high-availability strategy employing a multiplicity of
+            active and/or passive endpoint.  Therefore, when it is
+            desired for a server to initiate call home connections,
+            it should be able to connect to any of the client's endpoints.</t>
+          </section>
+          <section title="Support a reconnection strategy">
+            <t>Assuming a NETCONF client has more than one endpoint, then
+            it becomes necessary to configure how a NETCONF server should
+            reconnect to the client should it lose its connection to one
+            the client's endpoints.  For instance, the NETCONF server may
+            start with first endpoint defined in a user-ordered list of 
+            endpoints or with the last endpoints it was connected to.</t>
+          </section>
+          <section title="Support both persistent and periodic connections">
+            <t>NETCONF clients may vary greatly on how frequently they need
+            to interact with a NETCONF server, how responsive interactions
+            need to be, and how many simultaneous connections they can 
+            support.  Some clients may need a persistent connection to
+            servers to optimize real-time interactions, while others 
+            prefer periodic interactions in order to minimize resource
+            requirements.  Therefore, when it is necessary for server
+            to initiate connections, it should be configurable if the
+            connection is persistent or periodic.</t>
+          </section>
+          <section title="Reconnection strategy for periodic connections">
+            <t>The reconnection strategy should apply to both 
+            persistent and periodic connections.  How it
+            applies to periodic connections becomes clear when
+            considering that a periodic "connection" is
+            a logical connection to a single server.  That is,
+            the periods of unconnectedness are intentional as 
+            opposed to due to external reasons.  A periodic
+            "connection" should always reconnect to 
+            the same server until it is no longer able to, at 
+            which time the reconnection strategy guides how to
+            connect to another server.</t>
+          </section>
+          <section anchor="keepalives" title="Keep-alives for persistent connections">
+            <t>If a persistent connection is desired, it is the 
+            responsibility of the connection initiator to actively
+            test the "aliveness" of the connection.  The connection
+            initiator must immediately work to reestablish a 
+            persistent connection as soon as the connection is
+            lost.  How often the connection should be tested is
+            driven by NETCONF client requirements, and therefore
+            keep-alive settings should be configurable on a 
+            per-client basis.</t>
+          </section>
+          <section title="Customizations for periodic connections">
+            <t>If a periodic connection is desired, it is necessary for 
+            the NETCONF server to know how often it should connect.  This
+            frequency determines the maximum amount of time a NETCONF
+            client may have to wait to send data to a server.  A server may
+            connect to a client before this interval expires if desired
+            (e.g., to send data to a client).</t>
+          </section>
+        </section>
+      </section>
+
+      <section title="Security Considerations">
+        <t>A denial of service (DoS) attack MAY occur if the NETCONF server limits the
+        maximum number of NETCONF sessions it will accept (i.e.  the 'max-sessions' field
+        in the ietf-netconf-server module is not zero) and either the "hello-timeout"
+        or "idle-timeout" fields in ietf-netconf-server module have been set to indicate
+        the NETCONF server should wait forever (i.e. set to zero).</t> 
+
+<!--
+I removed all the NACM statements in the new modules
+
+            <t>There are a number of data nodes defined in the 
+            "ietf-netconf-server" and "ietf-restconf-server" YANG
+            modules which are readable and/or writable that may 
+            be considered sensitive or vulnerable in some 
+            network environments.  Write and read operations to
+            these data nodes can have a negative effect on network
+            operations.  It is thus important to control write
+            and read access to these data nodes.  Below are the 
+            data nodes and their sensitivity/vulnerability.</t>
+
+            <t>netconf-server/tls/client-auth/trusted-ca-certs:
+            <list style="symbols">
+              <t>This container contains certificates that a NETCONF server
+              is to use as trust anchors for authenticating X.509-based
+              client certificates.  Write access to this node is
+              protected using an nacm:default-deny-write statement.</t>
+            </list>
+            </t>
+
+            <t>netconf-server/tls/client-auth/trusted-client-certs:
+            <list style="symbols">
+              <t>This container contains certificates that a NETCONF server
+              is to trust directly when authenticating X.509-based
+              client certificates.  Write access to this node is
+              protected using an nacm:default-deny-write statement.</t>
+            </list>
+            </t>
+
+-->
+      </section>
+
+      <section title="IANA Considerations">
+        <section title="The IETF XML Registry">
+          <t>This document registers two URIs in the IETF XML 
+          registry <xref target="RFC2119"/>.  Following the format in 
+          <xref target="RFC3688"/>, the following registrations are
+          requested:</t>
+          <t>
+            <figure>
+                <artwork><![CDATA[
+   URI: urn:ietf:params:xml:ns:yang:ietf-netconf-client
+   Registrant Contact: The NETCONF WG of the IETF.
+   XML: N/A, the requested URI is an XML namespace.
+
+   URI: urn:ietf:params:xml:ns:yang:ietf-netconf-server
+   Registrant Contact: The NETCONF WG of the IETF.
+   XML: N/A, the requested URI is an XML namespace.
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+        <section title="The YANG Module Names Registry">
+          <t>This document registers two YANG modules in the
+          YANG Module Names registry <xref target="RFC6020"/>.
+          Following the format in <xref target="RFC6020"/>, the
+          the following registrations are requested:</t>
+          <t>
+            <figure>
+                <artwork><![CDATA[
+   name:         ietf-netconf-client
+   namespace:    urn:ietf:params:xml:ns:yang:ietf-netconf-client
+   prefix:       ncc
+   reference:    RFC XXXX
+
+   name:         ietf-netconf-server
+   namespace:    urn:ietf:params:xml:ns:yang:ietf-netconf-server
+   prefix:       ncs
+   reference:    RFC XXXX
+]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+
+
+      <section title="Acknowledgements">
+        <t>The authors would like to thank for following for
+        lively discussions on list and in the halls (ordered
+        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise,
+        Mehmet Ersue, David Lamparter, Alan Luchuk, Ladislav Lhotka,
+        Radek Krejci, Tom Petch, Phil Shafer, Sean Turner, and
+        Bert Wijnen.</t>
+       <t>
+         Juergen Schoenwaelder and was partly funded by Flamingo, a
+         Network of Excellence project (ICT-318488) supported by the
+         European Commission under its Seventh Framework Programme.
+       </t>
+     </section>
+
+    </middle>
+
+    <back>
+      <references title="Normative References">
+        &rfc2119;
+        &rfc6020;
+        &rfc6241;
+        &rfc6242;
+        &rfc6991;
+        &rfc7407;
+        &rfc7589;
+
+        <reference anchor='draft-ietf-netconf-system-keychain' target="https://tools.ietf.org/html/draft-ieft-netconf-system-keychain">
+          <front>
+            <title>System Keychain Model</title>
+            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
+              <organization>Juniper Networks</organization>
+            </author>
+            <date year='2016' />
+          </front>
+          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-system-keychain-00'/>
+        </reference>
+
+        <reference anchor='draft-ietf-netconf-ssh-client-server' target="https://tools.ietf.org/html/draft-ieft-netconf-ssh-client-server">
+          <front>
+            <title>SSH Client and Server Models</title>
+            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
+              <organization>Juniper Networks</organization>
+            </author>
+            <date year='2016' />
+           </front>
+           <seriesInfo name='Internet-Draft'
+                       value='draft-ieft-netconf-ssh-client-server-00'/>
+        </reference>
+
+        <reference anchor='draft-ietf-netconf-tls-client-server' target="https://tools.ietf.org/html/draft-ieft-netconf-tls-client-server">
+          <front>
+            <title>TLS Client and Server Models</title>
+            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
+              <organization>Juniper Networks</organization>
+            </author>
+            <date year='2016' />
+           </front>
+           <seriesInfo name='Internet-Draft'
+                       value='draft-ieft-netconf-tls-client-server-00'/>
+        </reference>
+
+      </references>
+
+      <references title="Informative References">
+
+        &rfc3688;
+        &rfc4252;
+        &rfc4253;
+        &rfc4254;
+        &rfc5246;
+
+
+        <reference anchor='draft-ietf-netconf-call-home' target="https://tools.ietf.org/html/draft-ieft-netconf-call-home-17">
+          <front>
+            <title>
+              NETCONF Call Home and RESTCONF Call Home
+            </title>
+            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
+              <organization>Juniper Networks</organization>
+            </author>
+            <date year='2015'/>
+          </front>
+          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-call-home-17' />
+        </reference>
+      </references>
+
+      <section title="Change Log">
+        <t>This draft was split out from draft-ietf-netconf-server-model</t>
+      </section>
+
+      <section title="Open Issues">
+        <t>Please see: https://github.com/netconf-wg/netconf-client-server/issues.</t>
+      </section>
+    </back>
+</rfc>
+
