@@ -71,12 +71,58 @@ module ietf-netconf-client {
      "RFC XXXX: NETCONF Client and Server Models";
   }
 
+  // Features
+
+  feature ssh-initiate {
+    description
+     "The ssh-initiate feature indicates that the NETCONF client 
+      supports initiating SSH connections to NETCONF servers.";
+    reference
+     "RFC 6242: Using the NETCONF Protocol over Secure Shell (SSH)";
+  }
+
+  feature ssh-listen {
+    description
+     "The ssh-listen feature indicates that the NETCONF client
+      supports opening a port to listen for incoming NETCONF
+      server call-home SSH connections.";
+    reference
+     "RFC AAAA: NETCONF Call Home and RESTCONF Call Home";
+  }
+
+  feature tls-initiate {
+    description
+     "The tls-initiate feature indicates that the NETCONF client
+      supports initiating TLS connections to NETCONF servers.";
+    reference
+     "RFC 7589: Using the NETCONF Protocol over Transport
+                Layer Security (TLS) with Mutual X.509
+                Authentication";
+  }
+
+  feature tls-listen {
+    description
+     "The tls-listen feature indicates that the NETCONF client
+      supports opening a port to listen for incoming NETCONF
+      server call-home TLS connections.";
+    reference
+     "RFC AAAA: NETCONF Call Home and RESTCONF Call Home";
+  }
+
   container netconf-client {
     description
       "Top-level container for NETCONF client configuration.";
-    leaf TBD {
-      type string;
-      description "FIXME";
+    container initiate {
+      if-feature "(ssh-initiate or tls-initiate)";
+      description
+        "Configures client intiating underlying TCP connections.";
+    }
+    container listen {
+      if-feature "(ssh-listen or tls-listen)";
+
+      if-feature tls-listen;
+      description
+        "Configures client accepting call-home TCP connections.";
     }
   }
 

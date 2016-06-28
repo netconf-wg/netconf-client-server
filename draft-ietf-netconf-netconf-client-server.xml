@@ -77,6 +77,7 @@
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
               <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-ssh-client-server</t>
               <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-call-home</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -208,7 +209,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
         <t>This model also supports both the SSH and TLS transport
         protocols, using the SSH server and TLS server groupings defined in
         <xref target="draft-ietf-netconf-ssh-client-server"/> and 
-        <xref target="draft-ietf-netconf-tls-client-server"/> respectively.
+        <xref target="draft-ietf-netconf-tls-client-server"/> respectively.</t>
 
         <t>All private keys and trusted certificates are held in the
         keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
