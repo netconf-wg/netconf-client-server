@@ -1,1 +1,75 @@
-FIXME
+<netconf-client
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-client">
+
+  <!-- NETCONF servers to initiate NETCONF connections to -->
+  <initiate>
+    <netconf-server>
+      <name>corp-fw1</name>
+      <ssh>
+        <address>corp-fw1.example.com</address>
+        <server-auth>
+          <trusted-server-certs>
+            deployment-specific-ca-certs
+          </trusted-server-certs>
+        </server-auth>
+        <client-auth>
+          <matches>
+            <match>
+              <trusted-ca-certs>
+                deployment-specific-ca-certs
+              </trusted-ca-certs>
+            </match>
+            <user-auth-credentials>Bob</user-auth-credentials>
+          </matches>
+        </client-auth>
+      </ssh>
+    </netconf-server>
+  </initiate>
+
+  <!-- endpoints to listen for NETCONF Call Home connections on -->
+  <listen>
+    <endpoint>
+      <name>Intranet-facing listener</name>
+      <ssh>
+        <address>11.22.33.44</address>
+        <server-auth>
+          <trusted-ca-certs>
+            deployment-specific-ca-certs
+          </trusted-ca-certs>
+          <trusted-server-certs>
+            explicitly-trusted-server-certs
+          </trusted-server-certs>
+          <trusted-ssh-host-keys>
+            explicitly-trusted-ssh-host-keys
+          </trusted-ssh-host-keys>
+        </server-auth>
+        <client-auth>
+          <matches>
+            <match>
+              <trusted-ca-certs>
+                deployment-specific-ca-certs
+              </trusted-ca-certs>
+            </match>
+            <user-auth-credentials>admin</user-auth-credentials>
+          </matches>
+          <matches>
+            <match>
+              <trusted-ca-certs>
+                explicitly-trusted-server-certs
+              </trusted-ca-certs>
+            </match>
+            <user-auth-credentials>admin</user-auth-credentials>
+          </matches>
+          <matches>
+            <match>
+              <trusted-ca-certs>
+                explicitly-trusted-ssh-host-keys
+              </trusted-ca-certs>
+            </match>
+            <user-auth-credentials>admin</user-auth-credentials>
+          </matches>
+        </client-auth>
+      </ssh>
+    </endpoint>
+  </listen>
+</netconf-client>

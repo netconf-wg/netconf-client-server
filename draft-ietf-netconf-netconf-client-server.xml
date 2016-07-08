@@ -40,6 +40,12 @@
                 <email>kwatsen@juniper.net</email>
             </address>
         </author>
+        <author initials="G.W." surname="Wu" fullname="Gary Wu">
+            <organization>Cisco Networks</organization>
+            <address>
+                <email>garywu@cisco.com</email>
+            </address>
+        </author>
         <author initials="J.S." surname="Schoenwaelder" fullname="Juergen Schoenwaelder">
             <organization>Jacobs University Bremen</organization>
             <address>
@@ -50,10 +56,10 @@
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
         <abstract>
-            <t>This document defines two YANG modules, one
-            to configure a NETCONF client and the other to configure a
+            <t>This document defines two YANG modules, one module
+            to configure a NETCONF client and the other module to configure a
             NETCONF server.  Both modules support both the SSH and
-            TLS transports, and support both standard and call home
+            TLS transport protocols, and support both standard NETCONF and NETCONF Call Home
             connections.</t>
         </abstract>
         <note title="Editorial Note (To be removed by RFC Editor)">
@@ -99,13 +105,15 @@
         <section title="Introduction">
 
             <t>This document defines two YANG <xref target="RFC6020"/> modules,
-            one to configure a NETCONF client and the other to configure a
-            NETCONF server (NETCONF is defined by <xref target="RFC6241"/>.
-            Both modules support both the SSH and TLS transports (SSH is 
-            defined in <xref target="RFC4252"/>, <xref target="RFC4253"/>, and
-            <xref target="RFC4254"/>, and TLS is defined in <xref target="RFC5246"/>)
-            and support both standard and call home connections (call home is 
-            defined in <xref target="draft-ietf-netconf-call-home"/>).</t>
+            one module to configure a NETCONF client and the other module to
+            configure a NETCONF server.  Both modules support both the SSH and
+            TLS transport protocols, and support both standard NETCONF and NETCONF 
+            Call Home connections.</t>
+
+            <t>NETCONF is defined by <xref target="RFC6241"/>.  SSH is defined by
+            <xref target="RFC4252"/>, <xref target="RFC4253"/>, and
+            <xref target="RFC4254"/>.  TLS is defined by <xref target="RFC5246"/>.
+            NETCONF Call Home is defined by <xref target="draft-ietf-netconf-call-home"/>).</t>
 
             <section title="Terminology">
               <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -556,7 +564,16 @@ I removed all the NACM statements in the new modules
       </references>
 
       <section title="Change Log">
-        <t>This draft was split out from draft-ietf-netconf-server-model</t>
+        <section title="server-model-09 to 00">
+          <t>
+            <list style="symbols">
+              <t>This draft was split out from draft-ietf-netconf-server-model-09.</t>
+              <t>Added in previously missing ietf-netconf-client module.</t>
+              <t>Added in new features 'listen' and 'call-home' so future transports
+                 can be augmented in.</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Open Issues">

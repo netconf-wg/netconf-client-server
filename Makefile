@@ -56,7 +56,7 @@ $(next).xml: $(draft).xml ietf-netconf-client.yang ietf-netconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-netconf-client.yang > ietf-netconf-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-netconf-server.yang > ietf-netconf-server\@$(shell date +%Y-%m-%d).yang
 
-	cd refs; ./gen-trees.sh; cd ..;
+	cd refs; ./validate-all.sh; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp; mv tmp $@
 	rm refs/*-tree.txt
 	rm ietf-*\@$(shell date +%Y-%m-%d).yang
