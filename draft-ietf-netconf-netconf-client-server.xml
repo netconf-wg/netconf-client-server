@@ -1,19 +1,5 @@
 <?xml version='1.0'?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!ENTITY rfc2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY rfc3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
-<!ENTITY rfc4252 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml">
-<!ENTITY rfc4253 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4253.xml">
-<!ENTITY rfc4254 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4254.xml">
-<!ENTITY rfc5246 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">
-<!ENTITY rfc6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
-<!ENTITY rfc6241 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6241.xml">
-<!ENTITY rfc6242 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6242.xml">
-<!ENTITY rfc6335 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6335.xml">
-<!ENTITY rfc6991 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml">
-<!ENTITY rfc7407 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7407.xml">
-<!ENTITY rfc7589 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7589.xml">
-]>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -56,11 +42,11 @@
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
         <abstract>
-            <t>This document defines two YANG modules, one module
-            to configure a NETCONF client and the other module to configure a
-            NETCONF server.  Both modules support both the SSH and
-            TLS transport protocols, and support both standard NETCONF and NETCONF Call Home
-            connections.</t>
+            <t>This document defines two YANG modules, one module to
+            configure a NETCONF client and the other module to configure 
+            a NETCONF server.  Both modules support both the SSH and
+            TLS transport protocols, and support both standard NETCONF
+            and NETCONF Call Home connections.</t>
         </abstract>
         <note title="Editorial Note (To be removed by RFC Editor)">
           <t>This draft contains many placeholder values that need to be replaced
@@ -72,7 +58,7 @@
           the Normative References section, as well as in body text throughout.  
           Please update the following references to reflect their final RFC assignments:
             <list style="symbols">
-              <t>draft-ietf-netconf-system-keychain</t>
+              <t>draft-ietf-netconf-keystore</t>
               <t>draft-ietf-netconf-ssh-client-server</t>
               <t>draft-ietf-netconf-tls-client-server</t>
             </list>
@@ -83,7 +69,6 @@
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
               <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-ssh-client-server</t>
               <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
-              <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-call-home</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -104,7 +89,7 @@
 
         <section title="Introduction">
 
-            <t>This document defines two YANG <xref target="RFC6020"/> modules,
+            <t>This document defines two YANG <xref target="RFC7950"/> modules,
             one module to configure a NETCONF client and the other module to
             configure a NETCONF server.  Both modules support both the SSH and
             TLS transport protocols, and support both standard NETCONF and NETCONF 
@@ -113,7 +98,7 @@
             <t>NETCONF is defined by <xref target="RFC6241"/>.  SSH is defined by
             <xref target="RFC4252"/>, <xref target="RFC4253"/>, and
             <xref target="RFC4254"/>.  TLS is defined by <xref target="RFC5246"/>.
-            NETCONF Call Home is defined by <xref target="draft-ietf-netconf-call-home"/>).</t>
+            NETCONF Call Home is defined by <xref target="RFC8071"/>).</t>
 
             <section title="Terminology">
               <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -157,7 +142,7 @@
         <xref target="draft-ietf-netconf-tls-client-server"/> respectively.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the NETCONF client supports.</t>
@@ -180,7 +165,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt)
           connections, again using both the SSH and TLS transport
           protocols.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -220,7 +205,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
         <xref target="draft-ietf-netconf-tls-client-server"/> respectively.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keychain model defined in <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the NETCONF server supports.</t>
@@ -242,7 +227,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
           TLS transport protocols, as well as configuring call-home to two
           NETCONF clients, one using SSH and the other using TLS.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-system-keychain"/>.</t>
+          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -314,7 +299,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>The NETCONF protocols were originally defined as having the 
           server opening a port to listen for client connections.  More recently
           the NETCONF working group defined support for call-home 
-          (<xref target="draft-ietf-netconf-call-home"/>), enabling the server to
+          (<xref target="RFC8071"/>), enabling the server to
           initiate the connection to the client.  Thus the modules defined herein
           should enable configuration for both listening for connections and
           calling home.  Because implementations may not support both listening
@@ -393,44 +378,12 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
       </section>
 
       <section title="Security Considerations">
+        <t>FIXME</t>
         <t>A denial of service (DoS) attack MAY occur if the NETCONF server limits the
         maximum number of NETCONF sessions it will accept (i.e.  the 'max-sessions' field
         in the ietf-netconf-server module is not zero) and either the "hello-timeout"
         or "idle-timeout" fields in ietf-netconf-server module have been set to indicate
         the NETCONF server should wait forever (i.e. set to zero).</t> 
-
-<!--
-I removed all the NACM statements in the new modules
-
-            <t>There are a number of data nodes defined in the 
-            "ietf-netconf-server" and "ietf-restconf-server" YANG
-            modules which are readable and/or writable that may 
-            be considered sensitive or vulnerable in some 
-            network environments.  Write and read operations to
-            these data nodes can have a negative effect on network
-            operations.  It is thus important to control write
-            and read access to these data nodes.  Below are the 
-            data nodes and their sensitivity/vulnerability.</t>
-
-            <t>netconf-server/tls/client-auth/trusted-ca-certs:
-            <list style="symbols">
-              <t>This container contains certificates that a NETCONF server
-              is to use as trust anchors for authenticating X.509-based
-              client certificates.  Write access to this node is
-              protected using an nacm:default-deny-write statement.</t>
-            </list>
-            </t>
-
-            <t>netconf-server/tls/client-auth/trusted-client-certs:
-            <list style="symbols">
-              <t>This container contains certificates that a NETCONF server
-              is to trust directly when authenticating X.509-based
-              client certificates.  Write access to this node is
-              protected using an nacm:default-deny-write statement.</t>
-            </list>
-            </t>
-
--->
       </section>
 
       <section title="IANA Considerations">
@@ -455,8 +408,8 @@ I removed all the NACM statements in the new modules
         </section>
         <section title="The YANG Module Names Registry">
           <t>This document registers two YANG modules in the
-          YANG Module Names registry <xref target="RFC6020"/>.
-          Following the format in <xref target="RFC6020"/>, the
+          YANG Module Names registry <xref target="RFC7950"/>.
+          Following the format in <xref target="RFC7950"/>, the
           the following registrations are requested:</t>
           <t>
             <figure>
@@ -495,23 +448,23 @@ I removed all the NACM statements in the new modules
 
     <back>
       <references title="Normative References">
-        &rfc2119;
-        &rfc6020;
-        &rfc6241;
-        &rfc6242;
-        &rfc6991;
-        &rfc7407;
-        &rfc7589;
+        <?rfc include="reference.RFC.2119.xml"?>
+        <?rfc include="reference.RFC.6241.xml"?>
+        <?rfc include="reference.RFC.6242.xml"?>
+        <?rfc include="reference.RFC.6991.xml"?>
+        <?rfc include="reference.RFC.7407.xml"?>
+        <?rfc include="reference.RFC.7589.xml"?>
+        <?rfc include="reference.RFC.7950.xml"?>
 
-        <reference anchor='draft-ietf-netconf-system-keychain' target="https://datatracker.ietf.org/html/draft-ieft-netconf-system-keychain">
+        <reference anchor='draft-ietf-netconf-keystore' target="https://datatracker.ietf.org/html/draft-ieft-netconf-keystore">
           <front>
-            <title>System Keychain Model</title>
+            <title>Keystore Model</title>
             <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
               <organization>Juniper Networks</organization>
             </author>
             <date year='2016' />
           </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-system-keychain-00'/>
+          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-keystore-00'/>
         </reference>
 
         <reference anchor='draft-ietf-netconf-ssh-client-server' target="https://datatracker.ietf.org/html/draft-ieft-netconf-ssh-client-server">
@@ -541,26 +494,12 @@ I removed all the NACM statements in the new modules
       </references>
 
       <references title="Informative References">
-
-        &rfc3688;
-        &rfc4252;
-        &rfc4253;
-        &rfc4254;
-        &rfc5246;
-
-
-        <reference anchor='draft-ietf-netconf-call-home' target="https://datatracker.ietf.org/html/draft-ieft-netconf-call-home-17">
-          <front>
-            <title>
-              NETCONF Call Home and RESTCONF Call Home
-            </title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2015'/>
-          </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-call-home-17' />
-        </reference>
+        <?rfc include="reference.RFC.3688.xml"?>
+        <?rfc include="reference.RFC.4252.xml"?>
+        <?rfc include="reference.RFC.4253.xml"?>
+        <?rfc include="reference.RFC.4254.xml"?>
+        <?rfc include="reference.RFC.5246.xml"?>
+        <?rfc include="reference.RFC.8071.xml"?>
       </references>
 
       <section title="Change Log">
@@ -571,6 +510,25 @@ I removed all the NACM statements in the new modules
               <t>Added in previously missing ietf-netconf-client module.</t>
               <t>Added in new features 'listen' and 'call-home' so future transports
                  can be augmented in.</t>
+            </list>
+          </t>
+        </section>
+        <section title="00 to 01">
+          <t>
+            <list style="symbols">
+              <t>Renamed "keychain" to "keystore".</t>
+            </list>
+          </t>
+        </section>
+        <section title="00 to 02">
+          <t>
+            <list style="symbols">
+              <t>Added to ietf-netconf-client ability to connected to a cluster
+              of endpoints, including a reconnection-strategy.</t>
+              <t>Added to ietf-netconf-client the ability to configure connection-type
+              and also keep-alive strategy.</t>
+              <t>Updated both modules to accomodate new groupings in the ssh/tls
+              drafts.</t> 
             </list>
           </t>
         </section>

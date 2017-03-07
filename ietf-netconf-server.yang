@@ -37,13 +37,7 @@ module ietf-netconf-server {
    "WG Web:   <http://tools.ietf.org/wg/netconf/>
     WG List:  <mailto:netconf@ietf.org>
 
-    WG Chair: Mehmet Ersue
-              <mailto:mehmet.ersue@nsn.com>
-
-    WG Chair: Mahesh Jethanandani
-              <mailto:mjethanandani@gmail.com>
-
-    Editor:   Kent Watsen
+    Author:   Kent Watsen
               <mailto:kwatsen@juniper.net>";
 
 
@@ -107,7 +101,7 @@ module ietf-netconf-server {
       supports initiating NETCONF call home connections to NETCONF
       clients using at least one transport (e.g., SSH, TLS, etc.).";
     reference
-     "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
+     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
   feature ssh-call-home {
@@ -116,7 +110,7 @@ module ietf-netconf-server {
       server supports initiating a NETCONF over SSH call
       home connection to NETCONF clients.";
     reference
-     "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
+     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
   feature tls-call-home {
@@ -125,9 +119,8 @@ module ietf-netconf-server {
       server supports initiating a NETCONF over TLS call
       home connection to NETCONF clients.";
     reference
-     "RFC YYYY: NETCONF Call Home and RESTCONF Call Home";
+     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
-
 
   // top-level container  (groupings below)
   container netconf-server {
@@ -179,12 +172,14 @@ module ietf-netconf-server {
       list endpoint {
         key name;
         description
-          "List of endpoints to listen for NETCONF connections on.";
+          "List of endpoints to listen for NETCONF connections.";
         leaf name {
           type string;
           description
             "An arbitrary name for the NETCONF listen endpoint.";
         }
+
+
         choice transport {
           mandatory true;
           description
@@ -195,11 +190,22 @@ module ietf-netconf-server {
               description
                 "SSH-specific listening configuration for inbound
                  connections.";
-              uses ss:listening-ssh-server-grouping {
-                refine port {
-                  default 830;
-                }
+              leaf address {
+                type inet:ip-address;
+                description
+                 "The IP address of the interface to listen on.  The
+                  SSH server will listen on all interfaces if no value
+                  is specified.  Please note that some addresses have
+                  special meanings (e.g., '0.0.0.0' and '::').";
               }
+              leaf port {
+                type inet:port-number;
+                default 830;
+                description
+                 "The local port number on this interface the SSH server
+                  listens on.";
+              }
+              uses ss:ssh-server-grouping;
             }
           }
           case tls {
@@ -208,10 +214,22 @@ module ietf-netconf-server {
               description
                 "TLS-specific listening configuration for inbound
                  connections.";
-              uses ts:listening-tls-server-grouping {
-                refine port {
-                  default 6513;
-                }
+              leaf address {
+                type inet:ip-address;
+                description
+                 "The IP address of the interface to listen on.  The
+                  TLS server will listen on all interfaces if no value
+                  is specified.  Please note that some addresses have
+                  special meanings (e.g., '0.0.0.0' and '::').";
+              }
+              leaf port {
+                type inet:port-number;
+                default 6513;
+                description
+                 "The local port number on this interface the TLS server
+                  listens on.";
+              }
+              uses ts:tls-server-grouping {
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
@@ -253,7 +271,7 @@ module ietf-netconf-server {
                   default 4334;
                 }
               }
-              uses ss:non-listening-ssh-server-grouping;
+              uses ss:ssh-server-grouping;
             }
           }
           case tls {
@@ -267,7 +285,7 @@ module ietf-netconf-server {
                   default 4335;
                 }
               }
-              uses ts:non-listening-tls-server-grouping {
+              uses ts:tls-server-grouping {
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
@@ -316,7 +334,7 @@ module ietf-netconf-server {
                      unresponsive SSH/TLS client will be dropped after
                      approximately max-attempts * max-wait seconds.";
                   reference
-                    "RFC YYYY: NETCONF Call Home and RESTCONF Call
+                    "RFC 8071: NETCONF Call Home and RESTCONF Call
                      Home, Section 3.1, item S6";
                   leaf max-wait {
                     type uint16 {
@@ -453,8 +471,8 @@ module ietf-netconf-server {
  
   grouping endpoints-container {
     description
-      "This grouping is used by both the ssh and tls containers
-       for call-home configurations.";
+      "This grouping is used to configure a set of NETCONF clients
+       a NETCONF server may initiate call-home connections to.";
     container endpoints {
       description
         "Container for the list of endpoints.";
@@ -463,8 +481,9 @@ module ietf-netconf-server {
         min-elements 1;
         ordered-by user;
         description
-          "User-ordered list of endpoints for this NETCONF client.
-           Defining more than one enables high-availability.";
+          "A non-empty user-ordered list of endpoints for this NETCONF
+           server to try to connect to.  Defining more than one enables
+           high-availability.";
         leaf name {
           type string;
           description
@@ -484,8 +503,8 @@ module ietf-netconf-server {
           type inet:port-number;
           description
            "The IP port for this endpoint. The NETCONF server will
-            use the IANA-assigned well-known port if no value is 
-            specified.";
+            use the IANA-assigned well-known port (set via a refine
+            statement when uses) if no value is specified.";
         }
       }
     }
