@@ -1,46 +1,41 @@
 <netconf-server
-  xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server">
-  <listen>
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server"
+  xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">
 
-    <!-- listening for SSH connections -->
-    <endpoint>
+  <!-- listening for SSH and TLS connections -->
+  <listen>
+    <endpoint> <!-- listening for SSH connections -->
       <name>netconf/ssh</name>
       <ssh>
         <address>11.22.33.44</address>
         <host-keys>
           <host-key>
-            <public-key>my-rsa-key</public-key>
+            <name>public-key</name>
+            <public-key>ex-rsa-key</public-key>
           </host-key>
           <host-key>
-            <certificate>TPM key</certificate>
+            <name>certificate</name>
+            <certificate>builtin-idevid-cert</certificate>
           </host-key>
         </host-keys>
         <client-cert-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-client-certs>
-            explicitly-trusted-client-certs
-          </trusted-client-certs>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
         </client-cert-auth>
       </ssh>
     </endpoint>
-
-    <!-- listening for TLS connections -->
-    <endpoint>
+    <endpoint> <!-- listening for TLS sessions -->
       <name>netconf/tls</name>
       <tls>
         <address>11.22.33.44</address>
         <certificates>
-          <certificate>ex-key-sect571r1-cert</certificate>
+          <certificate>
+            <name>tls-ec-cert</name>
+          </certificate>
         </certificates>
         <client-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-client-certs>
-            explicitly-trusted-client-certs
-          </trusted-client-certs>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
           <cert-maps>
             <cert-to-name>
               <id>1</id>
@@ -57,12 +52,11 @@
         </client-auth>
       </tls>
     </endpoint>
-
   </listen>
-  <call-home>
 
-    <!-- calling home to an SSH-based NETCONF client -->
-    <netconf-client>
+  <!-- calling home to an SSH and TLS based NETCONF clients -->
+  <call-home>
+    <netconf-client> <!-- SSH-based client -->
       <name>config-mgr</name>
       <ssh>
         <endpoints>
@@ -77,16 +71,13 @@
         </endpoints>
         <host-keys>
           <host-key>
-            <certificate>TPM key</certificate>
+            <name>certificate</name>
+            <certificate>builtin-idevid-cert</certificate>
           </host-key>
         </host-keys>
         <client-cert-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-client-certs>
-            explicitly-trusted-client-certs
-          </trusted-client-certs>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
         </client-cert-auth>
       </ssh>
       <connection-type>
@@ -100,9 +91,7 @@
         <max-attempts>3</max-attempts>
       </reconnect-strategy>
     </netconf-client>
-
-    <!-- calling home to a TLS-based NETCONF client -->
-    <netconf-client>
+    <netconf-client> <!-- TLS-based client -->
       <name>event-correlator</name>
       <tls>
         <endpoints>
@@ -116,15 +105,13 @@
           </endpoint>
         </endpoints>
         <certificates>
-          <certificate>ex-key-sect571r1-cert</certificate>
+          <certificate>
+            <name>tls-ec-cert</name>
+          </certificate>
         </certificates>
         <client-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-client-certs>
-            explicitly-trusted-client-certs
-          </trusted-client-certs>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
           <cert-maps>
             <cert-to-name>
               <id>1</id>
@@ -154,6 +141,5 @@
         <max-attempts>3</max-attempts>
       </reconnect-strategy>
     </netconf-client>
-
   </call-home>
 </netconf-server>

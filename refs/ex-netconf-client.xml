@@ -1,26 +1,27 @@
 <netconf-client
   xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-client">
 
-  <!-- NETCONF servers to initiate NETCONF connections to -->
+  <!-- NETCONF servers to initiate connections to -->
   <initiate>
     <netconf-server>
       <name>corp-fw1</name>
       <ssh>
-        <address>corp-fw1.example.com</address>
+        <endpoints>
+          <endpoint>
+            <name>corp-fw1.example.com</name>
+            <address>corp-fw1.example.com</address>
+          </endpoint>
+          <endpoint>
+            <name>corp-fw2.example.com</name>
+            <address>corp-fw2.example.com</address>
+          </endpoint>
+        </endpoints>
         <server-auth>
-          <trusted-server-certs>
-            deployment-specific-ca-certs
-          </trusted-server-certs>
+          <trusted-server-certs>deployment-specific-ca-certs</trusted-server-certs>
         </server-auth>
         <client-auth>
-          <matches>
-            <match>
-              <trusted-ca-certs>
-                deployment-specific-ca-certs
-              </trusted-ca-certs>
-            </match>
-            <user-auth-credentials>Bob</user-auth-credentials>
-          </matches>
+          <username>foobar</username>
+          <public-key>ex-rsa-key</public-key>
         </client-auth>
       </ssh>
     </netconf-server>
@@ -33,41 +34,13 @@
       <ssh>
         <address>11.22.33.44</address>
         <server-auth>
-          <trusted-ca-certs>
-            deployment-specific-ca-certs
-          </trusted-ca-certs>
-          <trusted-server-certs>
-            explicitly-trusted-server-certs
-          </trusted-server-certs>
-          <trusted-ssh-host-keys>
-            explicitly-trusted-ssh-host-keys
-          </trusted-ssh-host-keys>
+          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
+          <trusted-server-certs>explicitly-trusted-server-certs</trusted-server-certs>
+          <trusted-ssh-host-keys>explicitly-trusted-ssh-host-keys</trusted-ssh-host-keys>
         </server-auth>
         <client-auth>
-          <matches>
-            <match>
-              <trusted-ca-certs>
-                deployment-specific-ca-certs
-              </trusted-ca-certs>
-            </match>
-            <user-auth-credentials>admin</user-auth-credentials>
-          </matches>
-          <matches>
-            <match>
-              <trusted-ca-certs>
-                explicitly-trusted-server-certs
-              </trusted-ca-certs>
-            </match>
-            <user-auth-credentials>admin</user-auth-credentials>
-          </matches>
-          <matches>
-            <match>
-              <trusted-ca-certs>
-                explicitly-trusted-ssh-host-keys
-              </trusted-ca-certs>
-            </match>
-            <user-auth-credentials>admin</user-auth-credentials>
-          </matches>
+          <username>foobar</username>
+          <public-key>ex-rsa-key</public-key>
         </client-auth>
       </ssh>
     </endpoint>

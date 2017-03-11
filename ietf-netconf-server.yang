@@ -384,7 +384,7 @@ module ietf-netconf-server {
                      have a notification subscription active are 
                      never dropped.";
                 }
-                leaf reconnect_timeout {
+                leaf reconnect-timeout {
                   type uint16 {
                     range "1..max";
                   }
@@ -478,6 +478,7 @@ module ietf-netconf-server {
         "Container for the list of endpoints.";
       list endpoint {
         key name;
+        unique "address port";
         min-elements 1;
         ordered-by user;
         description
