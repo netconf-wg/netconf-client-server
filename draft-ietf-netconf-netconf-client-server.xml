@@ -58,17 +58,17 @@
           the Normative References section, as well as in body text throughout.  
           Please update the following references to reflect their final RFC assignments:
             <list style="symbols">
-              <t>draft-ietf-netconf-keystore</t>
-              <t>draft-ietf-netconf-ssh-client-server</t>
-              <t>draft-ietf-netconf-tls-client-server</t>
+              <t>I-D.ietf-netconf-keystore</t>
+              <t>I-D.ietf-netconf-ssh-client-server</t>
+              <t>I-D.ietf-netconf-tls-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains shorthand references to drafts in 
           progress.  Please apply the following replacements:
             <list  style="symbols">
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
-              <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-ssh-client-server</t>
-              <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for draft-ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-ssh-client-server</t>
+              <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -138,11 +138,11 @@
 
         <t>This model supports both the SSH and TLS transport
         protocols, using the SSH client and TLS client groupings defined in
-        <xref target="draft-ietf-netconf-ssh-client-server"/> and 
-        <xref target="draft-ietf-netconf-tls-client-server"/> respectively.</t>
+        <xref target="I-D.ietf-netconf-ssh-client-server"/> and 
+        <xref target="I-D.ietf-netconf-tls-client-server"/> respectively.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
+        keystore model defined in <xref target="I-D.ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the NETCONF client supports.</t>
@@ -165,7 +165,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt)
           connections, again using both the SSH and TLS transport
           protocols.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
+          Section 2.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -199,13 +199,13 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
         both listening for connections as well as initiating call-home
         connections.</t>
 
-        <t>This model also supports both the SSH and TLS transport
+        <t>This model supports both the SSH and TLS transport
         protocols, using the SSH server and TLS server groupings defined in
-        <xref target="draft-ietf-netconf-ssh-client-server"/> and 
-        <xref target="draft-ietf-netconf-tls-client-server"/> respectively.</t>
+        <xref target="I-D.ietf-netconf-ssh-client-server"/> and 
+        <xref target="I-D.ietf-netconf-tls-client-server"/> respectively.</t>
 
         <t>All private keys and trusted certificates are held in the
-        keystore model defined in <xref target="draft-ietf-netconf-keystore"/>.</t>
+        keystore model defined in <xref target="I-D.ietf-netconf-keystore"/>.</t>
 
         <t>YANG feature statements are used to enable implementations to advertise
         which parts of the model the NETCONF server supports.</t>
@@ -227,7 +227,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
           TLS transport protocols, as well as configuring call-home to two
           NETCONF clients, one using SSH and the other using TLS.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="draft-ietf-netconf-keystore"/>.</t>
+          Section 2.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -378,12 +378,53 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
       </section>
 
       <section title="Security Considerations">
-        <t>FIXME</t>
         <t>A denial of service (DoS) attack MAY occur if the NETCONF server limits the
         maximum number of NETCONF sessions it will accept (i.e.  the 'max-sessions' field
         in the ietf-netconf-server module is not zero) and either the "hello-timeout"
         or "idle-timeout" fields in ietf-netconf-server module have been set to indicate
         the NETCONF server should wait forever (i.e. set to zero).</t> 
+
+        <t>The YANG module defined in this document uses groupings defined in 
+        <xref target="I-D.ietf-netconf-ssh-client-server"/> and
+        <xref target="I-D.ietf-netconf-tls-client-server"/>.  Please see the Security
+        Considerations section in those documents for concerns related those groupings.</t>
+
+        <t>The YANG module defined in this document is designed to be accessed via YANG
+        based management protocols, such as NETCONF <xref target="RFC6241"/> and
+        RESTCONF <xref target="RFC8040"/>.  Both of these protocols have mandatory-to-implement
+        secure transport layers (e.g., SSH, TLS) with mutual authentication.</t>
+
+        <t>The NETCONF access control model (NACM) <xref target="RFC6536"/> provides the means
+        to restrict access for particular users to a pre-configured subset of all available
+        protocol operations and content.</t>
+
+        <t>There are a number of data nodes defined in this YANG module that are
+        writable/creatable/deletable (i.e., config true, which is the default). These data
+        nodes may be considered sensitive or vulnerable in some network environments. Write
+        operations (e.g., edit-config) to these data nodes without proper protection can
+        have a negative effect on network operations. These are the subtrees and data nodes
+        and their sensitivity/vulnerability:
+          <list style="hanging" hangIndent="6">
+            <t hangText="   NONE"></t>
+          </list>
+        </t>
+
+        <t>Some of the readable data nodes in this YANG module may be considered sensitive
+        or vulnerable in some network environments. It is thus important to control read
+        access (e.g., via get, get-config, or notification) to these data nodes. These are
+        the subtrees and data nodes and their sensitivity/vulnerability:
+          <list style="hanging" hangIndent="6">
+            <t hangText="   NONE"></t>
+          </list>
+        </t>
+
+        <t>Some of the RPC operations in this YANG module may be considered sensitive or
+        vulnerable in some network environments. It is thus important to control access
+        to these operations. These are the operations and their sensitivity/vulnerability:
+          <list style="hanging" hangIndent="6">
+            <t hangText="   NONE"></t>
+          </list>
+        </t>
       </section>
 
       <section title="IANA Considerations">
@@ -455,42 +496,9 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.7407.xml"?>
         <?rfc include="reference.RFC.7589.xml"?>
         <?rfc include="reference.RFC.7950.xml"?>
-
-        <reference anchor='draft-ietf-netconf-keystore' target="https://datatracker.ietf.org/html/draft-ieft-netconf-keystore">
-          <front>
-            <title>Keystore Model</title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2016' />
-          </front>
-          <seriesInfo name='Internet-Draft' value='draft-ieft-netconf-keystore-00'/>
-        </reference>
-
-        <reference anchor='draft-ietf-netconf-ssh-client-server' target="https://datatracker.ietf.org/html/draft-ieft-netconf-ssh-client-server">
-          <front>
-            <title>SSH Client and Server Models</title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2016' />
-           </front>
-           <seriesInfo name='Internet-Draft'
-                       value='draft-ieft-netconf-ssh-client-server-00'/>
-        </reference>
-
-        <reference anchor='draft-ietf-netconf-tls-client-server' target="https://datatracker.ietf.org/html/draft-ieft-netconf-tls-client-server">
-          <front>
-            <title>TLS Client and Server Models</title>
-            <author initials='K.W.' surname='Watsen' fullname='Kent Watsen'>
-              <organization>Juniper Networks</organization>
-            </author>
-            <date year='2016' />
-           </front>
-           <seriesInfo name='Internet-Draft'
-                       value='draft-ieft-netconf-tls-client-server-00'/>
-        </reference>
-
+        <?rfc include="reference.I-D.ietf-netconf-keystore"?>
+        <?rfc include="reference.I-D.ietf-netconf-ssh-client-server"?>
+        <?rfc include="reference.I-D.ietf-netconf-tls-client-server"?>
       </references>
 
       <references title="Informative References">
@@ -499,6 +507,8 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.4253.xml"?>
         <?rfc include="reference.RFC.4254.xml"?>
         <?rfc include="reference.RFC.5246.xml"?>
+        <?rfc include="reference.RFC.6536.xml"?>
+        <?rfc include="reference.RFC.8040.xml"?>
         <?rfc include="reference.RFC.8071.xml"?>
       </references>
 
@@ -520,7 +530,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
-        <section title="00 to 02">
+        <section title="01 to 02">
           <t>
             <list style="symbols">
               <t>Added to ietf-netconf-client ability to connected to a cluster

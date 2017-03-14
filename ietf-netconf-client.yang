@@ -122,7 +122,7 @@ module ietf-netconf-client {
     container initiate {
       if-feature initiate;
       description
-        "Configures client intiating underlying TCP connections.";
+        "Configures client initiating underlying TCP connections.";
       list netconf-server {
         key name;
         description
