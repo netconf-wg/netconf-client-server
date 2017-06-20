@@ -115,9 +115,9 @@ module ietf-netconf-client {
      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
-  container netconf-client {
+  grouping netconf-client {
     description
-      "Top-level container for NETCONF client configuration.";
+      "Top-level grouping for NETCONF client configuration.";
 
     container initiate {
       if-feature initiate;
@@ -162,7 +162,13 @@ module ietf-netconf-client {
                   default 6513;
                 }
               }
-              uses ts:tls-client-grouping;
+              uses ts:tls-client-grouping {
+                refine "client-auth" {
+                  must 'certificate';
+                  description
+                    "NETCONF/TLS clients MUST pass a client certiticate.";
+                }
+              }
             }
           } // end tls
 
@@ -397,7 +403,13 @@ module ietf-netconf-client {
                 description
                  "The port number to listen for call-home connections.";
               }   
-              uses ts:tls-client-grouping;
+              uses ts:tls-client-grouping {
+                refine "client-auth" {
+                  must 'certificate';
+                  description
+                    "NETCONF/TLS clients MUST pass a client certiticate.";
+                }
+              }
             }
           }
         } // end transport
