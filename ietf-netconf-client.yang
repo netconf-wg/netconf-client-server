@@ -163,10 +163,11 @@ module ietf-netconf-client {
                 }
               }
               uses ts:tls-client-grouping {
-                refine "client-auth" {
-                  must 'certificate';
+                refine "client-auth/auth-type" {
+                  mandatory true;
                   description
-                    "NETCONF/TLS clients MUST pass a client certiticate.";
+                    "NETCONF/TLS clients MUST pass some authentication
+                     credentials.";
                 }
               }
             }
@@ -404,10 +405,11 @@ module ietf-netconf-client {
                  "The port number to listen for call-home connections.";
               }   
               uses ts:tls-client-grouping {
-                refine "client-auth" {
-                  must 'certificate';
+                refine "client-auth/auth-type" {
+                  mandatory true;
                   description
-                    "NETCONF/TLS clients MUST pass a client certiticate.";
+                    "NETCONF/TLS clients MUST pass some authentication
+                     credentials.";
                 }
               }
             }

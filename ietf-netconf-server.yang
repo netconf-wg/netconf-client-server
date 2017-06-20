@@ -230,6 +230,12 @@ module ietf-netconf-server {
                   listens on.";
               }
               uses ts:tls-server-grouping {
+                refine "client-auth" {
+                  must 'trusted-ca-certs or trusted-client-certs';
+                  description
+                    "NETCONF/TLS servers MUST validate client
+                     certiticates.";
+                }
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
@@ -286,6 +292,12 @@ module ietf-netconf-server {
                 }
               }
               uses ts:tls-server-grouping {
+                refine "client-auth" {
+                  must 'trusted-ca-certs or trusted-client-certs';
+                  description
+                    "NETCONF/TLS servers MUST validate client
+                     certiticates.";
+                }
                 augment "client-auth" {
                   description
                     "Augments in the cert-to-name structure.";
