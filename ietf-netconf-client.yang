@@ -14,14 +14,14 @@ module ietf-netconf-client {
     prefix ss;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC YYYY: SSH Client and Server Models";
+      "RFC YYYY: YANG Groupings for SSH Clients and SSH Servers";
   }
 
   import ietf-tls-client {
     prefix ts;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC ZZZZ: TLS Client and Server Models";
+      "RFC ZZZZ: YANG Groupings for TLS Clients and TLS Servers";
   }
  
   organization
@@ -42,7 +42,7 @@ module ietf-netconf-client {
    "This module contains a collection of YANG definitions for
     configuring NETCONF clients.
 
-    Copyright (c) 2014 IETF Trust and the persons identified as
+    Copyright (c) 2017 IETF Trust and the persons identified as
     authors of the code. All rights reserved.
 
     Redistribution and use in source and binary forms, with or
@@ -115,6 +115,12 @@ module ietf-netconf-client {
      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
+  container netconf-client {
+    uses netconf-client;
+    description
+      "Top-level container for NETCONF client configuration.";
+  }
+
   grouping netconf-client {
     description
       "Top-level grouping for NETCONF client configuration.";
@@ -125,55 +131,106 @@ module ietf-netconf-client {
         "Configures client initiating underlying TCP connections.";
       list netconf-server {
         key name;
+        min-elements 1;
         description
           "List of NETCONF servers the NETCONF client is to initiate
-           connections to.";
+           connections to in parallel.";
         leaf name {
           type string;
           description
             "An arbitrary name for the NETCONF server.";
         }
-        choice transport {
-          mandatory true;
+        container endpoints {
           description
-            "Selects between available transports.";
-
-          case ssh {
-            if-feature ssh-initiate;
-            container ssh {
+            "Container for the list of endpoints.";
+          list endpoint {
+            key name;
+            min-elements 1;
+            ordered-by user;
+            description
+              "A user-ordered list of endpoints that the NETCONF
+               client will attempt to connect to in the specified
+               sequence.  Defining more than one enables
+               high-availability.";
+            leaf name {
+              type string;
               description
-                "Specifies SSH-specific transport configuration.";
-              uses endpoints-container {
-                refine endpoints/endpoint/port {
-                  default 830;
-                }
-              }
-              uses ss:ssh-client-grouping;
+                "An arbitrary name for the endpoint.";
             }
-          } // end ssh
-
-          case tls {
-            if-feature tls-initiate;
-            container tls {
+            choice transport {
+              mandatory true;
               description
-                "Specifies TLS-specific transport configuration.";
-              uses endpoints-container {
-                refine endpoints/endpoint/port {
-                  default 6513;
-                }
-              }
-              uses ts:tls-client-grouping {
-                refine "client-auth/auth-type" {
-                  mandatory true;
+                "Selects between available transports.";
+              case ssh {
+                if-feature ssh-initiate;
+                container ssh {
                   description
-                    "NETCONF/TLS clients MUST pass some authentication
-                     credentials.";
+                    "Specifies IP and SSH specific configuration for
+                     the connection.";
+                  leaf address {
+                    type inet:host;
+                    description
+                     "The IP address or hostname of the endpoint.  
+                      If a domain name is configured, then the DNS
+                      resolution should happen on each usage attempt.
+                      If the DNS resolution results in multiple IP
+                      addresses, the IP addresses will be tried
+                      according to local preference order until a
+                      connection has been established or until all
+                      IP addresses have failed.";
+                  }   
+                  leaf port {
+                    type inet:port-number;
+                    default 830;
+                    description
+                      "The IP port for this endpoint.  The NETCONF
+                       client will use the IANA-assigned well-known
+                       port for 'netconf-ssh' (830) if no value is
+                       specified.";
+                  }   
+                  uses ss:ssh-client-grouping;
                 }
-              }
-            }
-          } // end tls
-
-        } // end transport
+              } // end ssh
+              case tls {
+                if-feature tls-initiate;
+                container tls {
+                  description
+                    "Specifies IP and TLS specific configuration for
+                     the connection.";
+                  leaf address {
+                    type inet:host;
+                    description
+                      "The IP address or hostname of the endpoint. 
+                       If a domain name is configured, then the DNS
+                       resolution should happen on each usage attempt.
+                       If the DNS resolution results in multiple IP
+                       addresses, the IP addresses will be tried
+                       according to local preference order until a
+                       connection has been established or until all
+                       IP addresses have failed.";
+                    }   
+                    leaf port {
+                      type inet:port-number;
+                      default 6513;
+                      description
+                        "The IP port for this endpoint. The NETCONF
+                         client will use the IANA-assigned well-known
+                         port for 'netconf-tls' (6513) if no value is
+                         specified.";
+                    }   
+                    uses ts:tls-client-grouping {
+                      refine "client-identity/auth-type" {
+                      mandatory true;
+                       description
+                         "NETCONF/TLS clients MUST pass some
+                          authentication credentials.";
+                     }
+                   }
+                 }
+               } // end tls
+             }
+          }
+        }
 
         container connection-type {
           description
@@ -332,15 +389,6 @@ module ietf-netconf-client {
       description
         "Configures client accepting call-home TCP connections.";
 
-      leaf max-sessions {
-        type uint16;
-        default 0;
-        description
-          "Specifies the maximum number of concurrent sessions
-           that can be active at one time.  The value 0 indicates
-           that no artificial session limit should be used.";
-      }
-
       leaf idle-timeout {
         type uint16;
         units "seconds";
@@ -356,6 +404,7 @@ module ietf-netconf-client {
 
       list endpoint {
         key name;
+        min-elements 1;
         description
           "List of endpoints to listen for NETCONF connections.";
         leaf name {
@@ -376,13 +425,21 @@ module ietf-netconf-client {
               leaf address {
                 type inet:ip-address;
                 description
-                 "The IP address to listen for call-home connections.";
+                 "The IP address to listen on for incoming call-home
+                  connections.  The NETCONF client will listen on
+                  all configured interfaces if no value is specified.
+                  INADDR_ANY (0.0.0.0) or INADDR6_ANY (0:0:0:0:0:0:0:0
+                  a.k.a. ::) MUST be used when the server is to listen
+                  on all IPv4 or IPv6 addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
                 default 4334;
                 description
-                 "The port number to listen for call-home connections.";
+                 "The port number to listen on for call-home
+                  connections.  The NETCONF client will listen on the
+                  IANA-assigned well-known port for 'netconf-ch-ssh'
+                  (4334) if no value is specified.";
               }   
               uses ss:ssh-client-grouping;
             }
@@ -396,16 +453,24 @@ module ietf-netconf-client {
               leaf address {
                 type inet:ip-address;
                 description
-                 "The IP address to listen for call-home connections.";
+                 "The IP address to listen on for incoming call-home
+                  connections.  The NETCONF client will listen on
+                  all configured interfaces if no value is specified.
+                  INADDR_ANY (0.0.0.0) or INADDR6_ANY (0:0:0:0:0:0:0:0
+                  a.k.a. ::) MUST be used when the server is to listen
+                  on all IPv4 or IPv6 addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
                 default 4335;
                 description
-                 "The port number to listen for call-home connections.";
+                 "The port number to listen on for call-home
+                  connections.  The NETCONF client will listen on the
+                  IANA-assigned well-known port for 'netconf-ch-tls'
+                  (4335) if no value is specified.";
               }   
               uses ts:tls-client-grouping {
-                refine "client-auth/auth-type" {
+                refine "client-identity/auth-type" {
                   mandatory true;
                   description
                     "NETCONF/TLS clients MUST pass some authentication
@@ -419,47 +484,4 @@ module ietf-netconf-client {
     } // end listen
 
   } // end netconf-client
-
-
-  grouping endpoints-container {
-    description
-      "This grouping is used to configure a set of NETCONF servers
-       a NETCONF client may initiate connections to.";
-    container endpoints {
-      description
-        "Container for the list of endpoints.";
-      list endpoint {
-        key name;
-        unique "address port";
-        min-elements 1;
-        ordered-by user;
-        description
-          "A non-empty user-ordered list of endpoints for this NETCONF
-           client to try to connect to.  Defining more than one enables
-           high-availability.";
-        leaf name {
-          type string;
-          description
-            "An arbitrary name for this endpoint.";
-        }
-        leaf address {
-          type inet:host;
-          mandatory true;
-          description
-           "The IP address or hostname of the endpoint.  If a 
-            hostname is configured and the DNS resolution results
-            in more than one IP address, the NETCONF client 
-            will process the IP addresses as if they had been
-            explicitly configured in place of the hostname.";
-        }
-        leaf port {
-          type inet:port-number;
-          description
-           "The IP port for this endpoint. The NETCONF client will
-            use the IANA-assigned well-known port (set via a refine
-            statement when uses) if no value is specified.";
-        }
-      }
-    }
-  }
 }

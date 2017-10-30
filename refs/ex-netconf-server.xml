@@ -7,35 +7,41 @@
     <endpoint> <!-- listening for SSH connections -->
       <name>netconf/ssh</name>
       <ssh>
-        <address>11.22.33.44</address>
-        <host-keys>
+        <address>192.0.2.7</address>
+        <server-identity>
           <host-key>
-            <name>public-key</name>
-            <public-key>ex-rsa-key</public-key>
+            <name>deployment-specific-certificate</name>
+            <public-key>
+              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <private-key>base64encodedvalue==</private-key>
+              <public-key>base64encodedvalue==</public-key>
+            </public-key>
           </host-key>
-          <host-key>
-            <name>certificate</name>
-            <certificate>builtin-idevid-cert</certificate>
-          </host-key>
-        </host-keys>
+        </server-identity>
         <client-cert-auth>
-          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
-          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
+          <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+          <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
         </client-cert-auth>
       </ssh>
     </endpoint>
     <endpoint> <!-- listening for TLS sessions -->
       <name>netconf/tls</name>
       <tls>
-        <address>11.22.33.44</address>
-        <certificates>
-          <certificate>
-            <name>tls-ec-cert</name>
-          </certificate>
-        </certificates>
+        <address>192.0.2.7</address>
+        <server-identity>
+          <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+          <private-key>base64encodedvalue==</private-key>
+          <public-key>base64encodedvalue==</public-key>
+          <certificates>
+            <certificate>
+              <name>domain certificate</name>
+              <value>base64encodedvalue==</value>
+            </certificate>
+          </certificates>
+        </server-identity>
         <client-auth>
-          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
-          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
+          <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+          <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
           <cert-maps>
             <cert-to-name>
               <id>1</id>
@@ -58,28 +64,49 @@
   <call-home>
     <netconf-client> <!-- SSH-based client -->
       <name>config-mgr</name>
-      <ssh>
-        <endpoints>
-          <endpoint>
-            <name>east-data-center</name>
-            <address>11.22.33.44</address>
-          </endpoint>
-          <endpoint>
-            <name>west-data-center</name>
-            <address>55.66.77.88</address>
-          </endpoint>
-        </endpoints>
-        <host-keys>
-          <host-key>
-            <name>certificate</name>
-            <certificate>builtin-idevid-cert</certificate>
-          </host-key>
-        </host-keys>
-        <client-cert-auth>
-          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
-          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
-        </client-cert-auth>
-      </ssh>
+      <endpoints>
+        <endpoint>
+          <name>east-data-center</name>
+          <ssh>
+            <address>east.config-mgr.example.com</address>
+            <server-identity>
+              <host-key>
+                <name>deployment-specific-certificate</name>
+                <public-key>
+                  <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+                  <private-key>base64encodedvalue==</private-key>
+                  <public-key>base64encodedvalue==</public-key>
+                </public-key>
+              </host-key>
+            </server-identity>
+            <client-cert-auth>
+              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+            </client-cert-auth>
+          </ssh>
+        </endpoint>
+        <endpoint>
+          <name>west-data-center</name>
+          <ssh>
+            <address>west.config-mgr.example.com</address>
+            <server-identity>
+              <host-key>
+                <name>deployment-specific-certificate</name>
+                <public-key>
+                  <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+                  <private-key>base64encodedvalue==</private-key>
+                  <public-key>base64encodedvalue==</public-key>
+                </public-key>
+              </host-key>
+            </server-identity>
+
+            <client-cert-auth>
+              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+            </client-cert-auth>
+          </ssh>
+        </endpoint>
+      </endpoints>
       <connection-type>
         <periodic>
           <idle-timeout>300</idle-timeout>
@@ -92,41 +119,77 @@
       </reconnect-strategy>
     </netconf-client>
     <netconf-client> <!-- TLS-based client -->
-      <name>event-correlator</name>
-      <tls>
-        <endpoints>
-          <endpoint>
-            <name>east-data-center</name>
-            <address>22.33.44.55</address>
-          </endpoint>
-          <endpoint>
-            <name>west-data-center</name>
-            <address>33.44.55.66</address>
-          </endpoint>
-        </endpoints>
-        <certificates>
-          <certificate>
-            <name>tls-ec-cert</name>
-          </certificate>
-        </certificates>
-        <client-auth>
-          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
-          <trusted-client-certs>explicitly-trusted-client-certs</trusted-client-certs>
-          <cert-maps>
-            <cert-to-name>
-              <id>1</id>
-              <fingerprint>11:0A:05:11:00</fingerprint>
-              <map-type>x509c2n:san-any</map-type>
-            </cert-to-name>
-            <cert-to-name>
-              <id>2</id>
-              <fingerprint>B3:4F:A1:8C:54</fingerprint>
-              <map-type>x509c2n:specified</map-type>
-              <name>scooby-doo</name>
-            </cert-to-name>
-          </cert-maps>
-        </client-auth>
-      </tls>
+      <name>data-collector</name>
+      <endpoints>
+        <endpoint>
+          <name>east-data-center</name>
+          <tls>
+            <address>east.analytics.example.com</address>
+            <server-identity>
+              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <private-key>base64encodedvalue==</private-key>
+              <public-key>base64encodedvalue==</public-key>
+              <certificates>
+                <certificate>
+                  <name>domain certificate</name>
+                  <value>base64encodedvalue==</value>
+                </certificate>
+              </certificates>
+            </server-identity>
+            <client-auth>
+              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+              <cert-maps>
+                <cert-to-name>
+                  <id>1</id>
+                  <fingerprint>11:0A:05:11:00</fingerprint>
+                  <map-type>x509c2n:san-any</map-type>
+                </cert-to-name>
+                <cert-to-name>
+                  <id>2</id>
+                  <fingerprint>B3:4F:A1:8C:54</fingerprint>
+                  <map-type>x509c2n:specified</map-type>
+                  <name>scooby-doo</name>
+                </cert-to-name>
+              </cert-maps>
+            </client-auth>
+          </tls>
+        </endpoint>
+        <endpoint>
+          <name>west-data-center</name>
+          <tls>
+            <address>west.analytics.example.com</address>
+            <server-identity>
+              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <private-key>base64encodedvalue==</private-key>
+              <public-key>base64encodedvalue==</public-key>
+              <certificates>
+                <certificate>
+                  <name>domain certificate</name>
+                  <value>base64encodedvalue==</value>
+                </certificate>
+              </certificates>
+            </server-identity>
+            <client-auth>
+              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+              <cert-maps>
+                <cert-to-name>
+                  <id>1</id>
+                  <fingerprint>11:0A:05:11:00</fingerprint>
+                  <map-type>x509c2n:san-any</map-type>
+                </cert-to-name>
+                <cert-to-name>
+                  <id>2</id>
+                  <fingerprint>B3:4F:A1:8C:54</fingerprint>
+                  <map-type>x509c2n:specified</map-type>
+                  <name>scooby-doo</name>
+                </cert-to-name>
+              </cert-maps>
+            </client-auth>
+          </tls>
+        </endpoint>
+      </endpoints>
       <connection-type>
         <persistent>
           <idle-timeout>300</idle-timeout>

@@ -5,25 +5,42 @@
   <initiate>
     <netconf-server>
       <name>corp-fw1</name>
-      <ssh>
-        <endpoints>
-          <endpoint>
-            <name>corp-fw1.example.com</name>
+      <endpoints>
+        <endpoint>
+          <name>corp-fw1.example.com</name>
+          <ssh>
             <address>corp-fw1.example.com</address>
-          </endpoint>
-          <endpoint>
-            <name>corp-fw2.example.com</name>
+            <client-identity>
+              <username>foobar</username>
+              <public-key>
+                <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+                <private-key>base64encodedvalue==</private-key>
+                <public-key>base64encodedvalue==</public-key>
+              </public-key>
+            </client-identity>
+            <server-auth>
+              <pinned-server-certs>deployment-specific-ca-certs</pinned-server-certs>
+            </server-auth>
+          </ssh>
+        </endpoint>
+        <endpoint>
+          <name>corp-fw2.example.com</name>
+          <ssh>
             <address>corp-fw2.example.com</address>
-          </endpoint>
-        </endpoints>
-        <server-auth>
-          <trusted-server-certs>deployment-specific-ca-certs</trusted-server-certs>
-        </server-auth>
-        <client-auth>
-          <username>foobar</username>
-          <public-key>ex-rsa-key</public-key>
-        </client-auth>
-      </ssh>
+            <client-identity>
+              <username>foobar</username>
+              <public-key>
+                <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+                <private-key>base64encodedvalue==</private-key>
+                <public-key>base64encodedvalue==</public-key>
+              </public-key>
+            </client-identity>
+            <server-auth>
+              <pinned-server-certs>deployment-specific-ca-certs</pinned-server-certs>
+            </server-auth>
+          </ssh>
+        </endpoint>
+      </endpoints>
     </netconf-server>
   </initiate>
 
@@ -32,16 +49,20 @@
     <endpoint>
       <name>Intranet-facing listener</name>
       <ssh>
-        <address>11.22.33.44</address>
-        <server-auth>
-          <trusted-ca-certs>deployment-specific-ca-certs</trusted-ca-certs>
-          <trusted-server-certs>explicitly-trusted-server-certs</trusted-server-certs>
-          <trusted-ssh-host-keys>explicitly-trusted-ssh-host-keys</trusted-ssh-host-keys>
-        </server-auth>
-        <client-auth>
+        <address>192.0.2.7</address>
+        <client-identity>
           <username>foobar</username>
-          <public-key>ex-rsa-key</public-key>
-        </client-auth>
+          <public-key>
+            <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+            <private-key>base64encodedvalue==</private-key>
+            <public-key>base64encodedvalue==</public-key>
+          </public-key>
+        </client-identity>
+        <server-auth>
+          <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+          <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
+          <pinned-ssh-host-keys>explicitly-trusted-ssh-host-keys</pinned-ssh-host-keys>
+        </server-auth>
       </ssh>
     </endpoint>
   </listen>

@@ -1,0 +1,271 @@
+module ietf-netconf-common {
+  yang-version 1.1;
+
+  namespace "urn:ietf:params:xml:ns:yang:ietf-netconf-common";
+  prefix "nccm";
+
+  import ietf-inet-types {
+    prefix inet;
+    reference 
+      "RFC 6991: Common YANG Data Types";
+  }
+ 
+  organization
+   "IETF NETCONF (Network Configuration) Working Group";
+
+  contact
+   "WG Web:   <http://tools.ietf.org/wg/netconf/>
+    WG List:  <mailto:netconf@ietf.org>
+
+    Author:   Kent Watsen
+              <mailto:kwatsen@juniper.net>
+
+    Author:   Gary Wu
+              <mailto:garywu@cisco.com>";
+
+
+  description
+   "This module contains a collection of YANG grouping used by
+    the ietf-netconf-client and ietf-netconf-server modules.
+
+    Copyright (c) 2017 IETF Trust and the persons identified as
+    authors of the code. All rights reserved.
+
+    Redistribution and use in source and binary forms, with or
+    without modification, is permitted pursuant to, and subject
+    to the license terms contained in, the Simplified BSD
+    License set forth in Section 4.c of the IETF Trust's
+    Legal Provisions Relating to IETF Documents
+    (http://trustee.ietf.org/license-info).
+
+    This version of this YANG module is part of RFC XXXX; see
+    the RFC itself for full legal notices.";
+
+  revision "YYYY-MM-DD" {
+    description
+     "Initial version";
+    reference
+     "RFC XXXX: NETCONF Client and Server Models";
+  }
+
+  grouping endpoints-container {
+    description
+      "This grouping is used to configure a set of remote peers
+       an initiator may initiate connections to.";
+    container endpoints {
+      description
+        "Container for the list of endpoints.";
+      list endpoint {
+        key name;
+        unique "address port";
+        min-elements 1;
+        ordered-by user;
+        description
+          "A non-empty user-ordered list of endpoints for this
+           initiator to try to connect to.  Defining more than
+           one enables high-availability.";
+        leaf name {
+          type string;
+          description
+            "An arbitrary name for this endpoint.";
+        }
+        leaf address {
+          type inet:host;
+          mandatory true;
+          description
+           "The IP address or hostname of the endpoint.  If a
+            domain name is configured, then the DNS resolution
+            should happen on each usage attempt. If the the
+            DNS resolution results in multiple IP addresses,
+            the IP addresses will be tried according to local
+            preference order until a connection has been 
+            established or until all IP addresses have failed.";
+        }
+        leaf port {
+          type inet:port-number;
+          description
+           "The IP port for this endpoint. The initiator will use
+            the IANA-assigned well-known port (set via a refine
+            statement when uses) if no value is specified.";
+        }
+      }
+    }
+  }
+
+  grouping initiator-params {
+
+    container connection-type {
+      description
+       "Indicates the kind of connection to use.";
+      choice connection-type {
+        description
+          "Selects between available connection types.";
+        case persistent-connection {
+          container persistent {
+            presence true;
+            description
+             "Maintain a persistent connection to the remote 
+              peer. If the connection goes down, immediately 
+              start trying to reconnect to it, using the 
+              reconnection strategy.
+
+              This connection type minimizes any data-transfer
+              delay from the remote peer, albeit at the expense
+              of holding resources longer.";
+            leaf idle-timeout {
+              type uint32;
+              units "seconds";
+              default 86400;  // one day;
+              description
+                "Specifies the maximum number of seconds that a 
+                 a NETCONF session may remain idle. A NETCONF 
+                 session will be dropped if it is idle for an 
+                 interval longer than this number of seconds.  
+                 If set to zero, then the initiator will never
+                 drop a session because it is idle.  Sessions
+                 that have a notification subscription active
+                 are never dropped.";
+            }
+            container keep-alives {
+              description
+                "Configures the keep-alive policy, to proactively
+                 test the aliveness of the remote SSH/TLS peer. An
+                 unresponsive SSH/TLS peer will be dropped after
+                 approximately max-attempts * max-wait seconds.";
+              reference
+                "RFC 8071: NETCONF Call Home and RESTCONF Call
+                 Home, Section 3.1, item S6";
+              leaf max-wait {
+                type uint16 {
+                  range "1..max";
+                }
+                units seconds;
+                default 30;
+                description
+                 "Sets the amount of time in seconds after which 
+                  if no data has been received from the SSH/TLS
+                  peer, a SSH/TLS-level message will be sent 
+                  to test the aliveness of the SSH/TLS peer.";
+              }
+              leaf max-attempts {
+                type uint8;
+                default 3;
+                description
+                 "Sets the maximum number of sequential keep-alive
+                  messages that can fail to obtain a response from
+                  the SSH/TLS peer before assuming the SSH/TLS
+                  peer is no longer alive.";
+              }
+            }
+          }
+        }
+        case periodic-connection {
+          container periodic {
+            presence true;
+            description
+             "Periodically connect to the remote peer, so that the
+              remote peer may deliver messages pending for the
+              initiator.  The remote peer must close the connection
+              when it is ready to release it. Once the connection
+              has been closed, the initiator will restart its timer
+              until the next connection.";
+            leaf idle-timeout {
+              type uint16;
+              units "seconds";
+              default 300; // five minutes
+              description
+                "Specifies the maximum number of seconds that a 
+                 NETCONF session may remain idle. A NETCONF session
+                 will be dropped if it is idle for an interval longer
+                 than this number of seconds.  If set to zero, then
+                 the server will never drop a session because it is
+                 idle.  Sessions that have a notification subscription
+                 active are never dropped.";
+            }
+            leaf reconnect-timeout {
+              type uint16 {
+                range "1..max";
+              }
+              units minutes;
+              default 60;
+              description
+               "Sets the maximum amount of unconnected time the 
+                initiator will wait before re-establishing a
+                connection to the remote peer.  The initiator may
+                initiate a connection before this time if desired.";
+            }
+          }
+        }
+      }
+    }
+
+    container reconnect-strategy {
+      description
+       "The reconnection strategy directs how an initiator
+        reconnects to a remote peer, after discovering its
+        connection to the peer has dropped, even if due to a
+        reboot.  The initiator starts with the specified
+        endpoint and tries to connect to it max-attempts times
+        before trying the next endpoint in the list (round 
+        robin).";
+      leaf start-with {
+        type enumeration {
+          enum first-listed {
+            description
+              "Indicates that reconnections should start with
+               the first endpoint listed.";
+          }
+          enum last-connected { 
+            description
+              "Indicates that reconnections should start with
+               the endpoint last connected to.  If no previous
+               connection has ever been established, then the
+               first endpoint configured is used.   Initiators 
+               SHOULD be able to remember the last endpoint
+               connected to across reboots.";
+          }
+        }
+        default first-listed;
+        description
+         "Specifies which of the remote peer's endpoints the
+          initiator should start with when trying to connect
+          to the remote peer.";
+      }
+      leaf max-attempts {
+        type uint8 {
+          range "1..max";
+        }
+        default 3;
+        description
+         "Specifies the number times the initiator tries to
+          connect to a specific endpoint before moving on
+          to the next endpoint in the list (round robin).";
+      }
+    }
+  }
+
+  grouping listener-params {
+    leaf max-sessions {
+      type uint16;
+      default 0;
+      description
+        "Specifies the maximum number of concurrent sessions
+         that can be active at one time.  The value 0 indicates
+         that no artificial session limit should be used.";
+    }
+
+    leaf idle-timeout {
+      type uint16;
+      units "seconds";
+      default 3600; // one hour
+      description
+        "Specifies the maximum number of seconds that a NETCONF
+         session may remain idle. A NETCONF session will be dropped
+         if it is idle for an interval longer than this number of
+         seconds.  If set to zero, then the server will never drop
+         a session because it is idle.  Sessions that have a 
+         notification subscription active are never dropped.";
+    }
+  }
+
+}

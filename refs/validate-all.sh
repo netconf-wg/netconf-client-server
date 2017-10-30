@@ -1,25 +1,18 @@
 
-echo "Testing YANG syntax..."
+echo "Testing ietf-netconf-client\@*.yang (pyang)..."
 pyang --ietf --max-line-length=70 -p ../ ../ietf-netconf-client\@*.yang
+echo "Testing ietf-netconf-server\@*.yang (pyang)..."
 pyang --ietf --max-line-length=70 -p ../ ../ietf-netconf-server\@*.yang
 
-exit
+echo "Testing ietf-netconf-client\@*.yang (yanglint)..."
+yanglint -p ../ ../ietf-netconf-client\@*.yang
+echo "Testing ietf-netconf-server\@*.yang (yanglint)..."
+yanglint -p ../ ../ietf-netconf-server\@*.yang
 
-echo "Testing keystore module..."
-./validate.sh ietf-keystore\@*.yang ex-keystore.xml
-#./validate.sh ietf-keystore\@*.yang ex-keystore-rpc-gpk-restconf-json.xml
-#./validate.sh ietf-keystore\@*.yang ex-keystore-rpc-gcsr-netconf.xml
 
-echo "Testing ssh-server module..."
-./validate.sh ietf-ssh-server\@*.yang ex-ssh-server.xml
+echo "Testing ex-netconf-client.xml..."
+yanglint -m -p ../ -s ../ietf-netconf-client\@*.yang ex-netconf-client.xml ../../keystore/refs/ex-keystore.xml
 
-echo "Testing tls-server module..."
-./validate.sh ietf-tls-server\@*.yang ex-tls-server.xml
-
-echo "Testing netconf-server module..."
-./validate.sh ietf-netconf-server\@*.yang ex-netconf-server.xml
-
-echo "Testing restconf-server module..."
-./validate.sh ietf-restconf-server\@*.yang ex-restconf-server.xml
-
+echo "Testing ex-netconf-server.xml..."
+yanglint -m -p ../ -s ../ietf-netconf-server\@*.yang ietf-x509-cert-to-name@2014-12-10.yang ex-netconf-server.xml ../../keystore/refs/ex-keystore.xml
 
