@@ -14,7 +14,7 @@ module ietf-netconf-common {
    "IETF NETCONF (Network Configuration) Working Group";
 
   contact
-   "WG Web:   <http://tools.ietf.org/wg/netconf/>
+   "WG Web:   <http://datatracker.ietf.org/wg/netconf/>
     WG List:  <mailto:netconf@ietf.org>
 
     Author:   Kent Watsen

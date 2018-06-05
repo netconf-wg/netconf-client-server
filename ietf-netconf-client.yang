@@ -28,7 +28,7 @@ module ietf-netconf-client {
    "IETF NETCONF (Network Configuration) Working Group";
 
   contact
-   "WG Web:   <http://tools.ietf.org/wg/netconf/>
+   "WG Web:   <http://datatracker.ietf.org/wg/netconf/>
     WG List:  <mailto:netconf@ietf.org>
 
     Author:   Kent Watsen
@@ -76,7 +76,8 @@ module ietf-netconf-client {
      "The ‘ssh-initiate’ feature indicates that the NETCONF client 
       supports initiating SSH connections to NETCONF servers.";
     reference
-     "RFC 6242: Using the NETCONF Protocol over Secure Shell (SSH)";
+     "RFC 6242:
+        Using the NETCONF Protocol over Secure Shell (SSH)";
   }
 
   feature tls-initiate {
@@ -127,14 +128,15 @@ module ietf-netconf-client {
 
     container initiate {
       if-feature initiate;
+      presence "Enables client to initiate TCP connections";
       description
         "Configures client initiating underlying TCP connections.";
       list netconf-server {
         key name;
         min-elements 1;
         description
-          "List of NETCONF servers the NETCONF client is to initiate
-           connections to in parallel.";
+          "List of NETCONF servers the NETCONF client is to
+           initiate connections to in parallel.";
         leaf name {
           type string;
           description
@@ -165,19 +167,19 @@ module ietf-netconf-client {
                 if-feature ssh-initiate;
                 container ssh {
                   description
-                    "Specifies IP and SSH specific configuration for
-                     the connection.";
+                    "Specifies IP and SSH specific configuration
+                     for the connection.";
                   leaf address {
                     type inet:host;
                     description
                      "The IP address or hostname of the endpoint.  
-                      If a domain name is configured, then the DNS
-                      resolution should happen on each usage attempt.
-                      If the DNS resolution results in multiple IP
-                      addresses, the IP addresses will be tried
-                      according to local preference order until a
-                      connection has been established or until all
-                      IP addresses have failed.";
+                      If a domain name is configured, then the
+                      DNS resolution should happen on each usage
+                      attempt.  If the DNS resolution results in
+                      multiple IP addresses, the IP addresses will
+                      be tried according to local preference order
+                      until a connection has been established or
+                      until all IP addresses have failed.";
                   }   
                   leaf port {
                     type inet:port-number;
@@ -195,28 +197,28 @@ module ietf-netconf-client {
                 if-feature tls-initiate;
                 container tls {
                   description
-                    "Specifies IP and TLS specific configuration for
-                     the connection.";
+                    "Specifies IP and TLS specific configuration
+                     for the connection.";
                   leaf address {
                     type inet:host;
                     description
                       "The IP address or hostname of the endpoint. 
-                       If a domain name is configured, then the DNS
-                       resolution should happen on each usage attempt.
-                       If the DNS resolution results in multiple IP
-                       addresses, the IP addresses will be tried
-                       according to local preference order until a
-                       connection has been established or until all
-                       IP addresses have failed.";
+                       If a domain name is configured, then the
+                       DNS resolution should happen on each usage
+                       attempt.  If the DNS resolution results in
+                       multiple IP addresses, the IP addresses will
+                       be tried according to local preference order
+                       until a connection has been established or
+                       until all IP addresses have failed.";
                     }   
                     leaf port {
                       type inet:port-number;
                       default 6513;
                       description
                         "The IP port for this endpoint. The NETCONF
-                         client will use the IANA-assigned well-known
-                         port for 'netconf-tls' (6513) if no value is
-                         specified.";
+                         client will use the IANA-assigned well-
+                         known port for 'netconf-tls' (6513) if no
+                         value is specified.";
                     }   
                     uses ts:tls-client-grouping {
                       refine "client-identity/auth-type" {
@@ -236,11 +238,14 @@ module ietf-netconf-client {
           description
            "Indicates the kind of connection to use.";
           choice connection-type {
+            default persistent-connection;
             description
               "Selects between available connection types.";
             case persistent-connection {
               container persistent {
-                presence true;
+                presence
+                 "Indicates that a persistent connection is to be
+                  maintained.";
                 description
                  "Maintain a persistent connection to the NETCONF 
                   server. If the connection goes down, immediately 
@@ -255,21 +260,22 @@ module ietf-netconf-client {
                   units "seconds";
                   default 86400;  // one day;
                   description
-                    "Specifies the maximum number of seconds that a 
+                    "Specifies the maximum number of seconds that 
                      a NETCONF session may remain idle. A NETCONF 
                      session will be dropped if it is idle for an 
                      interval longer than this number of seconds.  
-                     If set to zero, then the client will never drop
-                     a session because it is idle.  Sessions that 
-                     have a notification subscription active are 
-                     never dropped.";
+                     If set to zero, then the client will never
+                     drop a session because it is idle.  Sessions
+                     that have a notification subscription active
+                     are never dropped.";
                 }
                 container keep-alives {
                   description
-                    "Configures the keep-alive policy, to proactively
-                     test the aliveness of the SSH/TLS server.  An
-                     unresponsive SSH/TLS server will be dropped after
-                     approximately max-attempts * max-wait seconds.";
+                    "Configures the keep-alive policy, to
+                     proactively test the aliveness of the SSH/TLS
+                     server.  An unresponsive SSH/TLS server will
+                     be dropped after approximately max-attempts *
+                     max-wait seconds.";
                   reference
                     "RFC 8071: NETCONF Call Home and RESTCONF Call
                      Home, Section 3.1, item S6";
@@ -280,46 +286,51 @@ module ietf-netconf-client {
                     units seconds;
                     default 30;
                     description
-                     "Sets the amount of time in seconds after which 
-                      if no data has been received from the SSH/TLS
-                      server, a SSH/TLS-level message will be sent 
-                      to test the aliveness of the SSH/TLS server.";
+                     "Sets the amount of time in seconds after
+                      which if no data has been received from the
+                      SSH/TLS server, a SSH/TLS-level message will
+                      be sent to test the aliveness of the SSH/TLS
+                      server.";
                   }
                   leaf max-attempts {
                     type uint8;
                     default 3;
                     description
-                     "Sets the maximum number of sequential keep-alive
-                      messages that can fail to obtain a response from
-                      the SSH/TLS server before assuming the SSH/TLS
-                      server is no longer alive.";
+                     "Sets the maximum number of sequential keep-
+                      alive messages that can fail to obtain a
+                      response from the SSH/TLS server before
+                      assuming the SSH/TLS server is no longer
+                      alive.";
                   }
                 }
               }
             }
             case periodic-connection {
               container periodic {
-                presence true;
+                presence
+                 "Indicates that a periodic connection is to be
+                  maintained.";
                 description
-                 "Periodically connect to the NETCONF server, so that
-                  the NETCONF server may deliver messages pending for
-                  the NETCONF client.  The NETCONF server must close
-                  the connection when it is ready to release it. Once
-                  the connection has been closed, the NETCONF client
-                  will restart its timer until the next connection.";
+                 "Periodically connect to the NETCONF server, so
+                  that the NETCONF server may deliver messages
+                  pending for the NETCONF client.  The NETCONF
+                  server must close the connection when it is
+                  ready to release it. Once the connection has
+                  been closed, the NETCONF client will restart
+                  its timer until the next connection.";
                 leaf idle-timeout {
                   type uint16;
                   units "seconds";
                   default 300; // five minutes
                   description
-                    "Specifies the maximum number of seconds that a 
+                    "Specifies the maximum number of seconds that
                      a NETCONF session may remain idle. A NETCONF 
                      session will be dropped if it is idle for an 
                      interval longer than this number of seconds.  
-                     If set to zero, then the server will never drop
-                     a session because it is idle.  Sessions that 
-                     have a notification subscription active are 
-                     never dropped.";
+                     If set to zero, then the server will never
+                     drop a session because it is idle.  Sessions
+                     that have a notification subscription active
+                     are never dropped.";
                 }
                 leaf reconnect-timeout {
                   type uint16 {
@@ -328,11 +339,12 @@ module ietf-netconf-client {
                   units minutes;
                   default 60;
                   description
-                   "Sets the maximum amount of unconnected time the 
-                    NETCONF client will wait before re-establishing
-                    a connection to the NETCONF server.  The NETCONF
-                    client may initiate a connection before this 
-                    time if desired (e.g., to set configuration).";
+                   "Sets the maximum amount of unconnected time 
+                    the NETCONF client will wait before re-
+                    establishing a connection to the NETCONF
+                    server.  The NETCONF client may initiate a
+                    connection before this time if desired
+                    (e.g., to set configuration).";
                 }
               }
             }
@@ -366,9 +378,9 @@ module ietf-netconf-client {
             }
             default first-listed;
             description
-             "Specifies which of the NETCONF server's endpoints the
-              NETCONF client should start with when trying to connect
-              to the NETCONF server.";
+             "Specifies which of the NETCONF server's endpoints
+              the NETCONF client should start with when trying
+              to connect to the NETCONF server.";
           }
           leaf max-attempts {
             type uint8 {
@@ -376,9 +388,9 @@ module ietf-netconf-client {
             }
             default 3;
             description
-             "Specifies the number times the NETCONF client tries to
-              connect to a specific endpoint before moving on to the
-              next endpoint in the list (round robin).";
+             "Specifies the number times the NETCONF client tries
+              to connect to a specific endpoint before moving on
+              to the next endpoint in the list (round robin).";
           }
         }
       } // end netconf-server
@@ -386,6 +398,7 @@ module ietf-netconf-client {
 
     container listen {
       if-feature listen;
+      presence "Enables client to accept call-home connections";
       description
         "Configures client accepting call-home TCP connections.";
 
@@ -395,11 +408,12 @@ module ietf-netconf-client {
         default 3600; // one hour
         description
           "Specifies the maximum number of seconds that a NETCONF
-           session may remain idle. A NETCONF session will be dropped
-           if it is idle for an interval longer than this number of
-           seconds.  If set to zero, then the server will never drop
-           a session because it is idle.  Sessions that have a 
-           notification subscription active are never dropped.";
+           session may remain idle. A NETCONF session will be
+           dropped if it is idle for an interval longer than this
+           number of seconds.  If set to zero, then the server
+           will never drop a session because it is idle.  Sessions
+           that have a notification subscription active are never
+           dropped.";
       }
 
       list endpoint {
@@ -425,21 +439,23 @@ module ietf-netconf-client {
               leaf address {
                 type inet:ip-address;
                 description
-                 "The IP address to listen on for incoming call-home
-                  connections.  The NETCONF client will listen on
-                  all configured interfaces if no value is specified.
-                  INADDR_ANY (0.0.0.0) or INADDR6_ANY (0:0:0:0:0:0:0:0
-                  a.k.a. ::) MUST be used when the server is to listen
-                  on all IPv4 or IPv6 addresses, respectively.";
+                 "The IP address to listen on for incoming call-
+                  home connections.  The NETCONF client will listen
+                  on all configured interfaces if no value is
+                  specified.  INADDR_ANY (0.0.0.0) or INADDR6_ANY
+                  (0:0:0:0:0:0:0:0 a.k.a. ::) MUST be used when
+                  the server is to listen on all IPv4 or IPv6
+                  addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
                 default 4334;
                 description
                  "The port number to listen on for call-home
-                  connections.  The NETCONF client will listen on the
-                  IANA-assigned well-known port for 'netconf-ch-ssh'
-                  (4334) if no value is specified.";
+                  connections.  The NETCONF client will listen
+                  on the IANA-assigned well-known port for
+                  'netconf-ch-ssh' (4334) if no value is
+                  specified.";
               }   
               uses ss:ssh-client-grouping;
             }
@@ -453,28 +469,30 @@ module ietf-netconf-client {
               leaf address {
                 type inet:ip-address;
                 description
-                 "The IP address to listen on for incoming call-home
-                  connections.  The NETCONF client will listen on
-                  all configured interfaces if no value is specified.
-                  INADDR_ANY (0.0.0.0) or INADDR6_ANY (0:0:0:0:0:0:0:0
-                  a.k.a. ::) MUST be used when the server is to listen
-                  on all IPv4 or IPv6 addresses, respectively.";
+                 "The IP address to listen on for incoming call-
+                  home connections.  The NETCONF client will listen
+                  on all configured interfaces if no value is
+                  specified.  INADDR_ANY (0.0.0.0) or INADDR6_ANY
+                  (0:0:0:0:0:0:0:0 a.k.a. ::) MUST be used when
+                  the server is to listen on all IPv4 or IPv6
+                  addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
                 default 4335;
                 description
                  "The port number to listen on for call-home
-                  connections.  The NETCONF client will listen on the
-                  IANA-assigned well-known port for 'netconf-ch-tls'
-                  (4335) if no value is specified.";
+                  connections.  The NETCONF client will listen
+                  on the IANA-assigned well-known port for
+                  'netconf-ch-tls' (4335) if no value is
+                  specified.";
               }   
               uses ts:tls-client-grouping {
                 refine "client-identity/auth-type" {
                   mandatory true;
                   description
-                    "NETCONF/TLS clients MUST pass some authentication
-                     credentials.";
+                    "NETCONF/TLS clients MUST pass some
+                     authentication credentials.";
                 }
               }
             }

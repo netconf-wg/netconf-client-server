@@ -2,7 +2,7 @@
   xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server"
   xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">
 
-  <!-- listening for SSH and TLS connections -->
+  <!-- endpoints to listen for NETCONF connections on -->
   <listen>
     <endpoint> <!-- listening for SSH connections -->
       <name>netconf/ssh</name>
@@ -12,14 +12,14 @@
           <host-key>
             <name>deployment-specific-certificate</name>
             <public-key>
-              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
               <private-key>base64encodedvalue==</private-key>
               <public-key>base64encodedvalue==</public-key>
             </public-key>
           </host-key>
         </server-identity>
         <client-cert-auth>
-          <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+          <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
           <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
         </client-cert-auth>
       </ssh>
@@ -29,18 +29,13 @@
       <tls>
         <address>192.0.2.7</address>
         <server-identity>
-          <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+          <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
           <private-key>base64encodedvalue==</private-key>
           <public-key>base64encodedvalue==</public-key>
-          <certificates>
-            <certificate>
-              <name>domain certificate</name>
-              <value>base64encodedvalue==</value>
-            </certificate>
-          </certificates>
+          <cert>base64encodedvalue==</cert>
         </server-identity>
         <client-auth>
-          <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+          <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
           <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
           <cert-maps>
             <cert-to-name>
@@ -60,7 +55,7 @@
     </endpoint>
   </listen>
 
-  <!-- calling home to an SSH and TLS based NETCONF clients -->
+  <!-- calling home to SSH and TLS based NETCONF clients -->
   <call-home>
     <netconf-client> <!-- SSH-based client -->
       <name>config-mgr</name>
@@ -73,14 +68,14 @@
               <host-key>
                 <name>deployment-specific-certificate</name>
                 <public-key>
-                  <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+                  <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
                   <private-key>base64encodedvalue==</private-key>
                   <public-key>base64encodedvalue==</public-key>
                 </public-key>
               </host-key>
             </server-identity>
             <client-cert-auth>
-              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
             </client-cert-auth>
           </ssh>
@@ -93,15 +88,14 @@
               <host-key>
                 <name>deployment-specific-certificate</name>
                 <public-key>
-                  <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+                  <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
                   <private-key>base64encodedvalue==</private-key>
                   <public-key>base64encodedvalue==</public-key>
                 </public-key>
               </host-key>
             </server-identity>
-
             <client-cert-auth>
-              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
             </client-cert-auth>
           </ssh>
@@ -126,18 +120,13 @@
           <tls>
             <address>east.analytics.example.com</address>
             <server-identity>
-              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
               <private-key>base64encodedvalue==</private-key>
               <public-key>base64encodedvalue==</public-key>
-              <certificates>
-                <certificate>
-                  <name>domain certificate</name>
-                  <value>base64encodedvalue==</value>
-                </certificate>
-              </certificates>
+              <cert>base64encodedvalue==</cert>
             </server-identity>
             <client-auth>
-              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
                 <cert-to-name>
@@ -160,18 +149,13 @@
           <tls>
             <address>west.analytics.example.com</address>
             <server-identity>
-              <algorithm xmlns:ks="urn:ietf:params:xml:ns:yang:ietf-keystore">ks:secp521r1</algorithm>
+              <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:secp521r1</algorithm>
               <private-key>base64encodedvalue==</private-key>
               <public-key>base64encodedvalue==</public-key>
-              <certificates>
-                <certificate>
-                  <name>domain certificate</name>
-                  <value>base64encodedvalue==</value>
-                </certificate>
-              </certificates>
+              <cert>base64encodedvalue==</cert>
             </server-identity>
             <client-auth>
-              <pinned-ca-certs>deployment-specific-ca-certs</pinned-ca-certs>
+              <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
                 <cert-to-name>

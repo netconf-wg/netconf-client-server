@@ -113,14 +113,14 @@
         which parts of the model the NETCONF client supports.</t>
 
         <section title="Tree Diagram">
-          <t>The following tree diagram <xref target="I-D.ietf-netmod-yang-tree-diagrams"/>
+          <t>The following tree diagram <xref target="RFC8340"/>
           provides an overview of the data model for the "ietf-netconf-client" module.
           Just the container is displayed below, but there is also a reuable grouping by
           the same name that the container is using.</t>
           <t>
             <figure>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt,69)
+INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt)
 ]]></artwork>
             </figure>
           </t>
@@ -137,16 +137,17 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt,69)
           <t>
             <figure>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/ex-netconf-client.xml,69)
+INSERT_TEXT_FROM_FILE(refs/ex-netconf-client.xml)
 ]]></artwork>
             </figure>
           </t>
         </section>
 
         <section title="YANG Module" anchor="ietf-netconf-client-module">
-          <t>This YANG module imports YANG types from <xref target="RFC6991"/>,
-          and YANG groupings from <xref target="I-D.ietf-netconf-ssh-client-server"/>
-          and <xref target="I-D.ietf-netconf-ssh-client-server"/>.</t>
+          <t>This YANG module has normative references to <xref target="RFC6242"/>,
+          <xref target="RFC6991"/>, <xref target="RFC7589"/>, <xref target="RFC8071"/>,
+          <xref target="I-D.ietf-netconf-ssh-client-server"/>, and
+          <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -177,14 +178,14 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
         which parts of the model the NETCONF server supports.</t>
 
         <section title="Tree Diagram">
-          <t>The following tree diagram <xref target="I-D.ietf-netmod-yang-tree-diagrams"/>
+          <t>The following tree diagram <xref target="RFC8340"/>
           provides an overview of the data model for the "ietf-netconf-server" module.
           Just the container is displayed below, but there is also a reuable grouping by
           the same name that the container is using.</t>
           <t>
             <figure>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt,69)
+INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
 ]]></artwork>
             </figure>
           </t>
@@ -200,13 +201,18 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt,69)
           <t>
             <figure>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/ex-netconf-server.xml,69)
+INSERT_TEXT_FROM_FILE(refs/ex-netconf-server.xml)
 ]]></artwork>
             </figure>
           </t>
         </section>
 
         <section title="YANG Module" anchor="ietf-netconf-server-module">
+          <t>This YANG module has normative references to <xref target="RFC6242"/>,
+          <xref target="RFC6991"/>, <xref target="RFC7407"/>, <xref target="RFC7589"/>,
+          <xref target="RFC8071"/>, <xref target="I-D.ietf-netconf-ssh-client-server"/>,
+          and <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
+
           <t>This YANG module imports YANG types from <xref target="RFC6991"/>,
           and YANG groupings from <xref target="RFC7407"/>,
           <xref target="I-D.ietf-netconf-ssh-client-server"/>
@@ -438,15 +444,6 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
       </section>
 
 
-      <section title="Acknowledgements">
-        <t>The authors would like to thank for following for
-        lively discussions on list and in the halls (ordered
-        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise,
-        Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
-        Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
-        Bert Wijnen.</t>
-     </section>
-
     </middle>
 
     <back>
@@ -469,7 +466,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.6536.xml"?>
         <?rfc include="reference.RFC.8040.xml"?>
         <?rfc include="reference.RFC.8071.xml"?>
-        <?rfc include="reference.I-D.ietf-netmod-yang-tree-diagrams"?>
+        <?rfc include="reference.RFC.8340.xml"?>
       </references>
 
       <section title="Change Log">
@@ -511,13 +508,39 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
                  to add a must statement.</t>
               <t>Now there are containers and groupings, for both the 
                  client and server models.</t>
+            </list>
+          </t>
+        </section>
+        <section title="04 to 05">
+          <t>
+            <list style="symbols">
               <t>Now tree diagrams reference ietf-netmod-yang-tree-diagrams</t>
               <t>Updated examples to inline key and certificates (no longer
                  a leafref to keystore)</t>
             </list>
           </t>
         </section>
+        <section title="05 to 06">
+          <t>
+            <list style="symbols">
+              <t>Fixed change log missing section issue.</t>
+              <t>Updated examples to match latest updates to the crypto-types,
+                 trust-anchors, and keystore drafts.</t>
+              <t>Reduced line length of the YANG modules to fit within 69 columns.</t>
+            </list>
+          </t>
+        </section>
       </section>
+
+      <section title="Acknowledgements" numbered="no">
+        <t>The authors would like to thank for following for
+        lively discussions on list and in the halls (ordered
+        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise,
+        Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
+        Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
+        Bert Wijnen.</t>
+     </section>
+
     </back>
 </rfc>
 
