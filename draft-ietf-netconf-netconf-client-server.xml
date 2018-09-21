@@ -26,12 +26,6 @@
                 <email>kwatsen@juniper.net</email>
             </address>
         </author>
-        <author initials="G.W." surname="Wu" fullname="Gary Wu">
-            <organization>Cisco Networks</organization>
-            <address>
-                <email>garywu@cisco.com</email>
-            </address>
-        </author>
         <date/>
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
@@ -115,8 +109,8 @@
         <section title="Tree Diagram">
           <t>The following tree diagram <xref target="RFC8340"/>
           provides an overview of the data model for the "ietf-netconf-client" module.
-          Just the container is displayed below, but there is also a reuable grouping by
-          the same name that the container is using.</t>
+          Just the container is displayed below, but there is also a reusable grouping
+          called "netconf-client-grouping" that the container is using.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -133,7 +127,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree.txt)
           connections, again using both the SSH and TLS transport
           protocols.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
+          Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -180,8 +174,8 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
         <section title="Tree Diagram">
           <t>The following tree diagram <xref target="RFC8340"/>
           provides an overview of the data model for the "ietf-netconf-server" module.
-          Just the container is displayed below, but there is also a reuable grouping by
-          the same name that the container is using.</t>
+          Just the container is displayed below, but there is also a reusable grouping
+          called "netconf-server-grouping" that the container is using.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -197,7 +191,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
           TLS transport protocols, as well as configuring call-home to two
           NETCONF clients, one using SSH and the other using TLS.</t>
           <t>This example is consistent with the examples presented in
-          Section 2.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
+          Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -362,7 +356,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         RESTCONF <xref target="RFC8040"/>.  Both of these protocols have mandatory-to-implement
         secure transport layers (e.g., SSH, TLS) with mutual authentication.</t>
 
-        <t>The NETCONF access control model (NACM) <xref target="RFC6536"/> provides the means
+        <t>The NETCONF access control model (NACM) <xref target="RFC8341"/> provides the means
         to restrict access for particular users to a pre-configured subset of all available
         protocol operations and content.</t>
 
@@ -378,7 +372,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
               removal of references to keys, certificates, trusted anchors, etc., can
               dramatically alter the implemented security policy.  However, no NACM
               annotations are applied as the data SHOULD be editable by users other than
-              a designated 'recovery session'.</t>
+              a designated 'recovery session'.</t> <!-- KENT, FIXME -->
           </list>
         </t>
 
@@ -402,8 +396,8 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 
       <section title="IANA Considerations">
         <section title="The IETF XML Registry">
-          <t>This document registers two URIs in the IETF XML 
-          registry <xref target="RFC3688"/>.  Following the format in 
+          <t>This document registers two URIs in the "ns" subregistry of the IETF XML 
+          Registry <xref target="RFC3688"/>.  Following the format in 
           <xref target="RFC3688"/>, the following registrations are
           requested:</t>
           <t>
@@ -422,8 +416,8 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         </section>
         <section title="The YANG Module Names Registry">
           <t>This document registers two YANG modules in the
-          YANG Module Names registry <xref target="RFC7950"/>.
-          Following the format in <xref target="RFC7950"/>, the
+          YANG Module Names registry <xref target="RFC6020"/>.
+          Following the format in <xref target="RFC6020"/>, the
           the following registrations are requested:</t>
           <t>
             <figure>
@@ -449,6 +443,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
     <back>
       <references title="Normative References">
         <?rfc include="reference.RFC.2119.xml"?>
+        <?rfc include="reference.RFC.6020.xml"?>
         <?rfc include="reference.RFC.6241.xml"?>
         <?rfc include="reference.RFC.6242.xml"?>
         <?rfc include="reference.RFC.6991.xml"?>
@@ -463,10 +458,10 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 
       <references title="Informative References">
         <?rfc include="reference.RFC.3688.xml"?>
-        <?rfc include="reference.RFC.6536.xml"?>
         <?rfc include="reference.RFC.8040.xml"?>
         <?rfc include="reference.RFC.8071.xml"?>
         <?rfc include="reference.RFC.8340.xml"?>
+        <?rfc include="reference.RFC.8341.xml"?>
       </references>
 
       <section title="Change Log">
@@ -527,6 +522,17 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
               <t>Updated examples to match latest updates to the crypto-types,
                  trust-anchors, and keystore drafts.</t>
               <t>Reduced line length of the YANG modules to fit within 69 columns.</t>
+            </list>
+          </t>
+        </section>
+        <section title="06 to 07">
+          <t>
+            <list style="symbols">
+              <t>Removed "idle-timeout" from "persistent" connection config.</t>
+              <t>Added "random-selection" for reconnection-strategy's "starts-with" enum.</t>
+              <t>Replaced "connection-type" choice default (persistent) with "mandatory true".</t>
+              <t>Reduced the periodic-connection's "idle-timeout" from 5 to 2 minutes.</t>
+              <t>Replaced reconnect-timeout with period/anchor-time combo.</t>
             </list>
           </t>
         </section>

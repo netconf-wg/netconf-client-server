@@ -104,7 +104,7 @@
       <connection-type>
         <periodic>
           <idle-timeout>300</idle-timeout>
-          <reconnect-timeout>60</reconnect-timeout>
+          <period>60</period>
         </periodic>
       </connection-type>
       <reconnect-strategy>
@@ -176,7 +176,6 @@
       </endpoints>
       <connection-type>
         <persistent>
-          <idle-timeout>300</idle-timeout>
           <keep-alives>
             <max-wait>30</max-wait>
             <max-attempts>3</max-attempts>

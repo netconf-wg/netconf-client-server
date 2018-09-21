@@ -1,3 +1,5 @@
+THIS MODULE IS NOT BEING USED YET
+
 module ietf-netconf-common {
   yang-version 1.1;
 
