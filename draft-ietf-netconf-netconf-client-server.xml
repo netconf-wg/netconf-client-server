@@ -536,6 +536,13 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
+        <section title="07 to 08">
+          <t>
+            <list style="symbols">
+              <t>Modified examples to be compatible with new crypto-types algs</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">
