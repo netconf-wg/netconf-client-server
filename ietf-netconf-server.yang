@@ -192,12 +192,10 @@ module ietf-netconf-server {
                 mandatory true;
                 description
                   "The IP address to listen on for incoming
-                   connections.  The NETCONF server will listen
-                   on all configured interfaces if no value is
-                   specified.  INADDR_ANY (0.0.0.0) or INADDR6_ANY
-                   (0:0:0:0:0:0:0:0 a.k.a. ::) MUST be used when
-                   the server is to listen on all IPv4 or IPv6
-                   addresses, respectively.";
+                   connections.  INADDR_ANY (0.0.0.0) or 
+                   INADDR6_ANY (0:0:0:0:0:0:0:0 a.k.a. ::)
+                   MUST be used when the server is to listen
+                   on all IPv4 or IPv6 addresses, respectively.";
               }
               leaf port {
                 type inet:port-number;
@@ -221,12 +219,10 @@ module ietf-netconf-server {
                 mandatory true;
                 description
                   "The IP address to listen on for incoming
-                   connections.  The NETCONF server will listen
-                   on all configured interfaces if no value is
-                   specified.  INADDR_ANY (0.0.0.0) or INADDR6_ANY
-                   (0:0:0:0:0:0:0:0 a.k.a. ::) MUST be used when
-                   the server is to listen on all IPv4 or IPv6
-                   addresses, respectively.";
+                   connections.  INADDR_ANY (0.0.0.0) or 
+                   INADDR6_ANY (0:0:0:0:0:0:0:0 a.k.a. ::)
+                   MUST be used when the server is to listen
+                   on all IPv4 or IPv6 addresses, respectively.";
               }
               leaf port {
                 type inet:port-number;

@@ -545,10 +545,19 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         </section>
       </section>
 
+      <section title="08 to 09">
+        <t>
+          <list style="symbols">
+            <t>Corrected use of "mandatory true" for "address" leafs.</t>
+            <t>Updated examples to reflect update to groupings defined in the keystore draft.</t>
+          </list>
+        </t>
+      </section>
+
       <section title="Acknowledgements" numbered="no">
         <t>The authors would like to thank for following for
         lively discussions on list and in the halls (ordered
-        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise,
+        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise, Ramkumar Dhanapal,
         Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
         Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
         Bert Wijnen.</t>

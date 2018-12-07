@@ -439,14 +439,13 @@ module ietf-netconf-client {
                  connections.";
               leaf address {
                 type inet:ip-address;
+                mandatory true;
                 description
                  "The IP address to listen on for incoming call-
-                  home connections.  The NETCONF client will listen
-                  on all configured interfaces if no value is
-                  specified.  INADDR_ANY (0.0.0.0) or INADDR6_ANY
-                  (0:0:0:0:0:0:0:0 a.k.a. ::) MUST be used when
-                  the server is to listen on all IPv4 or IPv6
-                  addresses, respectively.";
+                  home connections. INADDR_ANY (0.0.0.0) or 
+                  INADDR6_ANY (0:0:0:0:0:0:0:0 a.k.a. ::) MUST
+                  be used when the server is to listen on all
+                  IPv4 or IPv6 addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
@@ -469,14 +468,13 @@ module ietf-netconf-client {
                  connections.";
               leaf address {
                 type inet:ip-address;
+                mandatory true;
                 description
                  "The IP address to listen on for incoming call-
-                  home connections.  The NETCONF client will listen
-                  on all configured interfaces if no value is
-                  specified.  INADDR_ANY (0.0.0.0) or INADDR6_ANY
-                  (0:0:0:0:0:0:0:0 a.k.a. ::) MUST be used when
-                  the server is to listen on all IPv4 or IPv6
-                  addresses, respectively.";
+                  home connections. INADDR_ANY (0.0.0.0) or 
+                  INADDR6_ANY (0:0:0:0:0:0:0:0 a.k.a. ::) MUST
+                  be used when the server is to listen on all
+                  IPv4 or IPv6 addresses, respectively.";
               }   
               leaf port {
                 type inet:port-number;
