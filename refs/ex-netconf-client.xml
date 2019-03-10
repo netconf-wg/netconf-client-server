@@ -9,8 +9,13 @@
         <endpoint>
           <name>corp-fw1.example.com</name>
           <ssh>
-            <address>corp-fw1.example.com</address>
-            <client-identity>
+            <remote-address>corp-fw1.example.com</remote-address>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <ssh-client-identity>
               <username>foobar</username>
               <public-key>
                 <local-definition>
@@ -19,18 +24,27 @@
                   <public-key>base64encodedvalue==</public-key>
                 </local-definition>
               </public-key>
-            </client-identity>
-            <server-auth>
+            </ssh-client-identity>
+            <ssh-server-auth>
               <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
               <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
-            </server-auth>
+            </ssh-server-auth>
+            <ssh-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </ssh-keepalives>
           </ssh>
         </endpoint>
         <endpoint>
           <name>corp-fw2.example.com</name>
           <ssh>
-            <address>corp-fw2.example.com</address>
-            <client-identity>
+            <remote-address>corp-fw2.example.com</remote-address>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <ssh-client-identity>
               <username>foobar</username>
               <public-key>
                 <local-definition>
@@ -39,11 +53,15 @@
                   <public-key>base64encodedvalue==</public-key>
                 </local-definition>
               </public-key>
-            </client-identity>
-            <server-auth>
+            </ssh-client-identity>
+            <ssh-server-auth>
               <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
               <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
-            </server-auth>
+            </ssh-server-auth>
+            <ssh-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </ssh-keepalives>
           </ssh>
         </endpoint>
       </endpoints>
@@ -61,8 +79,8 @@
     <endpoint>
       <name>Intranet-facing listener</name>
       <ssh>
-        <address>192.0.2.7</address>
-        <client-identity>
+        <local-address>192.0.2.7</local-address>
+        <ssh-client-identity>
           <username>foobar</username>
           <public-key>
             <local-definition>
@@ -71,12 +89,12 @@
               <public-key>base64encodedvalue==</public-key>
             </local-definition>
           </public-key>
-        </client-identity>
-        <server-auth>
+        </ssh-client-identity>
+        <ssh-server-auth>
           <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
           <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
           <pinned-ssh-host-keys>explicitly-trusted-ssh-host-keys</pinned-ssh-host-keys>
-        </server-auth>
+        </ssh-server-auth>
       </ssh>
     </endpoint>
   </listen>

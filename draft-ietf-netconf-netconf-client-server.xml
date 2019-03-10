@@ -57,6 +57,7 @@
               <t><spanx style="verb">XXXX</spanx> --&gt; the assigned RFC value for this draft</t>
               <t><spanx style="verb">YYYY</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-ssh-client-server</t>
               <t><spanx style="verb">ZZZZ</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tls-client-server</t>
+              <t><spanx style="verb">AAAA</spanx> --&gt; the assigned RFC value for I-D.ietf-netconf-tcp-client-server</t>
             </list>
           </t>
           <t>Artwork in this document contains placeholder values for the date of publication of this
@@ -140,6 +141,7 @@ INSERT_TEXT_FROM_FILE(refs/ex-netconf-client.xml)
         <section title="YANG Module" anchor="ietf-netconf-client-module">
           <t>This YANG module has normative references to <xref target="RFC6242"/>,
           <xref target="RFC6991"/>, <xref target="RFC7589"/>, <xref target="RFC8071"/>,
+          <xref target="I-D.kwatsen-netconf-tcp-client-server"/>,
           <xref target="I-D.ietf-netconf-ssh-client-server"/>, and
           <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
           <t>
@@ -204,8 +206,9 @@ INSERT_TEXT_FROM_FILE(refs/ex-netconf-server.xml)
         <section title="YANG Module" anchor="ietf-netconf-server-module">
           <t>This YANG module has normative references to <xref target="RFC6242"/>,
           <xref target="RFC6991"/>, <xref target="RFC7407"/>, <xref target="RFC7589"/>,
-          <xref target="RFC8071"/>, <xref target="I-D.ietf-netconf-ssh-client-server"/>,
-          and <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
+          <xref target="RFC8071"/>, <xref target="I-D.kwatsen-netconf-tcp-client-server"/>,
+          <xref target="I-D.ietf-netconf-ssh-client-server"/>, and
+          <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
 
           <t>This YANG module imports YANG types from <xref target="RFC6991"/>,
           and YANG groupings from <xref target="RFC7407"/>,
@@ -452,6 +455,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.7950.xml"?>
         <?rfc include="reference.RFC.8174.xml"?>
         <?rfc include="reference.I-D.ietf-netconf-keystore"?>
+        <?rfc include="reference.I-D.kwatsen-netconf-tcp-client-server"?>
         <?rfc include="reference.I-D.ietf-netconf-ssh-client-server"?>
         <?rfc include="reference.I-D.ietf-netconf-tls-client-server"?>
       </references>
@@ -479,7 +483,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
               of endpoints, including a reconnection-strategy.</t>
               <t>Added to ietf-netconf-client the ability to configure connection-type
               and also keep-alive strategy.</t>
-              <t>Updated both modules to accomodate new groupings in the ssh/tls
+              <t>Updated both modules to accommodate new groupings in the ssh/tls
               drafts.</t> 
             </list>
           </t>
@@ -550,6 +554,8 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <list style="symbols">
             <t>Corrected use of "mandatory true" for "address" leafs.</t>
             <t>Updated examples to reflect update to groupings defined in the keystore draft.</t>
+            <t>Updated to use groupings defined in new TCP and HTTP drafts.</t>
+            <t>Updated copyright date, boilerplate template, affiliation, and folding algorithm.</t>
           </list>
         </t>
       </section>

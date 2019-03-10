@@ -7,8 +7,8 @@
     <endpoint> <!-- listening for SSH connections -->
       <name>netconf/ssh</name>
       <ssh>
-        <address>192.0.2.7</address>
-        <server-identity>
+        <local-address>192.0.2.7</local-address>
+        <ssh-server-identity>
           <host-key>
             <name>deployment-specific-certificate</name>
             <public-key>
@@ -19,26 +19,26 @@
               </local-definition>
             </public-key>
           </host-key>
-        </server-identity>
-        <client-cert-auth>
+        </ssh-server-identity>
+        <ssh-client-cert-auth>
           <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
           <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
-        </client-cert-auth>
+        </ssh-client-cert-auth>
       </ssh>
     </endpoint>
     <endpoint> <!-- listening for TLS sessions -->
       <name>netconf/tls</name>
       <tls>
-        <address>192.0.2.7</address>
-        <server-identity>
+        <local-address>192.0.2.7</local-address>
+        <tls-server-identity>
           <local-definition>
             <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
             <private-key>base64encodedvalue==</private-key>
             <public-key>base64encodedvalue==</public-key>
             <cert>base64encodedvalue==</cert>
           </local-definition>
-        </server-identity>
-        <client-auth>
+        </tls-server-identity>
+        <tls-client-auth>
           <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
           <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
           <cert-maps>
@@ -54,7 +54,7 @@
               <name>scooby-doo</name>
             </cert-to-name>
           </cert-maps>
-        </client-auth>
+        </tls-client-auth>
       </tls>
     </endpoint>
   </listen>
@@ -67,8 +67,8 @@
         <endpoint>
           <name>east-data-center</name>
           <ssh>
-            <address>east.config-mgr.example.com</address>
-            <server-identity>
+            <remote-address>east.config-mgr.example.com</remote-address>
+            <ssh-server-identity>
               <host-key>
                 <name>deployment-specific-certificate</name>
                 <public-key>
@@ -79,18 +79,18 @@
                   </local-definition>
                 </public-key>
               </host-key>
-            </server-identity>
-            <client-cert-auth>
+            </ssh-server-identity>
+            <ssh-client-cert-auth>
               <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
-            </client-cert-auth>
+            </ssh-client-cert-auth>
           </ssh>
         </endpoint>
         <endpoint>
           <name>west-data-center</name>
           <ssh>
-            <address>west.config-mgr.example.com</address>
-            <server-identity>
+            <remote-address>west.config-mgr.example.com</remote-address>
+            <ssh-server-identity>
               <host-key>
                 <name>deployment-specific-certificate</name>
                 <public-key>
@@ -101,11 +101,11 @@
                   </local-definition>
                 </public-key>
               </host-key>
-            </server-identity>
-            <client-cert-auth>
+            </ssh-server-identity>
+            <ssh-client-cert-auth>
               <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
-            </client-cert-auth>
+            </ssh-client-cert-auth>
           </ssh>
         </endpoint>
       </endpoints>
@@ -126,16 +126,16 @@
         <endpoint>
           <name>east-data-center</name>
           <tls>
-            <address>east.analytics.example.com</address>
-            <server-identity>
+            <remote-address>east.analytics.example.com</remote-address>
+            <tls-server-identity>
               <local-definition>
                 <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
                 <private-key>base64encodedvalue==</private-key>
                 <public-key>base64encodedvalue==</public-key>
                 <cert>base64encodedvalue==</cert>
               </local-definition>
-            </server-identity>
-            <client-auth>
+            </tls-server-identity>
+            <tls-client-auth>
               <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
@@ -151,22 +151,31 @@
                   <name>scooby-doo</name>
                 </cert-to-name>
               </cert-maps>
-            </client-auth>
+            </tls-client-auth>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <tls-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </tls-keepalives>
           </tls>
         </endpoint>
         <endpoint>
           <name>west-data-center</name>
           <tls>
-            <address>west.analytics.example.com</address>
-            <server-identity>
+            <remote-address>west.analytics.example.com</remote-address>
+            <tls-server-identity>
               <local-definition>
                 <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
                 <private-key>base64encodedvalue==</private-key>
                 <public-key>base64encodedvalue==</public-key>
                 <cert>base64encodedvalue==</cert>
               </local-definition>
-            </server-identity>
-            <client-auth>
+            </tls-server-identity>
+            <tls-client-auth>
               <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
               <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
               <cert-maps>
@@ -182,17 +191,21 @@
                   <name>scooby-doo</name>
                 </cert-to-name>
               </cert-maps>
-            </client-auth>
+            </tls-client-auth>
+            <tcp-keepalives>
+              <idle-time>15</idle-time>
+              <max-probes>3</max-probes>
+              <probe-interval>30</probe-interval>
+            </tcp-keepalives>
+            <tls-keepalives>
+              <max-wait>30</max-wait>
+              <max-attempts>3</max-attempts>
+            </tls-keepalives>
           </tls>
         </endpoint>
       </endpoints>
       <connection-type>
-        <persistent>
-          <keep-alives>
-            <max-wait>30</max-wait>
-            <max-attempts>3</max-attempts>
-          </keep-alives>
-        </persistent>
+        <persistent/>
       </connection-type>
       <reconnect-strategy>
         <start-with>first-listed</start-with>
