@@ -1,7 +1,7 @@
 module ietf-netconf-client {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-netconf-client";
-  prefix "ncc";
+  prefix ncc;
 
   import ietf-yang-types {
     prefix yang;
@@ -14,7 +14,6 @@ module ietf-netconf-client {
     reference
       "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
   }
-
   import ietf-tcp-server {
     prefix tcps;
     reference
@@ -34,99 +33,98 @@ module ietf-netconf-client {
     reference
       "RFC ZZZZ: YANG Groupings for TLS Clients and TLS Servers";
   }
- 
+
   organization
-   "IETF NETCONF (Network Configuration) Working Group";
+    "IETF NETCONF (Network Configuration) Working Group";
 
   contact
-   "WG Web:   <http://datatracker.ietf.org/wg/netconf/>
-    WG List:  <mailto:netconf@ietf.org>
-    Author:   Kent Watsen <mailto:kent+ietf@watsen.net>
-    Author:   Gary Wu <mailto:garywu@cisco.com>";
+    "WG Web:   <http://datatracker.ietf.org/wg/netconf/>
+     WG List:  <mailto:netconf@ietf.org>
+     Author:   Kent Watsen <mailto:kent+ietf@watsen.net>
+     Author:   Gary Wu <mailto:garywu@cisco.com>";
 
   description
-   "This module contains a collection of YANG definitions for
-    configuring NETCONF clients.
+    "This module contains a collection of YANG definitions for
+     configuring NETCONF clients.
 
-    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
-    'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
-    'NOT RECOMMENDED', 'MAY', and 'OPTIONAL' in this document
-    are to be interpreted as described in BCP 14 [RFC2119]
-    [RFC8174] when, and only when, they appear in all
-    capitals, as shown here.
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
+     'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
+     'NOT RECOMMENDED', 'MAY', and 'OPTIONAL' in this document
+     are to be interpreted as described in BCP 14 [RFC2119]
+     [RFC8174] when, and only when, they appear in all
+     capitals, as shown here.
 
-    Copyright (c) 2019 IETF Trust and the persons identified as
-    authors of the code. All rights reserved.
+     Copyright (c) 2019 IETF Trust and the persons identified as
+     authors of the code. All rights reserved.
 
-    Redistribution and use in source and binary forms, with or
-    without modification, is permitted pursuant to, and subject
-    to the license terms contained in, the Simplified BSD
-    License set forth in Section 4.c of the IETF Trust's
-    Legal Provisions Relating to IETF Documents
-    (http://trustee.ietf.org/license-info).
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD
+     License set forth in Section 4.c of the IETF Trust's
+     Legal Provisions Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).
 
-    This version of this YANG module is part of RFC XXXX; see
-    the RFC itself for full legal notices.";
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
-  revision "YYYY-MM-DD" {
+  revision YYYY-MM-DD {
     description
-     "Initial version";
+      "Initial version";
     reference
-     "RFC XXXX: NETCONF Client and Server Models";
+      "RFC XXXX: NETCONF Client and Server Models";
   }
 
   // Features
 
   feature initiate {
     description
-     "The 'initiate' feature indicates that the NETCONF client 
-      supports initiating NETCONF connections to NETCONF servers
-      using at least one transport (e.g., SSH, TLS, etc.)."; 
+      "The 'initiate' feature indicates that the NETCONF client
+       supports initiating NETCONF connections to NETCONF servers
+       using at least one transport (e.g., SSH, TLS, etc.).";
   }
 
   feature ssh-initiate {
     description
-     "The ‘ssh-initiate’ feature indicates that the NETCONF client 
-      supports initiating SSH connections to NETCONF servers.";
+      "The ‘ssh-initiate’ feature indicates that the NETCONF client
+       supports initiating SSH connections to NETCONF servers.";
     reference
-     "RFC 6242:
-        Using the NETCONF Protocol over Secure Shell (SSH)";
+      "RFC 6242:
+         Using the NETCONF Protocol over Secure Shell (SSH)";
   }
 
   feature tls-initiate {
     description
-     "The ‘tls-initiate’ feature indicates that the NETCONF client
-      supports initiating TLS connections to NETCONF servers.";
+      "The ‘tls-initiate’ feature indicates that the NETCONF client
+       supports initiating TLS connections to NETCONF servers.";
     reference
-     "RFC 7589: Using the NETCONF Protocol over Transport
-                Layer Security (TLS) with Mutual X.509
-                Authentication";
+      "RFC 7589: Using the NETCONF Protocol over Transport
+         Layer Security (TLS) with Mutual X.509 Authentication";
   }
 
   feature listen {
     description
-     "The 'listen' feature indicates that the NETCONF client 
-      supports opening a port to accept NETCONF server call
-      home connections using at least one transport (e.g., 
-      SSH, TLS, etc.)."; 
+      "The 'listen' feature indicates that the NETCONF client
+       supports opening a port to accept NETCONF server call
+       home connections using at least one transport (e.g.,
+       SSH, TLS, etc.).";
   }
 
   feature ssh-listen {
     description
-     "The ‘ssh-listen’ feature indicates that the NETCONF client
-      supports opening a port to listen for incoming NETCONF
-      server call-home SSH connections.";
+      "The ‘ssh-listen’ feature indicates that the NETCONF client
+       supports opening a port to listen for incoming NETCONF
+       server call-home SSH connections.";
     reference
-     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
+      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
   feature tls-listen {
     description
-     "The ‘tls-listen’ feature indicates that the NETCONF client
-      supports opening a port to listen for incoming NETCONF
-      server call-home TLS connections.";
+      "The ‘tls-listen’ feature indicates that the NETCONF client
+       supports opening a port to listen for incoming NETCONF
+       server call-home TLS connections.";
     reference
-     "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
+      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
   // Groupings
@@ -134,14 +132,13 @@ module ietf-netconf-client {
   grouping netconf-client-grouping {
     description
       "Top-level grouping for NETCONF client configuration.";
-
     container initiate {
-      if-feature initiate;
+      if-feature "initiate";
       presence "Enables client to initiate TCP connections";
       description
         "Configures client initiating underlying TCP connections.";
       list netconf-server {
-        key name;
+        key "name";
         min-elements 1;
         description
           "List of NETCONF servers the NETCONF client is to
@@ -155,7 +152,7 @@ module ietf-netconf-client {
           description
             "Container for the list of endpoints.";
           list endpoint {
-            key name;
+            key "name";
             min-elements 1;
             ordered-by user;
             description
@@ -173,54 +170,50 @@ module ietf-netconf-client {
               description
                 "Selects between available transports.";
               case ssh {
-                if-feature ssh-initiate;
+                if-feature "ssh-initiate";
                 container ssh {
                   description
                     "Specifies IP and SSH specific configuration
                      for the connection.";
                   uses tcpc:tcp-client-grouping {
                     refine "remote-port" {
-                      default 830;
+                      default "830";
                       description
                         "The NETCONF client will attempt to connect
-                        to the IANA-assigned well-known port value
-                        for 'netconf-ssh' (443) if no value is
-                        specified.";
+                         to the IANA-assigned well-known port value
+                         for 'netconf-ssh' (443) if no value is
+                         specified.";
                     }
                   }
                   uses sshc:ssh-client-grouping;
-                } // container ssh
-              } // case ssh
-
+                }
+              }
               case tls {
-                if-feature tls-initiate;
+                if-feature "tls-initiate";
                 container tls {
                   description
                     "Specifies IP and TLS specific configuration
                      for the connection.";
                   uses tcpc:tcp-client-grouping {
                     refine "remote-port" {
-                      default 6513;
+                      default "6513";
                       description
                         "The NETCONF client will attempt to connect
-                        to the IANA-assigned well-known port value
-                        for 'netconf-tls' (6513) if no value is
-                        specified.";
+                         to the IANA-assigned well-known port value
+                         for 'netconf-tls' (6513) if no value is
+                         specified.";
                     }
                   }
-
                   uses tlsc:tls-client-grouping {
                     refine "tls-client-identity/auth-type" {
-                    mandatory true;
-                     description
-                       "NETCONF/TLS clients MUST pass some
-                        authentication credentials.";
+                      mandatory true;
+                      description
+                        "NETCONF/TLS clients MUST pass some
+                         authentication credentials.";
                     }
                   }
-
-                } // container tls
-              } // case tls
-
+                }
+              }
             } // choice transport
           } // list endpoint
         } // container endpoints
@@ -235,37 +228,35 @@ module ietf-netconf-client {
               "Selects between available connection types.";
             case persistent-connection {
               container persistent {
-                presence
-                 "Indicates that a persistent connection is to be
-                  maintained.";
+                presence "Indicates that a persistent connection is
+                          to be maintained.";
                 description
-                 "Maintain a persistent connection to the NETCONF 
-                  server. If the connection goes down, immediately 
-                  start trying to reconnect to it, using the 
-                  reconnection strategy.
-    
-                  This connection type minimizes any NETCONF server
-                  to NETCONF client data-transfer delay, albeit at 
-                  the expense of holding resources longer.";
+                  "Maintain a persistent connection to the NETCONF
+                   server. If the connection goes down, immediately
+                   start trying to reconnect to it, using the
+                   reconnection strategy.
+
+                   This connection type minimizes any NETCONF server
+                   to NETCONF client data-transfer delay, albeit at
+                   the expense of holding resources longer.";
               }
             }
             case periodic-connection {
               container periodic {
-                presence
-                 "Indicates that a periodic connection is to be
-                  maintained.";
+                presence "Indicates that a periodic connection is
+                          to be maintained.";
                 description
-                 "Periodically connect to the NETCONF server.  The
-                  NETCONF server should close the connection upon
-                  completing planned activities.
+                  "Periodically connect to the NETCONF server.  The
+                   NETCONF server should close the connection upon
+                   completing planned activities.
 
-                  This connection type increases resource
-                  utilization, albeit with increased delay in
-                  NETCONF server to NETCONF client interactions.";
+                   This connection type increases resource
+                   utilization, albeit with increased delay in
+                   NETCONF server to NETCONF client interactions.";
                 leaf period {
                   type uint16;
                   units "minutes";
-                  default 60;
+                  default "60";
                   description
                     "Duration of time between periodic connections.";
                 }
@@ -273,7 +264,7 @@ module ietf-netconf-client {
                   type yang:date-and-time {
                     // constrained to minute-level granularity
                     pattern '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}'
-                            + '(Z|[\+\-]\d{2}:\d{2})';
+                          + '(Z|[\+\-]\d{2}:\d{2})';
                   }
                   description
                     "Designates a timestamp before or after which a
@@ -291,9 +282,9 @@ module ietf-netconf-client {
                   default 120; // two minutes
                   description
                     "Specifies the maximum number of seconds that
-                     a NETCONF session may remain idle. A NETCONF 
-                     session will be dropped if it is idle for an 
-                     interval longer than this number of seconds.  
+                     a NETCONF session may remain idle. A NETCONF
+                     session will be dropped if it is idle for an
+                     interval longer than this number of seconds.
                      If set to zero, then the NETCONF client will
                      never drop a session because it is idle.";
                 }
@@ -303,13 +294,13 @@ module ietf-netconf-client {
         }
         container reconnect-strategy {
           description
-           "The reconnection strategy directs how a NETCONF client 
-            reconnects to a NETCONF server, after discovering its
-            connection to the server has dropped, even if due to a
-            reboot.  The NETCONF client starts with the specified
-            endpoint and tries to connect to it max-attempts times
-            before trying the next endpoint in the list (round 
-            robin).";
+            "The reconnection strategy directs how a NETCONF client
+             reconnects to a NETCONF server, after discovering its
+             connection to the server has dropped, even if due to a
+             reboot.  The NETCONF client starts with the specified
+             endpoint and tries to connect to it max-attempts times
+             before trying the next endpoint in the list (round
+             robin).";
           leaf start-with {
             type enumeration {
               enum first-listed {
@@ -317,51 +308,50 @@ module ietf-netconf-client {
                   "Indicates that reconnections should start with
                    the first endpoint listed.";
               }
-              enum last-connected { 
+              enum last-connected {
                 description
                   "Indicates that reconnections should start with
                    the endpoint last connected to.  If no previous
                    connection has ever been established, then the
-                   first endpoint configured is used.   NETCONF 
-                   clients SHOULD be able to remember the last 
+                   first endpoint configured is used.   NETCONF
+                   clients SHOULD be able to remember the last
                    endpoint connected to across reboots.";
               }
-              enum random-selection { 
+              enum random-selection {
                 description
                   "Indicates that reconnections should start with
                    a random endpoint.";
               }
             }
-            default first-listed;
+            default "first-listed";
             description
-             "Specifies which of the NETCONF server's endpoints
-              the NETCONF client should start with when trying
-              to connect to the NETCONF server.";
+              "Specifies which of the NETCONF server's endpoints
+               the NETCONF client should start with when trying
+               to connect to the NETCONF server.";
           }
           leaf max-attempts {
             type uint8 {
               range "1..max";
             }
-            default 3;
+            default "3";
             description
-             "Specifies the number times the NETCONF client tries
-              to connect to a specific endpoint before moving on
-              to the next endpoint in the list (round robin).";
+              "Specifies the number times the NETCONF client tries
+               to connect to a specific endpoint before moving on
+               to the next endpoint in the list (round robin).";
           }
         }
       } // netconf-server
     } // initiate
 
     container listen {
-      if-feature listen;
+      if-feature "listen";
       presence "Enables client to accept call-home connections";
       description
         "Configures client accepting call-home TCP connections.";
-
       leaf idle-timeout {
         type uint16;
         units "seconds";
-        default 3600; // one hour
+        default "3600"; // one hour
         description
           "Specifies the maximum number of seconds that a NETCONF
            session may remain idle. A NETCONF session will be
@@ -371,9 +361,8 @@ module ietf-netconf-client {
            that have a notification subscription active are never
            dropped.";
       }
-
       list endpoint {
-        key name;
+        key "name";
         min-elements 1;
         description
           "List of endpoints to listen for NETCONF connections.";
@@ -387,14 +376,14 @@ module ietf-netconf-client {
           description
             "Selects between available transports.";
           case ssh {
-            if-feature ssh-listen;
+            if-feature "ssh-listen";
             container ssh {
               description
                 "SSH-specific listening configuration for inbound
                  connections.";
               uses tcps:tcp-server-grouping {
                 refine "local-port" {
-                  default 4334;
+                  default "4334";
                   description
                     "The NETCONF client will listen on the IANA-
                      assigned well-known port for 'netconf-ch-ssh'
@@ -405,14 +394,14 @@ module ietf-netconf-client {
             }
           }
           case tls {
-            if-feature tls-listen;
+            if-feature "tls-listen";
             container tls {
               description
                 "TLS-specific listening configuration for inbound
                  connections.";
               uses tcps:tcp-server-grouping {
                 refine "local-port" {
-                  default 4334;
+                  default "4334";
                   description
                     "The NETCONF client will listen on the IANA-
                      assigned well-known port for 'netconf-ch-ssh'
@@ -434,9 +423,9 @@ module ietf-netconf-client {
     } // listen
   } // netconf-client
 
-  // Protocol accessible node, for servers that 'implement'
-  // this module.
-  
+  // Protocol accessible node, for servers that implement this
+  // module.
+
   container netconf-client {
     uses netconf-client-grouping;
     description

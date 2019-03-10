@@ -560,6 +560,14 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         </t>
       </section>
 
+      <section title="09 to 10">
+        <t>
+          <list style="symbols">
+            <t>Reformatted YANG modules.</t>
+          </list>
+        </t>
+      </section>
+
       <section title="Acknowledgements" numbered="no">
         <t>The authors would like to thank for following for
         lively discussions on list and in the halls (ordered
