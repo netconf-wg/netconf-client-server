@@ -47,6 +47,7 @@
           Please update the following references to reflect their final RFC assignments:
             <list style="symbols">
               <t>I-D.ietf-netconf-keystore</t>
+              <t>I-D.ietf-netconf-tcp-client-server</t>
               <t>I-D.ietf-netconf-ssh-client-server</t>
               <t>I-D.ietf-netconf-tls-client-server</t>
             </list>
