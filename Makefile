@@ -65,7 +65,7 @@ $(next).xml: $(draft).xml ietf-netconf-client.yang ietf-netconf-server.yang
 
 	cd refs; ./validate-all.sh; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp; mv tmp $@
-	rm refs/*-tree.txt
+	rm refs/*-tree*.txt
 
 
 .INTERMEDIATE: $(draft).xml
