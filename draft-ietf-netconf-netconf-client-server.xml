@@ -126,7 +126,8 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree-no-expand.txt)
           connections, again using both the SSH and TLS transport
           protocols.</t>
           <t>This example is consistent with the examples presented in
-          Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
+          Section 2 of <xref target="I-D.ietf-netconf-trust-anchors"/>
+          and Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -187,7 +188,8 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree-no-expand.txt)
           TLS transport protocols, as well as configuring call-home to two
           NETCONF clients, one using SSH and the other using TLS.</t>
           <t>This example is consistent with the examples presented in
-          Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
+          Section 2 of <xref target="I-D.ietf-netconf-trust-anchors"/>
+          and Section 3.2 of <xref target="I-D.ietf-netconf-keystore"/>.</t>
           <t>
             <figure>
               <artwork><![CDATA[
@@ -212,128 +214,6 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 ]]></artwork>
             </figure>
           </t>
-        </section>
-      </section>
-
-      <section title="Design Considerations">
-        <t>Editorial: this section is a hold over from before, previously called
-        "Objectives".  It was only written two support the "server" (not the "client").
-        The question is if it's better to add the missing "client" parts, or remove
-        this section altogether.</t>
-
-        <t>The primary purpose of the YANG modules defined herein is
-        to enable the configuration of the NETCONF client and servers.
-        This scope includes the following objectives:</t>
-        <section title="Support all NETCONF transports">
-          <t>The YANG module should support all current NETCONF 
-          transports, namely NETCONF over SSH <xref target="RFC6242"/>, 
-          NETCONF over TLS <xref target="RFC7589"/>, and to be 
-          extensible to support future transports as necessary.</t>
-          <t>Because implementations may not support all transports,
-          the modules should use YANG &quot;feature&quot; statements
-          so that implementations can accurately advertise which
-          transports are supported.</t>
-        </section>
-        <section title="Enable each transport to select which keys to use">
-          <t>Servers may have a multiplicity of host-keys or server-certificates
-             from which subsets may be selected for specific uses.  For instance,
-             a NETCONF server may want to use one set of SSH host-keys when listening
-             on port 830, and a different set of SSH host-keys when calling
-             home.  The data models provided herein should enable configuration
-             of which keys to use on a per-use basis.</t>
-        </section>
-        <section title="Support authenticating NETCONF clients certificates">
-          <t>When a certificate is used to authenticate a NETCONF client,
-             there is a need to configure the server to know how to authenticate the 
-             certificates.  The server should be able to authenticate the client's
-             certificate either by using path-validation to a configured trust anchor
-             or by matching the client-certificate to one previously configured.</t>
-        </section>
-        <section title="Support mapping authenticated NETCONF client certificates to usernames">
-          <t>When a client certificate is used for TLS client authentication,
-             the NETCONF server must be able to derive a username from the 
-             authenticated certificate.  Thus the modules defined herein should enable
-             this mapping to be configured.</t>
-        </section>
-        <section title="Support both listening for connections and call home">
-          <t>The NETCONF protocols were originally defined as having the 
-          server opening a port to listen for client connections.  More recently
-          the NETCONF working group defined support for call-home 
-          (<xref target="RFC8071"/>), enabling the server to
-          initiate the connection to the client.  Thus the modules defined herein
-          should enable configuration for both listening for connections and
-          calling home.  Because implementations may not support both listening
-          for connections and calling home, YANG &quot;feature&quot; statements
-          should be used so that implementation can accurately 
-          advertise the connection types it supports.</t>
-        </section>
-        <section title="For Call Home connections">
-          <t>The following objectives only pertain to call home connections.</t>
-          <section title="Support more than one NETCONF client">
-            <t>A NETCONF server may be managed by more than one NETCONF client.
-            For instance, a deployment may have one client for provisioning and
-            another for fault monitoring.  Therefore, when it is desired for a
-            server to initiate call home connections, it should be able to do
-            so to more than one client.</t>
-          </section>
-          <section title="Support NETCONF clients having more than one endpoint">
-            <t>A NETCONF client managing a NETCONF server may implement a 
-            high-availability strategy employing a multiplicity of
-            active and/or passive endpoint.  Therefore, when it is
-            desired for a server to initiate call home connections,
-            it should be able to connect to any of the client's endpoints.</t>
-          </section>
-          <section title="Support a reconnection strategy">
-            <t>Assuming a NETCONF client has more than one endpoint, then
-            it becomes necessary to configure how a NETCONF server should
-            reconnect to the client should it lose its connection to one
-            the client's endpoints.  For instance, the NETCONF server may
-            start with first endpoint defined in a user-ordered list of 
-            endpoints or with the last endpoints it was connected to.</t>
-          </section>
-          <section title="Support both persistent and periodic connections">
-            <t>NETCONF clients may vary greatly on how frequently they need
-            to interact with a NETCONF server, how responsive interactions
-            need to be, and how many simultaneous connections they can 
-            support.  Some clients may need a persistent connection to
-            servers to optimize real-time interactions, while others 
-            prefer periodic interactions in order to minimize resource
-            requirements.  Therefore, when it is necessary for server
-            to initiate connections, it should be configurable if the
-            connection is persistent or periodic.</t>
-          </section>
-          <section title="Reconnection strategy for periodic connections">
-            <t>The reconnection strategy should apply to both 
-            persistent and periodic connections.  How it
-            applies to periodic connections becomes clear when
-            considering that a periodic "connection" is
-            a logical connection to a single server.  That is,
-            the periods of unconnectedness are intentional as 
-            opposed to due to external reasons.  A periodic
-            "connection" should always reconnect to 
-            the same server until it is no longer able to, at 
-            which time the reconnection strategy guides how to
-            connect to another server.</t>
-          </section>
-          <section anchor="keepalives" title="Keep-alives for persistent connections">
-            <t>If a persistent connection is desired, it is the 
-            responsibility of the connection initiator to actively
-            test the "aliveness" of the connection.  The connection
-            initiator must immediately work to reestablish a 
-            persistent connection as soon as the connection is
-            lost.  How often the connection should be tested is
-            driven by NETCONF client requirements, and therefore
-            keep-alive settings should be configurable on a 
-            per-client basis.</t>
-          </section>
-          <section title="Customizations for periodic connections">
-            <t>If a periodic connection is desired, it is necessary for 
-            the NETCONF server to know how often it should connect.  This
-            frequency determines the maximum amount of time a NETCONF
-            client may have to wait to send data to a server.  A server may
-            connect to a client before this interval expires if desired
-            (e.g., to send data to a client).</t>
-          </section>
         </section>
       </section>
 
@@ -456,6 +336,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.8071.xml"?>
         <?rfc include="reference.RFC.8340.xml"?>
         <?rfc include="reference.RFC.8341.xml"?>
+        <?rfc include="reference.I-D.ietf-netconf-trust-anchors"?>
       </references>
 
       <section title="Expanded Tree Diagrams">
@@ -599,6 +480,27 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
               <t>Updated the boilerplate text in module-level "description" statement
                 to match copyeditor convention.</t>
               <t>Moved "expanded" tree diagrams to the Appendix.</t>
+            </list>
+          </t>
+        </section>
+        <section title="11 to 12">
+          <t>
+            <list style="symbols">
+              <t>Removed the "Design Considerations" section.</t>
+              <t>Removed the 'must' statement limiting keepalives in periodic
+                connections.</t>
+              <t>Updated models and examples to reflect removal of the "demux"
+                containers in the imported models.</t>
+              <t>Updated the "periodic-connnection" description statements to be more
+                like the RESTCONF draft, especially where it described dropping the
+                underlying TCP connection.</t>
+              <t>Updated text to better reference where certain examples come from
+                (e.g., which Section in which draft).</t>
+              <t>In the server model, commented out the "must 'pinned-ca-certs or
+                pinned-client-certs'" statement to reflect change made in the
+                TLS draft whereby the trust anchors MAY be defined externally.</t>
+              <t>Replaced the 'listen', 'initiate', and 'call-home' features
+                with boolean expressions.</t>
             </list>
           </t>
         </section>

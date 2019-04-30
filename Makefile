@@ -36,9 +36,9 @@ idnits: $(next).txt
 	$(idnits) $<
 
 clean:
-	-rm -f $(draft).txt $(draft).html index.html
-	-rm -f $(next).txt $(next).html
 	-rm -f $(draft)-[0-9][0-9].xml
+	-rm -f $(draft)-[0-9][0-9].txt
+	-rm -f $(draft)-[0-9][0-9].html
 	-rm -f ietf-*\@20*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
@@ -52,6 +52,7 @@ $(next).xml: $(draft).xml ietf-netconf-client.yang ietf-netconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../crypto-types/ietf-crypto-types.yang > ietf-crypto-types\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../trust-anchors/ietf-trust-anchors.yang > ietf-trust-anchors\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../keystore/ietf-keystore.yang > ietf-keystore\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-common.yang > ietf-tcp-common\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-client.yang > ietf-tcp-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-server.yang > ietf-tcp-server\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/ietf-ssh-common.yang > ietf-ssh-common\@$(shell date +%Y-%m-%d).yang

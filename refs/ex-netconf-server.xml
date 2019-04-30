@@ -23,10 +23,12 @@
               </public-key>
             </host-key>
           </server-identity>
-          <client-cert-auth>
-            <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
-            <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
-          </client-cert-auth>
+          <client-authentication>
+            <supported-authentication-methods>
+              <publickey/>
+            </supported-authentication-methods>
+            <client-auth-defined-elsewhere/>
+          </client-authentication>
         </ssh-server-parameters>
       </ssh>
     </endpoint>
@@ -46,6 +48,7 @@
             </local-definition>
           </server-identity>
           <client-authentication>
+            <required/>
             <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
             <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
             <cert-maps>
@@ -91,10 +94,12 @@
                   </public-key>
                 </host-key>
               </server-identity>
-              <client-cert-auth>
-                <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
-                <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
-              </client-cert-auth>
+              <client-authentication>
+                <supported-authentication-methods>
+                  <publickey/>
+                </supported-authentication-methods>
+                <client-auth-defined-elsewhere/>
+              </client-authentication>
             </ssh-server-parameters>
           </ssh>
         </endpoint>
@@ -117,10 +122,12 @@
                   </public-key>
                 </host-key>
               </server-identity>
-              <client-cert-auth>
-                <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
-                <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
-              </client-cert-auth>
+              <client-authentication>
+                <supported-authentication-methods>
+                  <publickey/>
+                </supported-authentication-methods>
+                <client-auth-defined-elsewhere/>
+              </client-authentication>
             </ssh-server-parameters>
           </ssh>
         </endpoint>
@@ -160,6 +167,7 @@
                 </local-definition>
               </server-identity>
               <client-authentication>
+                <required/>
                 <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
                 <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
                 <cert-maps>
@@ -204,6 +212,7 @@
                 </local-definition>
               </server-identity>
               <client-authentication>
+                <required/>
                 <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
                 <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
                 <cert-maps>

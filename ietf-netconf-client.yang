@@ -77,13 +77,6 @@ module ietf-netconf-client {
 
   // Features
 
-  feature initiate {
-    description
-      "The 'initiate' feature indicates that the NETCONF client
-       supports initiating NETCONF connections to NETCONF servers
-       using at least one transport (e.g., SSH, TLS, etc.).";
-  }
-
   feature ssh-initiate {
     description
       "The ‘ssh-initiate’ feature indicates that the NETCONF client
@@ -100,14 +93,6 @@ module ietf-netconf-client {
     reference
       "RFC 7589: Using the NETCONF Protocol over Transport
          Layer Security (TLS) with Mutual X.509 Authentication";
-  }
-
-  feature listen {
-    description
-      "The 'listen' feature indicates that the NETCONF client
-       supports opening a port to accept NETCONF server call
-       home connections using at least one transport (e.g.,
-       SSH, TLS, etc.).";
   }
 
   feature ssh-listen {
@@ -134,7 +119,7 @@ module ietf-netconf-client {
     description
       "Top-level grouping for NETCONF client configuration.";
     container initiate {
-      if-feature "initiate";
+      if-feature "ssh-initiate or tls-initiate";
       presence "Enables client to initiate TCP connections";
       description
         "Configures client initiating underlying TCP connections.";
@@ -176,17 +161,27 @@ module ietf-netconf-client {
                   description
                     "Specifies IP and SSH specific configuration
                      for the connection.";
-                  uses tcpc:tcp-client-grouping {
-                    refine "tcp-client-parameters/remote-port" {
-                      default "830";
-                      description
-                        "The NETCONF client will attempt to connect
-                         to the IANA-assigned well-known port value
-                         for 'netconf-ssh' (443) if no value is
-                         specified.";
+                  container tcp-client-parameters {
+                    description
+                      "A wrapper around the TCP client parameters
+                       to avoid name collisions.";
+                    uses tcpc:tcp-client-grouping {
+                      refine "remote-port" {
+                        default "830";
+                        description
+                          "The NETCONF client will attempt to connect
+                           to the IANA-assigned well-known port value
+                           for 'netconf-ssh' (443) if no value is
+                           specified.";
+                      }
                     }
                   }
-                  uses sshc:ssh-client-grouping;
+                  container ssh-client-parameters {
+                    description
+                      "A wrapper around the SSH client parameters to
+                       avoid name collisions.";
+                    uses sshc:ssh-client-grouping;
+                  }
                 }
               }
               case tls {
@@ -195,23 +190,33 @@ module ietf-netconf-client {
                   description
                     "Specifies IP and TLS specific configuration
                      for the connection.";
-                  uses tcpc:tcp-client-grouping {
-                    refine "tcp-client-parameters/remote-port" {
-                      default "6513";
-                      description
-                        "The NETCONF client will attempt to connect
-                         to the IANA-assigned well-known port value
-                         for 'netconf-tls' (6513) if no value is
-                         specified.";
+                  container tcp-client-parameters {
+                    description
+                      "A wrapper around the TCP client parameters
+                       to avoid name collisions.";
+                    uses tcpc:tcp-client-grouping {
+                      refine "remote-port" {
+                        default "6513";
+                        description
+                          "The NETCONF client will attempt to connect
+                           to the IANA-assigned well-known port value
+                           for 'netconf-tls' (6513) if no value is
+                           specified.";
+                      }
                     }
                   }
-                  uses tlsc:tls-client-grouping {
-                    refine "tls-client-parameters/client-identity"
-                                                  + "/auth-type" {
-                      mandatory true;
-                      description
-                        "NETCONF/TLS clients MUST pass some
-                         authentication credentials.";
+                  container tls-client-parameters {
+                    description
+                      "A wrapper around the TLS client parameters
+                       to avoid name collisions.";
+                    uses tlsc:tls-client-grouping {
+                      refine "client-identity"
+                                                    + "/auth-type" {
+                        mandatory true;
+                        description
+                          "NETCONF/TLS clients MUST pass some
+                           authentication credentials.";
+                      }
                     }
                   }
                 }
@@ -234,9 +239,9 @@ module ietf-netconf-client {
                           to be maintained.";
                 description
                   "Maintain a persistent connection to the NETCONF
-                   server. If the connection goes down, immediately
-                   start trying to reconnect to it, using the
-                   reconnection strategy.
+                   server.  If the connection goes down, immediately
+                   start trying to reconnect to the NETCONF server,
+                   using the reconnection strategy.
 
                    This connection type minimizes any NETCONF server
                    to NETCONF client data-transfer delay, albeit at
@@ -245,24 +250,21 @@ module ietf-netconf-client {
             }
             case periodic-connection {
               container periodic {
-                must 'not (../../endpoints/endpoint/ssh/'
-                           + 'tcp-client-parameters/keepalives '
-                           + 'or ../../endpoints/endpoint/ssh/'
-                           + 'ssh-client-parameters/keepalives '
-                           + 'or ../../endpoints/endpoint/tls/'
-                           + 'tcp-client-parameters/keepalives '
-                           + 'or ../../endpoints/endpoint/tls/'
-                           + 'tls-client-parameters/keepalives)';
                 presence "Indicates that a periodic connection is
                           to be maintained.";
                 description
-                  "Periodically connect to the NETCONF server.  The
-                   NETCONF server should close the connection upon
-                   completing planned activities.
+                  "Periodically connect to the NETCONF server.
 
                    This connection type increases resource
                    utilization, albeit with increased delay in
-                   NETCONF server to NETCONF client interactions.";
+                   NETCONF server to NETCONF client interactions.
+                  
+                   The NETCONF client should close the underlying
+                   TCP connection upon completing planned activities.
+
+                   In the case that the previous connection is still
+                   active, establishing a new connection is NOT
+                   RECOMMENDED.";
                 leaf period {
                   type uint16;
                   units "minutes";
@@ -294,7 +296,7 @@ module ietf-netconf-client {
                     "Specifies the maximum number of seconds that
                      a NETCONF session may remain idle. A NETCONF
                      session will be dropped if it is idle for an
-                     interval longer than this number of seconds.
+                     interval longer then this number of seconds.
                      If set to zero, then the NETCONF client will
                      never drop a session because it is idle.";
                 }
@@ -354,7 +356,7 @@ module ietf-netconf-client {
     } // initiate
 
     container listen {
-      if-feature "listen";
+      if-feature "ssh-listen or tls-listen";
       presence "Enables client to accept call-home connections";
       description
         "Configures client accepting call-home TCP connections.";
@@ -391,16 +393,26 @@ module ietf-netconf-client {
               description
                 "SSH-specific listening configuration for inbound
                  connections.";
-              uses tcps:tcp-server-grouping {
-                refine "tcp-server-parameters/local-port" {
-                  default "4334";
-                  description
-                    "The NETCONF client will listen on the IANA-
-                     assigned well-known port for 'netconf-ch-ssh'
-                     (4334) if no value is specified.";
+              container tcp-server-parameters {
+                description
+                  "A wrapper around the TCP server parameters
+                   to avoid name collisions.";
+                uses tcps:tcp-server-grouping {
+                  refine "local-port" {
+                    default "4334";
+                    description
+                      "The NETCONF client will listen on the IANA-
+                       assigned well-known port for 'netconf-ch-ssh'
+                       (4334) if no value is specified.";
+                  }
                 }
               }
-              uses sshc:ssh-client-grouping;
+              container ssh-client-parameters {
+                description
+                  "A wrapper around the SSH client parameters
+                   to avoid name collisions.";
+                uses sshc:ssh-client-grouping;
+              }
             }
           }
           case tls {
@@ -409,22 +421,31 @@ module ietf-netconf-client {
               description
                 "TLS-specific listening configuration for inbound
                  connections.";
-              uses tcps:tcp-server-grouping {
-                refine "tcp-server-parameters/local-port" {
-                  default "4334";
-                  description
-                    "The NETCONF client will listen on the IANA-
-                     assigned well-known port for 'netconf-ch-ssh'
-                     (4334) if no value is specified.";
+              container tcp-server-parameters {
+                description
+                  "A wrapper around the TCP server parameters
+                   to avoid name collisions.";
+                uses tcps:tcp-server-grouping {
+                  refine "local-port" {
+                    default "4334";
+                    description
+                      "The NETCONF client will listen on the IANA-
+                        assigned well-known port for 'netconf-ch-ssh'
+                        (4334) if no value is specified.";
+                  }
                 }
               }
-              uses tlsc:tls-client-grouping {
-                refine
-                  "tls-client-parameters/client-identity/auth-type" {
-                  mandatory true;
-                  description
-                    "NETCONF/TLS clients MUST pass some
-                     authentication credentials.";
+              container tls-client-parameters {
+                description
+                  "A wrapper around the TLS client parameters
+                   to avoid name collisions.";
+                uses tlsc:tls-client-grouping {
+                  refine "client-identity/auth-type" {
+                    mandatory true;
+                    description
+                      "NETCONF/TLS clients MUST pass some
+                        authentication credentials.";
+                  }
                 }
               }
             }
