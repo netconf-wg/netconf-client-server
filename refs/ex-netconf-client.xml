@@ -29,8 +29,8 @@
                 </public-key>
               </client-identity>
               <server-authentication>
-                <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
-                <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
+                <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
+                <server-certs>explicitly-trusted-server-certs</server-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -62,8 +62,8 @@
                 </public-key>
               </client-identity>
               <server-authentication>
-                <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
-                <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
+                <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
+                <server-certs>explicitly-trusted-server-certs</server-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -102,9 +102,9 @@
             </public-key>
           </client-identity>
           <server-authentication>
-            <pinned-ca-certs>explicitly-trusted-server-ca-certs</pinned-ca-certs>
-            <pinned-server-certs>explicitly-trusted-server-certs</pinned-server-certs>
-            <pinned-ssh-host-keys>explicitly-trusted-ssh-host-keys</pinned-ssh-host-keys>
+            <ca-certs>explicitly-trusted-server-ca-certs</ca-certs>
+            <server-certs>explicitly-trusted-server-certs</server-certs>
+            <ssh-host-keys>explicitly-trusted-ssh-host-keys</ssh-host-keys>
           </server-authentication>
         </ssh-client-parameters>
       </ssh>

@@ -504,6 +504,14 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             </list>
           </t>
         </section>
+        <section title="12 to 13">
+          <t>
+            <list style="symbols">
+              <t>Updated to reflect changes in trust-anchors drafts
+                (e.g., s/trust-anchors/truststore/g + s/pinned.//)</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">

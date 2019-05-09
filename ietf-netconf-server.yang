@@ -218,7 +218,7 @@ module ietf-netconf-server {
                    avoid name collisions.";
                 uses tlss:tls-server-grouping {
                   refine "client-authentication" {
-                    //must 'pinned-ca-certs or pinned-client-certs';
+                    //must 'ca-certs or client-certs';
                     description
                       "NETCONF/TLS servers MUST validate client
                        certificates.";
@@ -342,7 +342,7 @@ module ietf-netconf-server {
                     uses tlss:tls-server-grouping {
                       refine "client-authentication" {
                         /* commented out since auth could be external
-                      must 'pinned-ca-certs or pinned-client-certs';
+                      must 'ca-certs or client-certs';
                       */
                         description
                           "NETCONF/TLS servers MUST validate client

@@ -49,8 +49,8 @@
           </server-identity>
           <client-authentication>
             <required/>
-            <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
-            <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+            <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
+            <client-certs>explicitly-trusted-client-certs</client-certs>
             <cert-maps>
               <cert-to-name>
                 <id>1</id>
@@ -168,8 +168,8 @@
               </server-identity>
               <client-authentication>
                 <required/>
-                <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
-                <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+                <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
+                <client-certs>explicitly-trusted-client-certs</client-certs>
                 <cert-maps>
                   <cert-to-name>
                     <id>1</id>
@@ -213,8 +213,8 @@
               </server-identity>
               <client-authentication>
                 <required/>
-                <pinned-ca-certs>explicitly-trusted-client-ca-certs</pinned-ca-certs>
-                <pinned-client-certs>explicitly-trusted-client-certs</pinned-client-certs>
+                <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
+                <client-certs>explicitly-trusted-client-certs</client-certs>
                 <cert-maps>
                   <cert-to-name>
                     <id>1</id>

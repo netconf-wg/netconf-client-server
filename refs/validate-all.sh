@@ -13,8 +13,8 @@ yanglint -p ../ ../ietf-netconf-server\@*.yang
 
 
 echo "Testing ex-netconf-client.xml..."
-yanglint -m -s ../ietf-*\@*.yang ietf-origin.yang ex-netconf-client.xml ../../trust-anchors/refs/ex-trust-anchors.xml ../../keystore/refs/ex-keystore.xml
+yanglint -m -s ../ietf-*\@*.yang ietf-origin.yang ex-netconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml
 
 echo "Testing ex-netconf-server.xml..."
-yanglint -m -s ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-netconf-server.xml ../../trust-anchors/refs/ex-trust-anchors.xml ../../keystore/refs/ex-keystore.xml
+yanglint -m -s ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-netconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml
 
