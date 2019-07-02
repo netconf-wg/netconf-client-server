@@ -512,6 +512,17 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             </list>
           </t>
         </section>
+        <section title="13 to 14">
+          <t>
+            <list style="symbols">
+              <t>Adjusting from change in TLS client model (removing the top-level
+                'certificate' container), by swapping refining-in a 'mandatory true'
+                statement with a 'must' statement outside the 'uses' statement.</t>
+              <t>Updated examples to reflect ietf-crypto-types change
+                (e.g., identities --&gt; enumerations)</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">

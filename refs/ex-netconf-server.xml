@@ -16,7 +16,7 @@
               <name>deployment-specific-certificate</name>
               <public-key>
                 <local-definition>
-                  <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
+                  <algorithm>rsa2048</algorithm>
                   <private-key>base64encodedvalue==</private-key>
                   <public-key>base64encodedvalue==</public-key>
                 </local-definition>
@@ -41,7 +41,7 @@
         <tls-server-parameters>
           <server-identity>
             <local-definition>
-              <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
+              <algorithm>rsa2048</algorithm>
               <private-key>base64encodedvalue==</private-key>
               <public-key>base64encodedvalue==</public-key>
               <cert>base64encodedvalue==</cert>
@@ -87,7 +87,7 @@
                   <name>deployment-specific-certificate</name>
                   <public-key>
                     <local-definition>
-                      <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
+                      <algorithm>rsa2048</algorithm>
                       <private-key>base64encodedvalue==</private-key>
                       <public-key>base64encodedvalue==</public-key>
                     </local-definition>
@@ -115,7 +115,7 @@
                   <name>deployment-specific-certificate</name>
                   <public-key>
                     <local-definition>
-                      <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
+                      <algorithm>rsa2048</algorithm>
                       <private-key>base64encodedvalue==</private-key>
                       <public-key>base64encodedvalue==</public-key>
                     </local-definition>
@@ -160,7 +160,7 @@
             <tls-server-parameters>
               <server-identity>
                 <local-definition>
-                  <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
+                  <algorithm>rsa2048</algorithm>
                   <private-key>base64encodedvalue==</private-key>
                   <public-key>base64encodedvalue==</public-key>
                   <cert>base64encodedvalue==</cert>
@@ -205,7 +205,7 @@
             <tls-server-parameters>
               <server-identity>
                 <local-definition>
-                  <algorithm xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">ct:rsa2048</algorithm>
+                  <algorithm>rsa2048</algorithm>
                   <private-key>base64encodedvalue==</private-key>
                   <public-key>base64encodedvalue==</public-key>
                   <cert>base64encodedvalue==</cert>
