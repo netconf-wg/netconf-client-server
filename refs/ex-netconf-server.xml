@@ -30,6 +30,9 @@
             <client-auth-defined-elsewhere/>
           </client-authentication>
         </ssh-server-parameters>
+        <netconf-server-parameters>
+          <!-- nothing to configure -->
+        </netconf-server-parameters>
       </ssh>
     </endpoint>
     <endpoint> <!-- listening for TLS sessions -->
@@ -49,8 +52,16 @@
           </server-identity>
           <client-authentication>
             <required/>
-            <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
-            <client-certs>explicitly-trusted-client-certs</client-certs>
+            <ca-certs>
+              <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+            </ca-certs>
+            <client-certs>
+              <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+            </client-certs>
+          </client-authentication>
+        </tls-server-parameters>
+        <netconf-server-parameters>
+          <client-identification>
             <cert-maps>
               <cert-to-name>
                 <id>1</id>
@@ -64,8 +75,8 @@
                 <name>scooby-doo</name>
               </cert-to-name>
             </cert-maps>
-          </client-authentication>
-        </tls-server-parameters>
+          </client-identification>
+        </netconf-server-parameters>
       </tls>
     </endpoint>
   </listen>
@@ -101,6 +112,9 @@
                 <client-auth-defined-elsewhere/>
               </client-authentication>
             </ssh-server-parameters>
+            <netconf-server-parameters>
+              <!-- nothing to configure -->
+            </netconf-server-parameters>
           </ssh>
         </endpoint>
         <endpoint>
@@ -129,6 +143,9 @@
                 <client-auth-defined-elsewhere/>
               </client-authentication>
             </ssh-server-parameters>
+            <netconf-server-parameters>
+              <!-- nothing to configure -->
+            </netconf-server-parameters>
           </ssh>
         </endpoint>
       </endpoints>
@@ -168,8 +185,20 @@
               </server-identity>
               <client-authentication>
                 <required/>
-                <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
-                <client-certs>explicitly-trusted-client-certs</client-certs>
+                <ca-certs>
+                  <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+                </ca-certs>
+                <client-certs>
+                  <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+                </client-certs>
+              </client-authentication>
+              <keepalives>
+                <max-wait>30</max-wait>
+                <max-attempts>3</max-attempts>
+              </keepalives>
+            </tls-server-parameters>
+            <netconf-server-parameters>
+              <client-identification>
                 <cert-maps>
                   <cert-to-name>
                     <id>1</id>
@@ -183,12 +212,8 @@
                     <name>scooby-doo</name>
                   </cert-to-name>
                 </cert-maps>
-              </client-authentication>
-              <keepalives>
-                <max-wait>30</max-wait>
-                <max-attempts>3</max-attempts>
-              </keepalives>
-            </tls-server-parameters>
+              </client-identification>
+            </netconf-server-parameters>
           </tls>
         </endpoint>
         <endpoint>
@@ -213,8 +238,20 @@
               </server-identity>
               <client-authentication>
                 <required/>
-                <ca-certs>explicitly-trusted-client-ca-certs</ca-certs>
-                <client-certs>explicitly-trusted-client-certs</client-certs>
+                <ca-certs>
+                  <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+                </ca-certs>
+                <client-certs>
+                  <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+                </client-certs>
+              </client-authentication>
+              <keepalives>
+                <max-wait>30</max-wait>
+                <max-attempts>3</max-attempts>
+              </keepalives>
+            </tls-server-parameters>
+            <netconf-server-parameters>
+              <client-identification>
                 <cert-maps>
                   <cert-to-name>
                     <id>1</id>
@@ -228,12 +265,8 @@
                     <name>scooby-doo</name>
                   </cert-to-name>
                 </cert-maps>
-              </client-authentication>
-              <keepalives>
-                <max-wait>30</max-wait>
-                <max-attempts>3</max-attempts>
-              </keepalives>
-            </tls-server-parameters>
+              </client-identification>
+            </netconf-server-parameters>
           </tls>
         </endpoint>
       </endpoints>

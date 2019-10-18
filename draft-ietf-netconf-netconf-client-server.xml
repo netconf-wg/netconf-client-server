@@ -145,11 +145,11 @@ INSERT_TEXT_FROM_FILE(refs/ex-netconf-client.xml)
           <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
           <t>
             <figure>
+              <preamble>&lt;CODE BEGINS&gt; file "ietf-netconf-client@YYYY-MM-DD.yang"</preamble>
               <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-client@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
-<CODE ENDS>
 ]]></artwork>
+              <postamble>&lt;CODE ENDS&gt;</postamble>
             </figure>
           </t>
         </section>
@@ -207,11 +207,11 @@ INSERT_TEXT_FROM_FILE(refs/ex-netconf-server.xml)
           <xref target="I-D.ietf-netconf-tls-client-server"/>.</t>
           <t>
             <figure>
+              <preamble>&lt;CODE BEGINS&gt; file "ietf-netconf-server@YYYY-MM-DD.yang"</preamble>
               <artwork><![CDATA[
-<CODE BEGINS> file "ietf-netconf-server@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
-<CODE ENDS>
 ]]></artwork>
+              <postamble>&lt;CODE ENDS&gt;</postamble>
             </figure>
           </t>
         </section>
@@ -520,6 +520,14 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
                 statement with a 'must' statement outside the 'uses' statement.</t>
               <t>Updated examples to reflect ietf-crypto-types change
                 (e.g., identities --&gt; enumerations)</t>
+            </list>
+          </t>
+        </section>
+        <section title="14 to 15">
+          <t>
+            <list style="symbols">
+              <t>Refactored both the client and server modules similar to how the ietf-restconf-server
+                module was refactored in -13 of that draft, and the ietf-restconf-client grouping.</t>
             </list>
           </t>
         </section>
