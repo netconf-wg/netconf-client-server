@@ -27,6 +27,13 @@ module ietf-netconf-server {
       "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
   }
 
+  import ietf-ssh-common {
+    prefix sshcmn;
+    revision-date YYYY-MM-DD; // stable grouping definitions
+    reference
+      "RFC BBBB: YANG Groupings for SSH Clients and SSH Servers";
+  }
+
   import ietf-ssh-server {
     prefix sshs;
     revision-date YYYY-MM-DD; // stable grouping definitions
@@ -51,6 +58,7 @@ module ietf-netconf-server {
      Author:   Gary Wu <mailto:garywu@cisco.com>
      Author:   Juergen Schoenwaelder
                <mailto:j.schoenwaelder@jacobs-university.de>";
+
   description
     "This module contains a collection of YANG definitions
      for configuring NETCONF servers.
@@ -141,28 +149,28 @@ module ietf-netconf-server {
        not do this itself so as to provide maximum flexibility
        to consuming models.";
 
-    container client-identification {
+    container client-identity-mappings {
+      if-feature
+        "tls-listen or tls-call-home or sshcmn:ssh-x509-certs";
       description
-        "Specifies a mapping through which clients MAY be identified
-         (i.e., the NETCONF username) from a supplied certificate.
-         Note that a client MAY alternatively be identified via an
-         HTTP-level authentication schema.  This configuration does
-         not necessitate clients send a certificate (that can be
-         controlled via the ietf-netconf-server module).";
-      container cert-maps {
-        when "../../../../tls";
-        uses x509c2n:cert-to-name;
-        description
-          "The cert-maps container is used by TLS-based NETCONF
-           servers (even if the TLS sessions are terminated
-           externally) to map the NETCONF client's presented
-           X.509 certificate to a NETCONF username.  If no
-           matching and valid cert-to-name list entry can be
-           found, then the NETCONF server MUST close the
-           connection, and MUST NOT accept NETCONF messages
-           over it.";
-        reference
-          "RFC 7407: A YANG Data Model for SNMP Configuration.";
+        "Specifies mappings through which NETCONF client X.509
+         certificates are used to determine a NETCONF username.
+         If no matching and valid cert-to-name list entry can be
+         found, then the NETCONF server MUST close the connection,
+         and MUST NOT accept NETCONF messages over it.";
+      reference
+        "RFC 7407: A YANG Data Model for SNMP Configuration.";
+      uses x509c2n:cert-to-name {
+        refine "cert-to-name/fingerprint" {
+          mandatory false;
+          description
+            "A 'fingerprint' value does not need to be specified
+             when the 'cert-to-name' mapping is independent of
+             fingerprint matching.  A 'cert-to-name' having no
+             fingerprint value will match any client certificate
+             and therefore should only be present at the end of
+             the user-ordered 'cert-to-name' list.";
+        }
       }
     }
   }
@@ -235,14 +243,16 @@ module ietf-netconf-server {
             description
               "A wrapper around the TLS server parameters to
                avoid name collisions.";
-            uses tlss:tls-server-grouping {
+            uses tlss:tls-server-grouping; /* {
+              FIXME: commented out since auth could also be external.
+                       ^-- need a better 'must' expression?
               refine "client-authentication" {
-                //must 'ca-certs or client-certs';
+              must 'ca-certs or client-certs';
                 description
                   "NETCONF/TLS servers MUST validate client
                    certificates.";
               }
-            }
+            }*/
           }
           container netconf-server-parameters {
             description
@@ -321,37 +331,18 @@ module ietf-netconf-server {
           }
           container tls-server-parameters {
             description
-              "A wrapper around the TLS server parameters
-               to avoid name collisions.";
-            uses tlss:tls-server-grouping {
+              "A wrapper around the TLS server parameters to
+               avoid name collisions.";
+            uses tlss:tls-server-grouping; /* {
+              FIXME: commented out since auth could also be external.
+                       ^-- need a better 'must' expression?
               refine "client-authentication" {
-                /* commented out since auth could be external
               must 'ca-certs or client-certs';
-              */
                 description
                   "NETCONF/TLS servers MUST validate client
                    certificates.";
               }
-              augment "client-authentication" {
-                description
-                  "Augments in the cert-to-name structure.";
-                container cert-maps {
-                  uses x509c2n:cert-to-name;
-                  description
-                    "The cert-maps container is used by a
-                     TLS-based NETCONF server to map the
-                     NETCONF client's presented X.509
-                     certificate to a NETCONF username.  If
-                     no matching and valid cert-to-name list
-                     entry can be found, then the NETCONF
-                     server MUST close the connection, and
-                     MUST NOT accept NETCONF messages over
-                     it.";
-                  reference
-                    "RFC WWWW: NETCONF over TLS, Section 7";
-                }
-              }
-            }
+            }*/
           }
           container netconf-server-parameters {
             description

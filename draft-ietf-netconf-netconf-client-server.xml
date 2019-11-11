@@ -531,6 +531,15 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             </list>
           </t>
         </section>
+        <section title="15 to 16">
+          <t>
+            <list style="symbols">
+              <t>Added refinement to make "cert-to-name/fingerprint" be mandatory false.</t>
+              <t>Commented out refinement to "tls-server-grouping/client-authentication"
+                until a better "must" expression is defined.</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">
