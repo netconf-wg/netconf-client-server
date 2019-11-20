@@ -12,26 +12,27 @@ module ietf-netconf-client {
   import ietf-tcp-client {
     prefix tcpc;
     reference
-      "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC BBBB: YANG Groupings for TCP Clients and TCP Servers";
   }
+
   import ietf-tcp-server {
     prefix tcps;
     reference
-      "RFC AAAA: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC BBBB: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-ssh-client {
     prefix sshc;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC BBBB: YANG Groupings for SSH Clients and SSH Servers";
+      "RFC CCCC: YANG Groupings for SSH Clients and SSH Servers";
   }
 
   import ietf-tls-client {
     prefix tlsc;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC CCCC: YANG Groupings for TLS Clients and TLS Servers";
+      "RFC DDDD: YANG Groupings for TLS Clients and TLS Servers";
   }
 
   organization

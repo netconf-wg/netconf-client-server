@@ -540,6 +540,15 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             </list>
           </t>
         </section>
+        <section title="16 to 17">
+          <t>
+            <list style="symbols">
+              <t>Updated examples to include the "*-key-format" nodes.</t>
+              <t>Updated examples to remove the "required" nodes.</t>
+              <t>Updated examples to remove the "client-auth-defined-elsewhere" nodes.</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">

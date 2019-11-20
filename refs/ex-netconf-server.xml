@@ -1,5 +1,6 @@
 <netconf-server
   xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server"
+  xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types"
   xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">
 
   <!-- endpoints to listen for NETCONF connections on -->
@@ -17,8 +18,10 @@
               <public-key>
                 <local-definition>
                   <algorithm>rsa2048</algorithm>
-                  <private-key>base64encodedvalue==</private-key>
+                  <public-key-format>ct:ssh-public-key-format</public-key-format>
                   <public-key>base64encodedvalue==</public-key>
+                  <private-key-format>ct:rsa-private-key-format</private-key-format>
+                  <private-key>base64encodedvalue==</private-key>
                 </local-definition>
               </public-key>
             </host-key>
@@ -27,7 +30,6 @@
             <supported-authentication-methods>
               <publickey/>
             </supported-authentication-methods>
-            <client-auth-defined-elsewhere/>
           </client-authentication>
         </ssh-server-parameters>
         <netconf-server-parameters>
@@ -46,14 +48,15 @@
             <certificate>
               <local-definition>
                 <algorithm>rsa2048</algorithm>
-                <private-key>base64encodedvalue==</private-key>
+                <public-key-format>ct:subject-public-key-info-format</public-key-format>
                 <public-key>base64encodedvalue==</public-key>
+                <private-key-format>ct:rsa-private-key-format</private-key-format>
+                <private-key>base64encodedvalue==</private-key>
                 <cert>base64encodedvalue==</cert>
               </local-definition>
             </certificate>
           </server-identity>
           <client-authentication>
-            <required/>
             <ca-certs>
               <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
             </ca-certs>
@@ -98,8 +101,10 @@
                   <public-key>
                     <local-definition>
                       <algorithm>rsa2048</algorithm>
-                      <private-key>base64encodedvalue==</private-key>
+                      <public-key-format>ct:ssh-public-key-format</public-key-format>
                       <public-key>base64encodedvalue==</public-key>
+                      <private-key-format>ct:rsa-private-key-format</private-key-format>
+                      <private-key>base64encodedvalue==</private-key>
                     </local-definition>
                   </public-key>
                 </host-key>
@@ -108,7 +113,6 @@
                 <supported-authentication-methods>
                   <publickey/>
                 </supported-authentication-methods>
-                <client-auth-defined-elsewhere/>
               </client-authentication>
             </ssh-server-parameters>
             <netconf-server-parameters>
@@ -129,8 +133,10 @@
                   <public-key>
                     <local-definition>
                       <algorithm>rsa2048</algorithm>
-                      <private-key>base64encodedvalue==</private-key>
+                      <public-key-format>ct:ssh-public-key-format</public-key-format>
                       <public-key>base64encodedvalue==</public-key>
+                      <private-key-format>ct:rsa-private-key-format</private-key-format>
+                      <private-key>base64encodedvalue==</private-key>
                     </local-definition>
                   </public-key>
                 </host-key>
@@ -139,7 +145,6 @@
                 <supported-authentication-methods>
                   <publickey/>
                 </supported-authentication-methods>
-                <client-auth-defined-elsewhere/>
               </client-authentication>
             </ssh-server-parameters>
             <netconf-server-parameters>
@@ -178,14 +183,15 @@
                 <certificate>
                   <local-definition>
                     <algorithm>rsa2048</algorithm>
-                    <private-key>base64encodedvalue==</private-key>
+                    <public-key-format>ct:subject-public-key-info-format</public-key-format>
                     <public-key>base64encodedvalue==</public-key>
+                    <private-key-format>ct:rsa-private-key-format</private-key-format>
+                    <private-key>base64encodedvalue==</private-key>
                     <cert>base64encodedvalue==</cert>
                   </local-definition>
                 </certificate>
               </server-identity>
               <client-authentication>
-                <required/>
                 <ca-certs>
                   <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
                 </ca-certs>
@@ -230,14 +236,15 @@
                 <certificate>
                   <local-definition>
                     <algorithm>rsa2048</algorithm>
-                    <private-key>base64encodedvalue==</private-key>
+                    <public-key-format>ct:subject-public-key-info-format</public-key-format>
                     <public-key>base64encodedvalue==</public-key>
+                    <private-key-format>ct:rsa-private-key-format</private-key-format>
+                    <private-key>base64encodedvalue==</private-key>
                     <cert>base64encodedvalue==</cert>
                   </local-definition>
                 </certificate>
               </server-identity>
               <client-authentication>
-                <required/>
                 <ca-certs>
                   <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
                 </ca-certs>
