@@ -149,7 +149,7 @@ module ietf-netconf-client {
                 description
                   "The NETCONF client will attempt to connect
                    to the IANA-assigned well-known port value
-                   for 'netconf-ssh' (443) if no value is
+                   for 'netconf-ssh' (830) if no value is
                    specified.";
               }
             }
