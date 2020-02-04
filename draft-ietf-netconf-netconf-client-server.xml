@@ -549,6 +549,13 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             </list>
           </t>
         </section>
+        <section title="17 to 18">
+          <t>
+            <list style="symbols">
+              <t>Updated examples to reflect new "bag" addition to truststore.</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">

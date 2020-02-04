@@ -58,10 +58,10 @@
           </server-identity>
           <client-authentication>
             <ca-certs>
-              <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+              <truststore-reference>trusted-client-ca-certs</truststore-reference>
             </ca-certs>
             <client-certs>
-              <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+              <truststore-reference>trusted-client-ee-certs</truststore-reference>
             </client-certs>
           </client-authentication>
         </tls-server-parameters>
@@ -193,10 +193,10 @@
               </server-identity>
               <client-authentication>
                 <ca-certs>
-                  <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+                  <truststore-reference>trusted-client-ca-certs</truststore-reference>
                 </ca-certs>
                 <client-certs>
-                  <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+                  <truststore-reference>trusted-client-ee-certs</truststore-reference>
                 </client-certs>
               </client-authentication>
               <keepalives>
@@ -246,10 +246,10 @@
               </server-identity>
               <client-authentication>
                 <ca-certs>
-                  <truststore-reference>explicitly-trusted-client-ca-certs</truststore-reference>
+                  <truststore-reference>trusted-client-ca-certs</truststore-reference>
                 </ca-certs>
                 <client-certs>
-                  <truststore-reference>explicitly-trusted-client-certs</truststore-reference>
+                  <truststore-reference>trusted-client-ee-certs</truststore-reference>
                 </client-certs>
               </client-authentication>
               <keepalives>

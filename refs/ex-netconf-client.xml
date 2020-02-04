@@ -33,10 +33,10 @@
               </client-identity>
               <server-authentication>
                 <ca-certs>
-                  <truststore-reference>explicitly-trusted-server-ca-certs</truststore-reference>
+                  <truststore-reference>trusted-server-ca-certs</truststore-reference>
                 </ca-certs>
                 <server-certs>
-                  <truststore-reference>explicitly-trusted-server-certs</truststore-reference>
+                  <truststore-reference>trusted-server-ee-certs</truststore-reference>
                 </server-certs>
               </server-authentication>
               <keepalives>
@@ -75,10 +75,10 @@
               </client-identity>
               <server-authentication>
                 <ca-certs>
-                  <truststore-reference>explicitly-trusted-server-ca-certs</truststore-reference>
+                  <truststore-reference>trusted-server-ca-certs</truststore-reference>
                 </ca-certs>
                 <server-certs>
-                  <truststore-reference>explicitly-trusted-server-certs</truststore-reference>
+                  <truststore-reference>trusted-server-ee-certs</truststore-reference>
                 </server-certs>
               </server-authentication>
               <keepalives>
@@ -124,13 +124,13 @@
           </client-identity>
           <server-authentication>
             <ca-certs>
-              <truststore-reference>explicitly-trusted-server-ca-certs</truststore-reference>
+              <truststore-reference>trusted-server-ca-certs</truststore-reference>
             </ca-certs>
             <server-certs>
-              <truststore-reference>explicitly-trusted-server-certs</truststore-reference>
+              <truststore-reference>trusted-server-ee-certs</truststore-reference>
             </server-certs>
             <ssh-host-keys>
-              <truststore-reference>explicitly-trusted-ssh-host-keys</truststore-reference>
+              <truststore-reference>trusted-ssh-public-keys</truststore-reference>
             </ssh-host-keys>
           </server-authentication>
         </ssh-client-parameters>
