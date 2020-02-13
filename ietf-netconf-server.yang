@@ -243,16 +243,14 @@ module ietf-netconf-server {
             description
               "A wrapper around the TLS server parameters to
                avoid name collisions.";
-            uses tlss:tls-server-grouping; /* {
-              FIXME: commented out since auth could also be external.
-                       ^-- need a better 'must' expression?
+            uses tlss:tls-server-grouping {
               refine "client-authentication" {
               must 'ca-certs or client-certs';
                 description
                   "NETCONF/TLS servers MUST validate client
                    certificates.";
               }
-            }*/
+            }
           }
           container netconf-server-parameters {
             description
