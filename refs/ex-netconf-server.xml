@@ -94,6 +94,11 @@
           <ssh>
             <tcp-client-parameters>
               <remote-address>east.config-mgr.example.com</remote-address>
+              <keepalives>
+                <idle-time>15</idle-time>
+                <max-probes>3</max-probes>
+                <probe-interval>30</probe-interval>
+              </keepalives>
             </tcp-client-parameters>
             <ssh-server-parameters>
               <server-identity>

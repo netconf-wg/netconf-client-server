@@ -561,6 +561,8 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             <list style="symbols">
               <t>Updated examples to remove the 'algorithm' nodes.</t>
               <t>Updated examples to reflect the new TLS keepalives structure.</t>
+              <t>Added keepalives to the tcp-client-parameters section in the netconf-server SSH-based call-home example.</t>
+              <t>Added a TLS-based call-home example to the netconf-client example.</t>
             </list>
           </t>
         </section>
