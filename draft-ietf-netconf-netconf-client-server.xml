@@ -556,15 +556,35 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree.txt)
             </list>
           </t>
         </section>
+        <section title="18 to 19">
+          <t>
+            <list style="symbols">
+              <t>Updated examples to remove the 'algorithm' nodes.</t>
+              <t>Updated examples to reflect the new TLS keepalives structure.</t>
+            </list>
+          </t>
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">
         <t>The authors would like to thank for following for
         lively discussions on list and in the halls (ordered
-        by last name): Andy Bierman, Martin Bjorklund, Benoit Claise, Ramkumar Dhanapal,
-        Mehmet Ersue, Balázs Kovács, David Lamparter, Alan Luchuk, Ladislav Lhotka,
-        Radek Krejci, Tom Petch, Juergen Schoenwaelder, Phil Shafer, Sean Turner, and
-        Bert Wijnen.</t>
+        by last name):
+        Andy Bierman,
+        Martin Bjorklund,
+        Benoit Claise,
+        Ramkumar Dhanapal,
+        Mehmet Ersue,
+        Balázs Kovács,
+        David Lamparter,
+        Ladislav Lhotka,
+        Alan Luchuk,
+        Radek Krejci,
+        Tom Petch,
+        Juergen Schoenwaelder,
+        Phil Shafer,
+        Sean Turner,
+        and Bert Wijnen.</t>
      </section>
 
   </back>

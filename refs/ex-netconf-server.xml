@@ -17,7 +17,6 @@
               <name>deployment-specific-certificate</name>
               <public-key>
                 <local-definition>
-                  <algorithm>rsa2048</algorithm>
                   <public-key-format>ct:ssh-public-key-format</public-key-format>
                   <public-key>base64encodedvalue==</public-key>
                   <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -47,7 +46,6 @@
           <server-identity>
             <certificate>
               <local-definition>
-                <algorithm>rsa2048</algorithm>
                 <public-key-format>ct:subject-public-key-info-format</public-key-format>
                 <public-key>base64encodedvalue==</public-key>
                 <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -64,6 +62,9 @@
               <truststore-reference>trusted-client-ee-certs</truststore-reference>
             </client-certs>
           </client-authentication>
+          <keepalives>
+            <peer-allowed-to-send/>
+          </keepalives>
         </tls-server-parameters>
         <netconf-server-parameters>
           <client-identity-mappings>
@@ -100,7 +101,6 @@
                   <name>deployment-specific-certificate</name>
                   <public-key>
                     <local-definition>
-                      <algorithm>rsa2048</algorithm>
                       <public-key-format>ct:ssh-public-key-format</public-key-format>
                       <public-key>base64encodedvalue==</public-key>
                       <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -132,7 +132,6 @@
                   <name>deployment-specific-certificate</name>
                   <public-key>
                     <local-definition>
-                      <algorithm>rsa2048</algorithm>
                       <public-key-format>ct:ssh-public-key-format</public-key-format>
                       <public-key>base64encodedvalue==</public-key>
                       <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -182,7 +181,6 @@
               <server-identity>
                 <certificate>
                   <local-definition>
-                    <algorithm>rsa2048</algorithm>
                     <public-key-format>ct:subject-public-key-info-format</public-key-format>
                     <public-key>base64encodedvalue==</public-key>
                     <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -200,8 +198,10 @@
                 </client-certs>
               </client-authentication>
               <keepalives>
-                <max-wait>30</max-wait>
-                <max-attempts>3</max-attempts>
+                <test-peer-aliveness>
+                  <max-wait>30</max-wait>
+                  <max-attempts>3</max-attempts>
+                </test-peer-aliveness>
               </keepalives>
             </tls-server-parameters>
             <netconf-server-parameters>
@@ -235,7 +235,6 @@
               <server-identity>
                 <certificate>
                   <local-definition>
-                    <algorithm>rsa2048</algorithm>
                     <public-key-format>ct:subject-public-key-info-format</public-key-format>
                     <public-key>base64encodedvalue==</public-key>
                     <private-key-format>ct:rsa-private-key-format</private-key-format>
@@ -253,8 +252,10 @@
                 </client-certs>
               </client-authentication>
               <keepalives>
-                <max-wait>30</max-wait>
-                <max-attempts>3</max-attempts>
+                <test-peer-aliveness>
+                  <max-wait>30</max-wait>
+                  <max-attempts>3</max-attempts>
+                </test-peer-aliveness>
               </keepalives>
             </tls-server-parameters>
             <netconf-server-parameters>
