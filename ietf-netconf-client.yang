@@ -504,9 +504,8 @@ module ietf-netconf-client {
     } // listen
   } // netconf-client-app-grouping
 
-  // Protocol accessible node, for servers that implement this
-  // module.
-
+  // Protocol accessible node, for servers that implement
+  // this module.
   container netconf-client {
     uses netconf-client-app-grouping;
     description

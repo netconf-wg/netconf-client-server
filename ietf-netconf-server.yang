@@ -573,9 +573,8 @@ module ietf-netconf-server {
     } // container call-home
   } // grouping netconf-server-app-grouping
 
-  // Protocol accessible node, for servers that implement this
-  // module.
-
+  // Protocol accessible node, for servers that implement
+  // this module.
   container netconf-server {
     uses netconf-server-app-grouping;
     description
