@@ -34,9 +34,9 @@
                 <ca-certs>
                   <truststore-reference>trusted-server-ca-certs</truststore-reference>
                 </ca-certs>
-                <server-certs>
+                <ee-certs>
                   <truststore-reference>trusted-server-ee-certs</truststore-reference>
-                </server-certs>
+                </ee-certs>
               </server-authentication>
               <keepalives>
                 <max-wait>30</max-wait>
@@ -75,9 +75,9 @@
                 <ca-certs>
                   <truststore-reference>trusted-server-ca-certs</truststore-reference>
                 </ca-certs>
-                <server-certs>
+                <ee-certs>
                   <truststore-reference>trusted-server-ee-certs</truststore-reference>
-                </server-certs>
+                </ee-certs>
               </server-authentication>
               <keepalives>
                 <test-peer-aliveness>
@@ -125,9 +125,9 @@
             <ca-certs>
               <truststore-reference>trusted-server-ca-certs</truststore-reference>
             </ca-certs>
-            <server-certs>
+            <ee-certs>
               <truststore-reference>trusted-server-ee-certs</truststore-reference>
-            </server-certs>
+            </ee-certs>
             <ssh-host-keys>
               <truststore-reference>trusted-ssh-public-keys</truststore-reference>
             </ssh-host-keys>
@@ -160,9 +160,9 @@
             <ca-certs>
               <truststore-reference>trusted-server-ca-certs</truststore-reference>
             </ca-certs>
-            <server-certs>
+            <ee-certs>
               <truststore-reference>trusted-server-ee-certs</truststore-reference>
-            </server-certs>
+            </ee-certs>
           </server-authentication>
           <keepalives>
             <peer-allowed-to-send/>

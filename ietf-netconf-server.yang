@@ -18,34 +18,34 @@ module ietf-netconf-server {
   import ietf-tcp-client {
     prefix tcpc;
     reference
-      "RFC BBBB: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC DDDD: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-tcp-server {
     prefix tcps;
     reference
-      "RFC BBBB: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC DDDD: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-ssh-common {
     prefix sshcmn;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC CCCC: YANG Groupings for SSH Clients and SSH Servers";
+      "RFC EEEE: YANG Groupings for SSH Clients and SSH Servers";
   }
 
   import ietf-ssh-server {
     prefix sshs;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC CCCC: YANG Groupings for SSH Clients and SSH Servers";
+      "RFC EEEE: YANG Groupings for SSH Clients and SSH Servers";
   }
 
   import ietf-tls-server {
     prefix tlss;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC DDDD: YANG Groupings for TLS Clients and TLS Servers";
+      "RFC FFFF: YANG Groupings for TLS Clients and TLS Servers";
   }
 
   organization
@@ -63,7 +63,7 @@ module ietf-netconf-server {
     "This module contains a collection of YANG definitions
      for configuring NETCONF servers.
 
-     Copyright (c) 2019 IETF Trust and the persons identified
+     Copyright (c) 2020 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -73,8 +73,8 @@ module ietf-netconf-server {
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
+     This version of this YANG module is part of RFC HHHH
+     (https://www.rfc-editor.org/info/rfcHHHH); see the RFC
      itself for full legal notices.;
 
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
@@ -88,7 +88,7 @@ module ietf-netconf-server {
     description
       "Initial version";
     reference
-      "RFC XXXX: NETCONF Client and Server Models";
+      "RFC HHHH: NETCONF Client and Server Models";
   }
 
   // Features
@@ -245,10 +245,17 @@ module ietf-netconf-server {
                avoid name collisions.";
             uses tlss:tls-server-grouping {
               refine "client-authentication" {
-              must 'ca-certs or client-certs';
+              must 'ca-certs or ee-certs';
                 description
                   "NETCONF/TLS servers MUST validate client
-                   certificates.";
+                   certificates.  This configures certificates
+                   at the socket-level (i.e. bags), more
+                   discriminating client-certificate checks
+                   SHOULD be implemented by the application.";
+                reference
+                  "RFC 7589:
+                    Using the NETCONF Protocol over Transport Layer
+                    Security (TLS) with Mutual X.509 Authentication";
               }
             }
           }
@@ -331,16 +338,21 @@ module ietf-netconf-server {
             description
               "A wrapper around the TLS server parameters to
                avoid name collisions.";
-            uses tlss:tls-server-grouping; /* {
-              FIXME: commented out since auth could also be external.
-                       ^-- need a better 'must' expression?
+            uses tlss:tls-server-grouping {
               refine "client-authentication" {
-              must 'ca-certs or client-certs';
+              must 'ca-certs or ee-certs';
                 description
                   "NETCONF/TLS servers MUST validate client
-                   certificates.";
+                   certificates.  This configures certificates
+                   at the socket-level (i.e. bags), more
+                   discriminating client-certificate checks
+                   SHOULD be implemented by the application.";
+                reference
+                  "RFC 7589:
+                    Using the NETCONF Protocol over Transport Layer
+                    Security (TLS) with Mutual X.509 Authentication";
               }
-            }*/
+            }
           }
           container netconf-server-parameters {
             description

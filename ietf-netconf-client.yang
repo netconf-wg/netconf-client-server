@@ -12,27 +12,27 @@ module ietf-netconf-client {
   import ietf-tcp-client {
     prefix tcpc;
     reference
-      "RFC BBBB: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC DDDD: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-tcp-server {
     prefix tcps;
     reference
-      "RFC BBBB: YANG Groupings for TCP Clients and TCP Servers";
+      "RFC DDDD: YANG Groupings for TCP Clients and TCP Servers";
   }
 
   import ietf-ssh-client {
     prefix sshc;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC CCCC: YANG Groupings for SSH Clients and SSH Servers";
+      "RFC EEEE: YANG Groupings for SSH Clients and SSH Servers";
   }
 
   import ietf-tls-client {
     prefix tlsc;
     revision-date YYYY-MM-DD; // stable grouping definitions
     reference
-      "RFC DDDD: YANG Groupings for TLS Clients and TLS Servers";
+      "RFC FFFF: YANG Groupings for TLS Clients and TLS Servers";
   }
 
   organization
@@ -48,7 +48,7 @@ module ietf-netconf-client {
     "This module contains a collection of YANG definitions
      for configuring NETCONF clients.
 
-     Copyright (c) 2019 IETF Trust and the persons identified
+     Copyright (c) 2020 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -58,8 +58,8 @@ module ietf-netconf-client {
      Legal Provisions Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
+     This version of this YANG module is part of RFC HHHH
+     (https://www.rfc-editor.org/info/rfcHHHH); see the RFC
      itself for full legal notices.;
 
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
@@ -73,7 +73,7 @@ module ietf-netconf-client {
     description
       "Initial version";
     reference
-      "RFC XXXX: NETCONF Client and Server Models";
+      "RFC HHHH: NETCONF Client and Server Models";
   }
 
   // Features
@@ -214,7 +214,11 @@ module ietf-netconf-client {
   grouping netconf-client-listen-stack-grouping {
     description
       "A reusable grouping for configuring a NETCONF client
-       'listen' protocol stack for a single connection.";
+       'listen' protocol stack for a single connection.  The
+       'listen' stack supports call home connections, as
+       described in RFC 8071";
+    reference
+      "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
     choice transport {
       mandatory true;
       description
@@ -471,7 +475,7 @@ module ietf-netconf-client {
       if-feature "ssh-listen or tls-listen";
       presence "Enables client to accept call-home connections";
       description
-        "Configures client accepting call-home TCP connections.";
+        "Configures the client to accept call-home TCP connections.";
       leaf idle-timeout {
         type uint16;
         units "seconds";
