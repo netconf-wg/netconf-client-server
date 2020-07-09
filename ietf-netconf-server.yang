@@ -151,7 +151,7 @@ module ietf-netconf-server {
 
     container client-identity-mappings {
       if-feature
-        "tls-listen or tls-call-home or sshcmn:ssh-x509-certs";
+        "(tls-listen or tls-call-home) and (sshcmn:ssh-x509-certs)";
       description
         "Specifies mappings through which NETCONF client X.509
          certificates are used to determine a NETCONF username.

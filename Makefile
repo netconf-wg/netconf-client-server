@@ -37,10 +37,12 @@ idnits: $(next).txt
 
 clean:
 	-rm -f $(draft)-[0-9][0-9].xml
+	-rm -f $(draft)-[0-9][0-9].v2v3.xml
 	-rm -f $(draft)-[0-9][0-9].txt
 	-rm -f $(draft)-[0-9][0-9].html
 	-rm -f ietf-*\@20*.yang
 	-rm -f iana-*\@20*.yang
+	-rm -f metadata.min.js
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 endif
@@ -66,7 +68,8 @@ $(next).xml: $(draft).xml ietf-netconf-client.yang ietf-netconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-netconf-server.yang > ietf-netconf-server\@$(shell date +%Y-%m-%d).yang
 	cd refs && ./validate-all.sh && ./gen-trees.sh && cd ..
 	./.insert-figures.sh $@ > tmp && mv tmp $@
-	rm refs/*-tree*.txt
+	rm refs/*-tree*.txt refs/tree-*.txt
+	xml2rfc --v2v3 $@
 
 
 .INTERMEDIATE: $(draft).xml
@@ -77,10 +80,10 @@ $(next).xml: $(draft).xml ietf-netconf-client.yang ietf-netconf-server.yang
 	$(oxtradoc) -m outline-to-xml -n "$@" $< > $@
 
 %.txt: %.xml
-	$(xml2rfc) $< -o $@ --text
+	$(xml2rfc) --v3 $< -o $@ --text
 
 %.html: %.xml
-	$(xml2rfc) $< -o $@ --html
+	$(xml2rfc) --v3 $< -o $@ --html
 
 
 ### Below this deals with updating gh-pages
