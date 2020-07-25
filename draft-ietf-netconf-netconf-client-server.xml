@@ -617,7 +617,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
       </section>
 
       <section title="IANA Considerations">
-        <section title="The IETF XML Registry">
+        <section title='The "IETF XML" Registry'>
           <t>This document registers two URIs in the "ns" subregistry of the IETF XML 
           Registry <xref target="RFC3688"/>.  Following the format in 
           <xref target="RFC3688"/>, the following registrations are
@@ -636,7 +636,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </figure>
           </t>
         </section>
-        <section title="The YANG Module Names Registry">
+        <section title='The "YANG Module Names" Registry'>
           <t>This document registers two YANG modules in the
           YANG Module Names registry <xref target="RFC6020"/>.
           Following the format in <xref target="RFC6020"/>, the
@@ -892,6 +892,15 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
               <t>Expanded "Data Model Overview section(s) [remove "wall" of tree diagrams].</t>
               <t>Removed expanded tree diagrams that were listed in the Appendix.</t>
               <t>Updated the Security Considerations section.</t>
+            </list>
+          </t>
+        </section>
+        <section title="20 to 21">
+          <t>
+            <list style="symbols">
+              <t>Cleaned up titles in the IANA Considerations section</t>
+      
+              <t>SUBMISSION PENDING!...</t>
             </list>
           </t>
         </section>
