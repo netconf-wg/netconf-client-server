@@ -92,6 +92,7 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
       </section>
 
       <section title="The &quot;ietf-netconf-client&quot; Module" anchor="netconf-client-model">
+
         <t>The NETCONF client model presented in this section supports
         both clients initiating connections to servers, as well as
         clients listening for connections from servers calling home,
@@ -102,6 +103,9 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
         NETCONF client supports.</t>
 
         <section title="Data Model Overview" anchor="netconf-client-tree">
+
+          <t>This section provides an overview of the "ietf-netconf-client"
+            module in terms of its features and groupings.</t>
 
           <section title="Features" anchor="client-features" toc="exclude">
             <t>The following diagram lists all the "feature" statements
@@ -117,6 +121,10 @@ Features:
 ]]></artwork>
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
           </section>
 
           <section title="Groupings" toc="exclude">
@@ -133,6 +141,10 @@ Groupings:
 ]]></artwork> 
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
             <t>Each of these groupings are presented in the following subsections.</t>
 
             <section title="The &quot;netconf-client-grouping&quot; Grouping" anchor="netconf-client-grouping">
@@ -258,7 +270,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-app-grouping.no-expand.txt)
           </section>
 
           <section title="Protocol-accessible Nodes" toc="exclude">
-            <t>The following diagram lists all the protocol-accessible nodes
+            <t>The following tree diagram <xref target="RFC8340"/> lists all the protocol-accessible nodes
               defined in the "ietf-netconf-client" module:</t>
             <t>
               <figure>
@@ -321,6 +333,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
 
 
       <section title="The &quot;ietf-netconf-server&quot; Module" anchor="netconf-server-model">
+
         <t>The NETCONF server model presented in this section supports
         both listening for connections as well as initiating call-home
         connections, using either the SSH and TLS transport protocols.</t>
@@ -330,6 +343,9 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
         NETCONF server supports.</t>
 
         <section title="Data Model Overview" anchor="netconf-server-tree">
+
+          <t>This section provides an overview of the "ietf-netconf-server"
+            module in terms of its features and groupings.</t>
 
           <section title="Features" anchor="server-features" toc="exclude">
             <t>The following diagram lists all the "feature" statements
@@ -345,6 +361,10 @@ Features:
 ]]></artwork>
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
           </section>
 
           <section title="Groupings" toc="exclude">
@@ -361,6 +381,10 @@ Groupings:
 ]]></artwork> 
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
             <t>Each of these groupings are presented in the following subsections.</t>
 
             <section title="The &quot;netconf-server-grouping&quot; Grouping" anchor="netconf-server-grouping">
@@ -491,7 +515,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-app-grouping.no-expand.txt)
           </section>
 
           <section title="Protocol-accessible Nodes" toc="exclude">
-            <t>The following diagram lists all the protocol-accessible nodes
+            <t>The following tree diagram <xref target="RFC8340"/> lists all the protocol-accessible nodes
               defined in the "ietf-netconf-server" module:</t>
             <t>
               <figure>
@@ -500,6 +524,10 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree-no-expand.txt)
 ]]></artwork>
               </figure>
             </t>
+            <aside>
+              <t>The diagram above uses syntax that is similar to but not
+                defined in <xref target="RFC8340"/>.</t>
+            </aside>
             <t>Comments:</t>
             <ul>
               <li>Protocol-accessible nodes are those nodes that are accessible
@@ -640,7 +668,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>This document registers two YANG modules in the
           YANG Module Names registry <xref target="RFC6020"/>.
           Following the format in <xref target="RFC6020"/>, the
-          the following registrations are requested:</t>
+          following registrations are requested:</t>
           <t>
             <figure>
                 <artwork><![CDATA[
@@ -673,10 +701,10 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.7589.xml"?>
         <?rfc include="reference.RFC.7950.xml"?>
         <?rfc include="reference.RFC.8174.xml"?>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-keystore.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-tcp-client-server.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-ssh-client-server.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-tls-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-keystore.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-tcp-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-ssh-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-tls-client-server.xml"/>
       </references>
 
       <references title="Informative References">
@@ -686,11 +714,11 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.8340.xml"?>
         <?rfc include="reference.RFC.8341.xml"?>
         <?rfc include="reference.RFC.8342.xml"?>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-trust-anchors.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-netconf-client-server.xml"/>
-        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netconf-restconf-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-trust-anchors.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-netconf-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-restconf-client-server.xml"/>
       </references>
 
       <section title="Change Log" removeInRFC="true" anchor="change-log">
@@ -899,8 +927,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>
             <list style="symbols">
               <t>Cleaned up titles in the IANA Considerations section</t>
-      
-              <t>SUBMISSION PENDING!...</t>
+              <t>Fixed issues found by the SecDir review of the "keystore" draft.</t>
             </list>
           </t>
         </section>
