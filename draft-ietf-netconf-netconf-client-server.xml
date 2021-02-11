@@ -128,23 +128,13 @@ Features:
           </section>
 
           <section title="Groupings" toc="exclude">
-            <t>The following diagram lists all the "grouping" statements
-              defined in the "ietf-netconf-client" module:</t>
-            <t>
-              <figure>
-                <artwork><![CDATA[
-Groupings:
-  +-- netconf-client-grouping
-  +-- netconf-client-initiate-stack-grouping
-  +-- netconf-client-listen-stack-grouping
-  +-- netconf-client-app-grouping
-]]></artwork> 
-              </figure>
-            </t>
-            <aside>
-              <t>The diagram above uses syntax that is similar to but not
-                defined in <xref target="RFC8340"/>.</t>
-            </aside>
+            <t>The "ietf-netconf-client" module defines the following "grouping" statements:</t>
+            <ul spacing="compact">
+              <li>netconf-client-grouping</li>
+              <li>netconf-client-initiate-stack-grouping</li>
+              <li>netconf-client-listen-stack-grouping</li>
+              <li>netconf-client-app-grouping</li>
+            </ul>
             <t>Each of these groupings are presented in the following subsections.</t>
 
             <section title="The &quot;netconf-client-grouping&quot; Grouping" anchor="netconf-client-grouping">
@@ -368,23 +358,13 @@ Features:
           </section>
 
           <section title="Groupings" toc="exclude">
-            <t>The following diagram lists all the "grouping" statements
-              defined in the "ietf-netconf-server" module:</t>
-            <t>
-              <figure>
-                <artwork><![CDATA[
-Groupings:
-  +-- netconf-server-grouping
-  +-- netconf-server-listen-stack-grouping
-  +-- netconf-server-callhome-stack-grouping
-  +-- netconf-server-app-grouping
-]]></artwork> 
-              </figure>
-            </t>
-            <aside>
-              <t>The diagram above uses syntax that is similar to but not
-                defined in <xref target="RFC8340"/>.</t>
-            </aside>
+            <t>The "ietf-netconf-server" module defines the following "grouping" statements:</t>
+            <ul spacing="compact">
+              <li>netconf-server-grouping</li>
+              <li>netconf-server-listen-stack-grouping</li>
+              <li>netconf-server-callhome-stack-grouping</li>
+              <li>netconf-server-app-grouping</li>
+            </ul>
             <t>Each of these groupings are presented in the following subsections.</t>
 
             <section title="The &quot;netconf-server-grouping&quot; Grouping" anchor="netconf-server-grouping">
@@ -652,15 +632,15 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           requested:</t>
           <t>
             <figure>
-                <artwork><![CDATA[
+                <artwork>
    URI: urn:ietf:params:xml:ns:yang:ietf-netconf-client
-   Registrant Contact: The NETCONF WG of the IETF.
+   Registrant Contact: The IESG
    XML: N/A, the requested URI is an XML namespace.
 
    URI: urn:ietf:params:xml:ns:yang:ietf-netconf-server
-   Registrant Contact: The NETCONF WG of the IETF.
+   Registrant Contact: The IESG
    XML: N/A, the requested URI is an XML namespace.
-]]></artwork>
+</artwork>
             </figure>
           </t>
         </section>
@@ -931,6 +911,22 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
+        <section title="21 to 22">
+          <t>
+            <list style="symbols">  
+              <t>Addressed comments raised by YANG Doctor in the ct/ts/ks drafts.</t>
+            </list>
+          </t>
+        </section>
+        <!--
+        <section title="22 to 23">
+          <t>
+            <list style="symbols">  
+              <t>SUBMISSION PENDING</t>
+            </list>
+          </t>
+        </section>
+        -->
       </section>
 
       <section title="Acknowledgements" numbered="no">
