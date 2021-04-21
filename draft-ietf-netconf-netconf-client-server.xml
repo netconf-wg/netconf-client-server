@@ -81,8 +81,8 @@
 INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
 
         <section title="Adherence to the NMDA">
-          <t>This document in compliant with the Network Management Datastore 
-            Architecture (NMDA) <xref target="RFC8342"/>.  For instance, as 
+          <t>This document is compliant with the Network Management Datastore
+            Architecture (NMDA) <xref target="RFC8342"/>.  For instance, as
             described in <xref target="I-D.ietf-netconf-trust-anchors"/> and
             <xref target="I-D.ietf-netconf-keystore"/>, trust anchors and keys
             installed during manufacturing are expected to appear

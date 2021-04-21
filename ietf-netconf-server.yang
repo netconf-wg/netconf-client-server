@@ -63,7 +63,7 @@ module ietf-netconf-server {
     "This module contains a collection of YANG definitions
      for configuring NETCONF servers.
 
-     Copyright (c) 2020 IETF Trust and the persons identified
+     Copyright (c) 2021 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -151,7 +151,7 @@ module ietf-netconf-server {
 
     container client-identity-mappings {
       if-feature
-        "(tls-listen or tls-call-home) and (sshcmn:ssh-x509-certs)";
+        "tls-listen or tls-call-home or sshcmn:ssh-x509-certs";
       description
         "Specifies mappings through which NETCONF client X.509
          certificates are used to determine a NETCONF username.
