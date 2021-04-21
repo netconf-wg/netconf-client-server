@@ -150,8 +150,6 @@ module ietf-netconf-server {
        to consuming models.";
 
     container client-identity-mappings {
-      if-feature
-        "tls-listen or tls-call-home or sshcmn:ssh-x509-certs";
       description
         "Specifies mappings through which NETCONF client X.509
          certificates are used to determine a NETCONF username.
@@ -214,7 +212,16 @@ module ietf-netconf-server {
             description
               "A wrapper around the NETCONF server parameters
                to avoid name collisions.";
-            uses ncs:netconf-server-grouping;
+            uses ncs:netconf-server-grouping {
+              augment "client-identity-mappings" {
+                if-feature "sshcmn:ssh-x509-certs";
+                description
+                  "Augments in an 'if-feature' statement
+                   ensuring the 'client-identity-mappings'
+                   descendent is enabled only when SSH
+                   supports X.509 certificates.";
+              }
+            }
           }
         }
       }
@@ -309,7 +316,16 @@ module ietf-netconf-server {
             description
               "A wrapper around the NETCONF server parameters
                to avoid name collisions.";
-            uses ncs:netconf-server-grouping;
+            uses ncs:netconf-server-grouping {
+              augment "client-identity-mappings" {
+                if-feature "sshcmn:ssh-x509-certs";
+                description
+                  "Augments in an 'if-feature' statement
+                   ensuring the 'client-identity-mappings'
+                   descendent is enabled only when SSH
+                   supports X.509 certificates.";
+              }
+            }
           }
         }
       }
