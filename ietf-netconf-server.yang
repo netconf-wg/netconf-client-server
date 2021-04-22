@@ -213,7 +213,7 @@ module ietf-netconf-server {
               "A wrapper around the NETCONF server parameters
                to avoid name collisions.";
             uses ncs:netconf-server-grouping {
-              augment "client-identity-mappings" {
+              refine "client-identity-mappings" {
                 if-feature "sshcmn:ssh-x509-certs";
                 description
                   "Augments in an 'if-feature' statement
@@ -317,7 +317,7 @@ module ietf-netconf-server {
               "A wrapper around the NETCONF server parameters
                to avoid name collisions.";
             uses ncs:netconf-server-grouping {
-              augment "client-identity-mappings" {
+              refine "client-identity-mappings" {
                 if-feature "sshcmn:ssh-x509-certs";
                 description
                   "Augments in an 'if-feature' statement

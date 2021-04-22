@@ -918,10 +918,17 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
-        <!--
         <section title="22 to 23">
           <t>
-            <list style="symbols">  
+            <list style="symbols">
+              <t>Floated an 'if-feature' statement in a grouping down to where the grouping is used.</t>
+            </list>
+          </t>
+        </section>
+        <!--
+        <section title="23 to 24">
+          <t>
+            <list style="symbols">
               <t>SUBMISSION PENDING</t>
             </list>
           </t>
