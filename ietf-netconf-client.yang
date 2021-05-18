@@ -190,7 +190,7 @@ module ietf-netconf-client {
             }
           }
           container tls-client-parameters {
-            must "client-identity" {
+            must client-identity {
               description
                 "NETCONF/TLS clients MUST pass some
                  authentication credentials.";
@@ -278,7 +278,7 @@ module ietf-netconf-client {
             }
           }
           container tls-client-parameters {
-            must "client-identity" {
+            must client-identity {
               description
                 "NETCONF/TLS clients MUST pass some
                  authentication credentials.";
@@ -306,7 +306,11 @@ module ietf-netconf-client {
        protocol stacks for a multiplicity of connections.";
     container initiate {
       if-feature "ssh-initiate or tls-initiate";
-      presence "Enables client to initiate TCP connections";
+      presence
+        "Indicates that client-initiated connections have been
+         configured.  This statement is present so the mandatory
+         descendant nodes do not imply that this node must be
+         configured.";
       description
         "Configures client initiating underlying TCP connections.";
       list netconf-server {
@@ -351,8 +355,9 @@ module ietf-netconf-client {
               "Selects between available connection types.";
             case persistent-connection {
               container persistent {
-                presence "Indicates that a persistent connection is
-                          to be maintained.";
+                presence
+                  "Indicates that a persistent connection is to be
+                   maintained.";
                 description
                   "Maintain a persistent connection to the NETCONF
                    server.  If the connection goes down, immediately
@@ -374,7 +379,7 @@ module ietf-netconf-client {
                    This connection type increases resource
                    utilization, albeit with increased delay in
                    NETCONF server to NETCONF client interactions.
-                  
+
                    The NETCONF client should close the underlying
                    TCP connection upon completing planned activities.
 
@@ -473,7 +478,10 @@ module ietf-netconf-client {
 
     container listen {
       if-feature "ssh-listen or tls-listen";
-      presence "Enables client to accept call-home connections";
+      presence
+        "Indicates that client-listening ports have been configured.
+         This statement is present so the mandatory descendant nodes
+         do not imply that this node must be configured.";
       description
         "Configures the client to accept call-home TCP connections.";
       leaf idle-timeout {
@@ -504,8 +512,7 @@ module ietf-netconf-client {
     } // listen
   } // netconf-client-app-grouping
 
-  // Protocol accessible node, for servers that implement
-  // this module.
+  // Protocol accessible node for clients that implement this module.
   container netconf-client {
     uses netconf-client-app-grouping;
     description

@@ -140,7 +140,7 @@ module ietf-netconf-server {
        without any consideration for how underlying transport
        sessions are established.
 
-       Note that this grouping uses a fairly typical descendent
+       Note that this grouping uses a fairly typical descendant
        node name such that a stack of 'uses' statements will
        have name conflicts.  It is intended that the consuming
        data model will resolve the issue by wrapping the 'uses'
@@ -152,12 +152,24 @@ module ietf-netconf-server {
     container client-identity-mappings {
       description
         "Specifies mappings through which NETCONF client X.509
-         certificates are used to determine a NETCONF username.
-         If no matching and valid cert-to-name list entry can be
-         found, then the NETCONF server MUST close the connection,
-         and MUST NOT accept NETCONF messages over it.";
+         certificates are used to determine a NETCONF username,
+         per RFC 7407.
+
+         For TLS-based transports, if no matching and valid
+         cert-to-name list entry can be found, then the NETCONF
+         server MUST close the connection, and MUST NOT accept
+         NETCONF messages over it, per Section 7 in RFC 7589.
+
+         For SSH-based transports, a matching cert-to-name
+         entry overrides the username provided by the SSH
+         implementation, consistent with the second paragraph
+         of Section 3 in RFC 6242.";
       reference
-        "RFC 7407: A YANG Data Model for SNMP Configuration.";
+        "RFC 6242:
+           Using the NETCONF Protocol over Secure Shell (SSH)
+         RFC 7589:
+           Using the NETCONF Protocol over Transport Layer
+           Security (TLS) with Mutual X.509 Authentication";
       uses x509c2n:cert-to-name {
         refine "cert-to-name/fingerprint" {
           mandatory false;
@@ -218,10 +230,22 @@ module ietf-netconf-server {
                 description
                   "Augments in an 'if-feature' statement
                    ensuring the 'client-identity-mappings'
-                   descendent is enabled only when SSH
+                   descendant is enabled only when SSH
                    supports X.509 certificates.";
-              } // FIXME: does an X.509-derived identity
-            }   //        override SSH username?
+              }
+              augment "client-identity-mappings" {
+                description
+                  "Adds a flag indicating if a cert-to-name
+                   is required.";
+                leaf mapping-required {
+                  type boolean;
+                  description
+                    "Indicates that the cert-to-name mapping
+                     is required (i.e., the SSH-level username
+                     is ignored).";
+                }
+              }
+            }
           }
         }
       }
@@ -252,7 +276,7 @@ module ietf-netconf-server {
                avoid name collisions.";
             uses tlss:tls-server-grouping {
               refine "client-authentication" {
-              must 'ca-certs or ee-certs';
+                must 'ca-certs or ee-certs';
                 description
                   "NETCONF/TLS servers MUST validate client
                    certificates.  This configures certificates
@@ -270,7 +294,13 @@ module ietf-netconf-server {
             description
               "A wrapper around the NETCONF server parameters
                to avoid name collisions.";
-            uses ncs:netconf-server-grouping;
+            uses ncs:netconf-server-grouping {
+              refine "client-identity-mappings/cert-to-name" {
+                min-elements 1;
+                description
+                  "The TLS transport requires a mapping.";
+              }
+            }
           }
         }
       }
@@ -322,10 +352,22 @@ module ietf-netconf-server {
                 description
                   "Augments in an 'if-feature' statement
                    ensuring the 'client-identity-mappings'
-                   descendent is enabled only when SSH
+                   descendant is enabled only when SSH
                    supports X.509 certificates.";
-              } // FIXME: does an X.509-derived identity
-            }   //        override SSH username?
+              }
+              augment "client-identity-mappings" {
+                description
+                  "Adds a flag indicating if a cert-to-name
+                   is required.";
+                leaf mapping-required {
+                  type boolean;
+                  description
+                    "Indicates that the cert-to-name mapping
+                     is required (i.e., the SSH-level username
+                     is ignored).";
+                }
+              }
+            }
           }
         }
       }
@@ -356,7 +398,7 @@ module ietf-netconf-server {
                avoid name collisions.";
             uses tlss:tls-server-grouping {
               refine "client-authentication" {
-              must 'ca-certs or ee-certs';
+                must 'ca-certs or ee-certs';
                 description
                   "NETCONF/TLS servers MUST validate client
                    certificates.  This configures certificates
@@ -374,7 +416,13 @@ module ietf-netconf-server {
             description
               "A wrapper around the NETCONF server parameters
                to avoid name collisions.";
-            uses ncs:netconf-server-grouping;
+            uses ncs:netconf-server-grouping {
+              refine "client-identity-mappings/cert-to-name" {
+                min-elements 1;
+                description
+                  "The TLS transport requires a mapping.";
+              }
+            }
           }
         }
       }
@@ -389,13 +437,15 @@ module ietf-netconf-server {
     container listen {
       if-feature "ssh-listen or tls-listen";
       presence
-        "Enables server to listen for NETCONF client connections.";
+        "Indicates that server-listening ports have been configured.
+         This statement is present so the mandatory descendant
+         nodes do not imply that this node must be configured.";
       description
         "Configures listen behavior";
       leaf idle-timeout {
         type uint16;
         units "seconds";
-        default 3600; // one hour
+        default "3600"; // one hour
         description
           "Specifies the maximum number of seconds that a NETCONF
            session may remain idle. A NETCONF session will be
@@ -421,9 +471,13 @@ module ietf-netconf-server {
     container call-home {
       if-feature "ssh-call-home or tls-call-home";
       presence
-        "Enables the NETCONF server to initiate the underlying
+        "Indicates that server-initiated call home connections have
+         been configured.  This statement is present so the mandatory
+         descendant nodes do not imply that this node must be
+         configured.";
+      description
+        "Configures the NETCONF server to initiate the underlying
          transport connection to NETCONF clients.";
-      description "Configures call home behavior.";
       list netconf-client {
         key "name";
         min-elements 1;
@@ -464,8 +518,9 @@ module ietf-netconf-server {
               "Selects between available connection types.";
             case persistent-connection {
               container persistent {
-                presence "Indicates that a persistent connection is
-                          to be maintained.";
+                presence
+                  "Indicates that a persistent connection is to be
+                   maintained.";
                 description
                   "Maintain a persistent connection to the NETCONF
                    client. If the connection goes down, immediately
@@ -524,7 +579,7 @@ module ietf-netconf-server {
                 leaf idle-timeout {
                   type uint16;
                   units "seconds";
-                  default 120; // two minutes
+                  default "120"; // two minutes
                   description
                     "Specifies the maximum number of seconds that
                      a NETCONF session may remain idle. A NETCONF
@@ -589,8 +644,7 @@ module ietf-netconf-server {
     } // container call-home
   } // grouping netconf-server-app-grouping
 
-  // Protocol accessible node, for servers that implement
-  // this module.
+  // Protocol accessible node for servers that implement this module.
   container netconf-server {
     uses netconf-server-app-grouping;
     description

@@ -478,7 +478,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-app-grouping.no-expand.txt)
               <ul>
                 <li>The "netconf-server-app-grouping" defines the configuration
                   for a NETCONF server that supports both listening for connections
-                  from NETCONF clients as well as initiatiating call-home connections to
+                  from NETCONF clients as well as initiating call-home connections to
                   NETCONF clients.</li>
                 <li>Both the "listen" and "call-home" subtrees must be enabled by
                   "feature" statements.</li>
@@ -922,6 +922,10 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>
             <list style="symbols">
               <t>Floated an 'if-feature' statement in a grouping down to where the grouping is used.</t>
+              <t>Clarified 'client-identity-mappings' for both the SSH and TLS transports.</t>
+              <t>For netconf-client, augmented-in a 'mapping-required' flag into 'client-identity-mappings'
+                only for the SSH transport, and refined-in a 'min-elements 1' only for the TLS transport.</t>
+              <t>Aligned modules with `pyang -f` formatting.</t>
             </list>
           </t>
         </section>
@@ -939,22 +943,22 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
       <section title="Acknowledgements" numbered="no">
         <t>The authors would like to thank for following for
         lively discussions on list and in the halls (ordered
-        by last name):
-        Andy Bierman,
-        Martin Bjorklund,
-        Benoit Claise,
-        Ramkumar Dhanapal,
-        Mehmet Ersue,
-        Balázs Kovács,
-        David Lamparter,
-        Ladislav Lhotka,
+        by first name):
         Alan Luchuk,
-        Radek Krejci,
-        Tom Petch,
+        Andy Bierman,
+        Balázs Kovács,
+        Benoit Claise,
+        Bert Wijnen,
+        David Lamparter,
         Juergen Schoenwaelder,
+        Ladislav Lhotka,
+        Martin Björklund,
+        Mehmet Ersue,
         Phil Shafer,
+        Radek Krejci,
+        Ramkumar Dhanapal,
         Sean Turner,
-        and Bert Wijnen.</t>
+        and Tom Petch.</t>
      </section>
 
   </back>

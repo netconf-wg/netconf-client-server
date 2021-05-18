@@ -21,9 +21,6 @@
             </host-key>
           </server-identity>
           <client-authentication>
-            <supported-authentication-methods>
-              <publickey/>
-            </supported-authentication-methods>
           </client-authentication>
         </ssh-server-parameters>
         <netconf-server-parameters>
@@ -101,11 +98,6 @@
                   </public-key>
                 </host-key>
               </server-identity>
-              <client-authentication>
-                <supported-authentication-methods>
-                  <publickey/>
-                </supported-authentication-methods>
-              </client-authentication>
             </ssh-server-parameters>
             <netconf-server-parameters>
               <!-- nothing to configure -->
@@ -127,11 +119,6 @@
                   </public-key>
                 </host-key>
               </server-identity>
-              <client-authentication>
-                <supported-authentication-methods>
-                  <publickey/>
-                </supported-authentication-methods>
-              </client-authentication>
             </ssh-server-parameters>
             <netconf-server-parameters>
               <!-- nothing to configure -->
