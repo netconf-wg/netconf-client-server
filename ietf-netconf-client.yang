@@ -60,7 +60,7 @@ module ietf-netconf-client {
 
      This version of this YANG module is part of RFC HHHH
      (https://www.rfc-editor.org/info/rfcHHHH); see the RFC
-     itself for full legal notices.;
+     itself for full legal notices.
 
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
      'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED',
@@ -122,7 +122,7 @@ module ietf-netconf-client {
        without any consideration for how underlying transport
        sessions are established.
 
-       This grouping currently doesn't define any nodes.";
+       This grouping currently does not define any nodes.";
   }
 
   grouping netconf-client-initiate-stack-grouping {
