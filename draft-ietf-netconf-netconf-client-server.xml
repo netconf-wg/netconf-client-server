@@ -89,6 +89,14 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
             in &lt;operational&gt;.</t>
         </section>
 
+        <section title="Conventions">
+          <t>Various examples used in this document use a placeholder
+            value for binary data that has been base64 encoded (e.g.,
+            "BASE64VALUE=").  This placeholder value is used as real
+            base64 encoded structures are often many lines long and
+            hence distracting to the example being presented.</t>
+        </section>
+
       </section>
 
       <section title="The &quot;ietf-netconf-client&quot; Module" anchor="netconf-client-model">
@@ -929,8 +937,18 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t>
         </section>
-        <!--
         <section title="23 to 24">
+          <t>
+            <list style="symbols">
+              <t>Replaced "base64encodedvalue==" with "BASE64VALUE=" in examples.</t>
+              <t>Minor editorial nits</t>
+
+              <t>SUBMISSION PENDING</t>
+            </list>
+          </t>
+        </section>
+        <!--
+        <section title="24 to 25">
           <t>
             <list style="symbols">
               <t>SUBMISSION PENDING</t>

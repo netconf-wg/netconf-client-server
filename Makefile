@@ -58,9 +58,14 @@ $(next).xml: $(draft).xml ietf-netconf-client.yang ietf-netconf-server.yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-common.yang > ietf-tcp-common\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-client.yang > ietf-tcp-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tcp-client-server/ietf-tcp-server.yang > ietf-tcp-server\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/iana-ssh-encryption-algs.yang > iana-ssh-encryption-algs\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/iana-ssh-mac-algs.yang > iana-ssh-mac-algs\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/iana-ssh-public-key-algs.yang > iana-ssh-public-key-algs\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/iana-ssh-key-exchange-algs.yang > iana-ssh-key-exchange-algs\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/ietf-ssh-common.yang > ietf-ssh-common\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/ietf-ssh-client.yang > ietf-ssh-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../ssh-client-server/ietf-ssh-server.yang > ietf-ssh-server\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/iana-tls-cipher-suite-algs.yang > iana-tls-cipher-suite-algs\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-common.yang > ietf-tls-common\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-client.yang > ietf-tls-client\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../tls-client-server/ietf-tls-server.yang > ietf-tls-server\@$(shell date +%Y-%m-%d).yang
