@@ -1,6 +1,4 @@
-<netconf-client
-  xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-client"
-  xmlns:ct="urn:ietf:params:xml:ns:yang:ietf-crypto-types">
+<netconf-client xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-client">
 
   <!-- NETCONF servers to initiate connections to -->
   <initiate>
