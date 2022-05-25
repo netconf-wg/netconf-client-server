@@ -48,7 +48,7 @@ module ietf-netconf-client {
     "This module contains a collection of YANG definitions
      for configuring NETCONF clients.
 
-     Copyright (c) 2021 IETF Trust and the persons identified
+     Copyright (c) 2022 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -114,6 +114,18 @@ module ietf-netconf-client {
       "RFC 8071: NETCONF Call Home and RESTCONF Call Home";
   }
 
+  feature central-netconf-client-supported {
+    description
+      "The 'central-netconf-client-supported' feature indicates
+       that the server supports the top-level 'netconf-client'
+       node.
+
+       This feature is needed as some servers may want to use
+       features defined in this module, which requires this
+       module to be implemented, without having to support
+       the top-level 'netconf-client' node.";
+  }
+
   // Groupings
 
   grouping netconf-client-grouping {
@@ -122,7 +134,9 @@ module ietf-netconf-client {
        without any consideration for how underlying transport
        sessions are established.
 
-       This grouping currently does not define any nodes.";
+       This grouping currently does not define any nodes. It
+       exists only so the model can be consistent with other
+       'client-server' models.";
   }
 
   grouping netconf-client-initiate-stack-grouping {
@@ -163,7 +177,11 @@ module ietf-netconf-client {
           container netconf-client-parameters {
             description
               "A wrapper around the NETCONF client parameters
-               to avoid name collisions.";
+               to avoid name collisions.
+
+               This container does not define any nodes.  It
+               exists as a potential augmentation target by
+               other modules.";
             uses ncc:netconf-client-grouping;
           }
         }
@@ -203,7 +221,11 @@ module ietf-netconf-client {
           container netconf-client-parameters {
             description
               "A wrapper around the NETCONF client parameters
-               to avoid name collisions.";
+               to avoid name collisions.
+
+               This container does not define any nodes.  It
+               exists as a potential augmentation target by
+               other modules.";
             uses ncc:netconf-client-grouping;
           }
         }
@@ -252,7 +274,11 @@ module ietf-netconf-client {
           container netconf-client-parameters {
             description
               "A wrapper around the NETCONF client parameters
-               to avoid name collisions.";
+               to avoid name collisions.
+
+               This container does not define any nodes.  It
+               exists as a potential augmentation target by
+               other modules.";
             uses ncc:netconf-client-grouping;
           }
         }
@@ -291,7 +317,11 @@ module ietf-netconf-client {
           container netconf-client-parameters {
             description
               "A wrapper around the NETCONF client parameters
-               to avoid name collisions.";
+               to avoid name collisions.
+
+               This container does not define any nodes.  It
+               exists as a potential augmentation target by
+               other modules.";
             uses ncc:netconf-client-grouping;
           }
         }
@@ -514,6 +544,7 @@ module ietf-netconf-client {
 
   // Protocol accessible node for clients that implement this module.
   container netconf-client {
+    if-feature central-netconf-client-supported;
     uses netconf-client-app-grouping;
     description
       "Top-level container for NETCONF client configuration.";

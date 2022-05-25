@@ -126,7 +126,8 @@ Features:
   +-- tls-initiate
   +-- ssh-listen
   +-- tls-listen
-]]></artwork>
+  +-- central-netconf-client-supported
+                  ]]></artwork>
               </figure>
             </t>
             <aside>
@@ -281,10 +282,11 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client-tree-no-expand.txt)
             <ul>
               <li>Protocol-accessible nodes are those nodes that are accessible
                 when the module is "implemented", as described in <relref
-                section="5.6.5" target="RFC7950"/>.</li>
-              <li>For the "ietf-netconf-client" module, the protocol-accessible nodes
-                are an instance of the "netconf-client-app-grouping" discussed in
-                <xref target="netconf-client-app-grouping"/> grouping.</li>
+                  section="5.6.5" target="RFC7950"/>.</li>
+              <li>The top-level node "netconf-client" is additionally constrained
+                by the feature "central-netconf-client-supported".</li>
+              <li>The "netconf-client-app-grouping" grouping is discussed in
+                <xref target="netconf-client-app-grouping"/> in this document.</li>
               <li>The reason for why "netconf-client-app-grouping" exists separate from
                 the protocol-accessible nodes definition is so as to enable
                 instances of netconf-client-app-grouping to be instantiated in other
@@ -356,7 +358,8 @@ Features:
   +-- tls-listen
   +-- ssh-call-home
   +-- tls-call-home
-]]></artwork>
+  +-- central-netconf-server-supported
+                  ]]></artwork>
               </figure>
             </t>
             <aside>
@@ -512,18 +515,15 @@ INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server-tree-no-expand.txt)
 ]]></artwork>
               </figure>
             </t>
-            <aside>
-              <t>The diagram above uses syntax that is similar to but not
-                defined in <xref target="RFC8340"/>.</t>
-            </aside>
             <t>Comments:</t>
             <ul>
               <li>Protocol-accessible nodes are those nodes that are accessible
                 when the module is "implemented", as described in <relref
-                section="5.6.5" target="RFC7950"/>.</li>
-              <li>For the "ietf-netconf-server" module, the protocol-accessible nodes
-                are an instance of the "netconf-server-app-grouping" discussed in
-                <xref target="netconf-server-app-grouping"/> grouping.</li>
+                  section="5.6.5" target="RFC7950"/>.</li>
+              <li>The top-level node "netconf-server" is additionally constrained
+                by the feature "central-netconf-server-supported".</li>
+              <li>The "netconf-server-app-grouping" grouping is discussed in
+                <xref target="netconf-server-app-grouping"/> in this document.</li>
               <li>The reason for why "netconf-server-app-grouping" exists separate from
                 the protocol-accessible nodes definition is so as to enable
                 instances of netconf-server-app-grouping to be instantiated in other
@@ -950,6 +950,16 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             <list style="symbols">
               <t>Fixed up the 'WG Web' and 'WG List' lines in YANG module(s)</t>
               <t>Fixed up copyright (i.e., s/Simplified/Revised/) in YANG module(s)</t>
+            </list>
+          </t>
+        </section>
+        <section title="25 to 26">
+          <t>
+            <list style="symbols">
+              <t>Added feature "central-netconf-client-supported" to top-level node "netconf-client".</t>
+              <t>Added feature "central-netconf-server-supported" to top-level node "netconf-server".</t>
+              <t>Clarified container "netconf-client-parameters" description statement.</t>
+              <t>Removed unneccesary "xmlns:x509c2n" NETCONF server configuration example.</t>
             </list>
           </t>
         </section>

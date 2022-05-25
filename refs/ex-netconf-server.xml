@@ -1,4 +1,6 @@
-<netconf-server xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server">
+<netconf-server
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-server"
+  xmlns:x509c2n="urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name">
 
   <!-- endpoints to listen for NETCONF connections on -->
   <listen>
