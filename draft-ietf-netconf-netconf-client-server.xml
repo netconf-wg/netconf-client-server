@@ -959,7 +959,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
               <t>Added feature "central-netconf-client-supported" to top-level node "netconf-client".</t>
               <t>Added feature "central-netconf-server-supported" to top-level node "netconf-server".</t>
               <t>Clarified container "netconf-client-parameters" description statement.</t>
-              <t>Removed unneccesary "xmlns:x509c2n" NETCONF server configuration example.</t>
+              <t>Removed unneccesary "xmlns:x509c2n" in a NETCONF server configuration example.</t>
             </list>
           </t>
         </section>
