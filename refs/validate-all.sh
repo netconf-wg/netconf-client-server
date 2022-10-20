@@ -50,3 +50,16 @@ command="yanglint -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
+
+
+
+## NOT FOR DRAFT.  SAME AS XML EXCEPT NO "LISTEN" STANZA
+printf "Testing ex-netconf-client.json..."
+command="yanglint -m ../ietf-*\@*.yang ietf-origin.yang ex-netconf-client.json ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+run_unix_cmd $LINENO "$command" 0
+printf "okay.\n"
+
+printf "Testing yl_4_nc_client_json..."
+command="yanglint ../ietf-*\@*.yang ietf-origin.yang yl_4_nc_client_json.json"
+run_unix_cmd $LINENO "$command" 0
+printf "okay.\n"

@@ -133,6 +133,7 @@
       </connection-type>
       <reconnect-strategy>
         <start-with>last-connected</start-with>
+        <max-wait>3</max-wait>
         <max-attempts>3</max-attempts>
       </reconnect-strategy>
     </netconf-client>
@@ -247,6 +248,7 @@
       </connection-type>
       <reconnect-strategy>
         <start-with>first-listed</start-with>
+        <max-wait>3</max-wait>
         <max-attempts>3</max-attempts>
       </reconnect-strategy>
     </netconf-client>
