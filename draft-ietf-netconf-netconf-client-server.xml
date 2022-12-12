@@ -138,10 +138,10 @@ Features:
                   ]]></artwork>
               </figure>
             </t>
-            <aside>
+            <!--<aside>-->
               <t>The diagram above uses syntax that is similar to but not
                 defined in <xref target="RFC8340"/>.</t>
-            </aside>
+            <!--</aside>-->
           </section>
 
           <section title="Groupings" toc="exclude">
@@ -370,10 +370,10 @@ Features:
                   ]]></artwork>
               </figure>
             </t>
-            <aside>
+            <!--<aside>-->
               <t>The diagram above uses syntax that is similar to but not
                 defined in <xref target="RFC8340"/>.</t>
-            </aside>
+            <!--</aside>-->
           </section>
 
           <section title="Groupings" toc="exclude">
@@ -974,8 +974,15 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <section title="26 to 27">
           <t>
             <list style="symbols">
-              <t>Updated per Shepherd reviews.</t>
-              <t>Added "max-wait" leaf to the "reconnection-strategy" nodes.</t>
+              <t>Updated per Shepherd reviews impacting the suite of drafts.</t>
+              <t>Added "max-wait" leaf to the "reconnect-strategy" nodes.</t>
+            </list>
+          </t>
+        </section>
+        <section title="27 to 28">
+          <t>
+            <list style="symbols">
+              <t>Updated per Shepherd reviews impacting the suite of drafts.</t>
             </list>
           </t>
         </section>

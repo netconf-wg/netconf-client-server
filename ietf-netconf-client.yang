@@ -114,8 +114,8 @@ module ietf-netconf-client {
   feature central-netconf-client-supported {
     description
       "The 'central-netconf-client-supported' feature indicates
-       that the server supports the top-level 'netconf-client'
-       node.
+       that the server that implements this module supports
+       the top-level 'netconf-client' node.
 
        This feature is needed as some servers may want to use
        features defined in this module, which requires this
