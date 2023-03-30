@@ -1,5 +1,4 @@
 <?xml version='1.0'?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
@@ -18,6 +17,7 @@
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="std"
      consensus="true"
+     submissionType="IETF"
      ipr="trust200902"
      docName="draft-ietf-netconf-netconf-client-server-latest" >
     <front>
@@ -167,7 +167,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-grouping.no-expand.txt)
               <t>Comments:</t>
               <ul>
                 <li>This grouping does not define any nodes, but is maintained so
-                  that downstream modules can augment nodes into it if needed.</li>
+                  that consuming modules can augment nodes into it if needed.</li>
                 <li>The "netconf-client-grouping" defines, if it can be called 
                   that, the configuration for just "NETCONF" part of a protocol
                   stack.  It does not, for instance, define any configuration
@@ -194,7 +194,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-initiate-stack-grouping.no-expand
                   clients that initiate connections to NETCONF servers, as
                   opposed to receiving call-home <xref target="RFC8071"/>
                   connections.</li>
-                <li>The "transport" choice node enables both the SSH and
+                <li>The "transport" choice node enables either the SSH or
                   TLS transports to be configured, with each option
                   enabled by a "feature" statement.</li>
                 <li>For the referenced grouping statement(s):
@@ -228,7 +228,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-listen-stack-grouping.no-expand.t
                   configuration for a full NETCONF protocol stack, for NETCONF
                   clients that receive call-home <xref target="RFC8071"/>
                   connections from NETCONF servers.</li>
-                <li>The "transport" choice node enables both the SSH and
+                <li>The "transport" choice node enables either the SSH or
                   TLS transports to be configured, with each option
                   enabled by a "feature" statement.</li>
                 <li>For the referenced grouping statement(s):
@@ -431,7 +431,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-listen-stack-grouping.no-expand.t
                   configuration for a full NETCONF protocol stack for NETCONF
                   servers that listen for standard connections from NETCONF clients,
                   as opposed to initiating call-home <xref target="RFC8071"/> connections.</li>
-                <li>The "transport" choice node enables both the SSH and
+                <li>The "transport" choice node enables either the SSH or
                   TLS transports to be configured, with each option
                   enabled by a "feature" statement.</li>
                 <li>For the referenced grouping statement(s):
@@ -465,7 +465,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-callhome-stack-grouping.no-expand
                   configuration for a full NETCONF protocol stack, for NETCONF
                   servers that initiate call-home <xref target="RFC8071"/> connections
                   to NETCONF clients.</li>
-                <li>The "transport" choice node enables both the SSH and
+                <li>The "transport" choice node enables either the SSH or
                   TLS transports to be configured, with each option
                   enabled by a "feature" statement.</li>
                 <li>For the referenced grouping statement(s):
@@ -983,6 +983,14 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>
             <list style="symbols">
               <t>Updated per Shepherd reviews impacting the suite of drafts.</t>
+            </list>
+          </t>
+        </section>
+        <section title="28 to 29">
+          <t>
+            <list style="symbols">
+              <t>Updated (implicitly) via Tom Petch reviews.</t>
+              <t>Fixed pattern statement for "leaf anchor-time".</t>
             </list>
           </t>
         </section>

@@ -45,7 +45,7 @@ module ietf-netconf-client {
     "This module contains a collection of YANG definitions
      for configuring NETCONF clients.
 
-     Copyright (c) 2022 IETF Trust and the persons identified
+     Copyright (c) 2023 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -423,8 +423,10 @@ module ietf-netconf-client {
                 leaf anchor-time {
                   type yang:date-and-time {
                     // constrained to minute-level granularity
-                    pattern '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}'
-                          + '(Z|[\+\-]\d{2}:\d{2})';
+                    pattern '[0-9]{4}-(1[0-2]|0[1-9])-(0[1-9]|[1-2]'
+                          + '[0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):['
+                          + '0-5][0-9]:00(Z|[\+\-]((1[0-3]|0[0-9]):'
+                          + '([0-5][0-9])|14:00))?';
                   }
                   description
                     "Designates a timestamp before or after which a
@@ -532,8 +534,8 @@ module ietf-netconf-client {
            dropped if it is idle for an interval longer than this
            number of seconds.  If set to zero, then the server
            will never drop a session because it is idle.  Sessions
-           that have a notification subscription active are never
-           dropped.";
+           that have a notification subscription active MUST NOT
+           be dropped.";
       }
       list endpoint {
         key "name";
