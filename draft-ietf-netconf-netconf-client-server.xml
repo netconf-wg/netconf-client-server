@@ -169,7 +169,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-grouping.no-expand.txt)
                 <li>This grouping does not define any nodes, but is maintained so
                   that consuming modules can augment nodes into it if needed.</li>
                 <li>The "netconf-client-grouping" defines, if it can be called 
-                  that, the configuration for just "NETCONF" part of a protocol
+                  that, the configuration for the "NETCONF" part of a protocol
                   stack.  It does not, for instance, define any configuration
                   for the "TCP", "SSH" or "TLS" protocol layers (for that, see
                   <xref target="netconf-client-initiate-stack-grouping"/>
@@ -398,7 +398,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-grouping.no-expand.txt)
               </t>
               <t>Comments:</t>
               <ul>
-                <li>The "netconf-server-grouping" defines the configuration for just
+                <li>The "netconf-server-grouping" defines the configuration for the
                   "NETCONF" part of a protocol stack.  It does not, for instance,
                   define any configuration for the "TCP", "SSH" or "TLS" protocol layers
                   (for that, see <xref target="netconf-server-listen-stack-grouping"/>
@@ -429,7 +429,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-listen-stack-grouping.no-expand.t
               <ul>
                 <li>The "netconf-server-listen-stack-grouping" defines the
                   configuration for a full NETCONF protocol stack for NETCONF
-                  servers that listen for standard connections from NETCONF clients,
+                  servers that listen for connections from NETCONF clients,
                   as opposed to initiating call-home <xref target="RFC8071"/> connections.</li>
                 <li>The "transport" choice node enables either the SSH or
                   TLS transports to be configured, with each option

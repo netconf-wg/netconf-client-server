@@ -451,15 +451,13 @@ module ietf-netconf-server {
       leaf idle-timeout {
         type uint16;
         units "seconds";
-        default "3600"; // one hour
+        default "180"; // three minutes
         description
           "Specifies the maximum number of seconds that a NETCONF
            session may remain idle. A NETCONF session will be
            dropped if it is idle for an interval longer than this
            number of seconds.  If set to zero, then the server
-           will never drop a session because it is idle.  Sessions
-           that have a notification subscription active MUST NOT
-           be dropped.";
+           will never drop a session because it is idle.";
       }
       list endpoint {
         key "name";
@@ -555,6 +553,10 @@ module ietf-netconf-server {
                    not closed gracefully, the NETCONF server MUST
                    immediately attempt to reestablish the connection.
 
+                   Connections are established at the same start
+                   time regardless how long the previous connection
+                   stayed open.
+
                    In the case that the previous connection is still
                    active (i.e., the NETCONF client has not closed
                    it yet), establishing a new connection is NOT
@@ -578,16 +580,21 @@ module ietf-netconf-server {
                     "Designates a timestamp before or after which a
                      series of periodic connections are determined.
                      The periodic connections occur at a whole
-                     multiple interval from the anchor time.  For
-                     example, for an anchor time is 15 minutes past
-                     midnight and a period interval of 24 hours, then
-                     a periodic connection will occur 15 minutes past
-                     midnight everyday.";
+                     multiple interval from the anchor time.
+
+                     If an 'anchor-time' is not provided, then the
+                     server may implicitly set it to the time when
+                     this configuraton is applied (e.g., on boot).
+
+                     For example, for an anchor time is 15 minutes
+                     past midnight and a period interval of 24 hours,
+                     then a periodic connection will occur 15 minutes
+                     past midnight everyday.";
                 }
                 leaf idle-timeout {
                   type uint16;
                   units "seconds";
-                  default "120"; // two minutes
+                  default "180"; // three minutes
                   description
                     "Specifies the maximum number of seconds that
                      a NETCONF session may remain idle. A NETCONF
