@@ -11,24 +11,24 @@
             <tcp-client-parameters>
               <remote-address>corp-fw1.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <ssh-client-parameters>
               <client-identity>
                 <username>foobar</username>
                 <public-key>
-                  <keystore-reference>ssh-rsa-key</keystore-reference>
+                  <central-keystore-reference>ssh-rsa-key</central-keystore-reference>
                 </public-key>
               </client-identity>
               <server-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-server-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-server-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
                 </ee-certs>
               </server-authentication>
               <keepalives>
@@ -36,9 +36,6 @@
                 <max-attempts>3</max-attempts>
               </keepalives>
             </ssh-client-parameters>
-            <netconf-client-parameters>
-              <!-- nothing to configure -->
-            </netconf-client-parameters>
           </ssh>
         </endpoint>
         <endpoint>
@@ -47,26 +44,26 @@
             <tcp-client-parameters>
               <remote-address>corp-fw2.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-client-parameters>
               <client-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </client-identity>
               <server-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-server-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-server-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
                 </ee-certs>
               </server-authentication>
               <keepalives>
@@ -76,9 +73,6 @@
                 </test-peer-aliveness>
               </keepalives>
             </tls-client-parameters>
-            <netconf-client-parameters>
-              <!-- nothing to configure -->
-            </netconf-client-parameters>
           </tls>
         </endpoint>
       </endpoints>
@@ -93,67 +87,63 @@
 
   <!-- endpoints to listen for NETCONF Call Home connections on -->
   <listen>
-    <endpoint>
-      <name>Intranet-facing SSH listener</name>
-      <ssh>
-        <tcp-server-parameters>
-          <local-address>192.0.2.7</local-address>
-        </tcp-server-parameters>
-        <ssh-client-parameters>
-          <client-identity>
-            <username>foobar</username>
-            <public-key>
-              <keystore-reference>ssh-rsa-key</keystore-reference>
-            </public-key>
-          </client-identity>
-          <server-authentication>
-            <ca-certs>
-              <truststore-reference>trusted-server-ca-certs</truststore-reference>
-            </ca-certs>
-            <ee-certs>
-              <truststore-reference>trusted-server-ee-certs</truststore-reference>
-            </ee-certs>
-            <ssh-host-keys>
-              <truststore-reference>trusted-ssh-public-keys</truststore-reference>
-            </ssh-host-keys>
-          </server-authentication>
-        </ssh-client-parameters>
-        <netconf-client-parameters>
-          <!-- nothing to configure -->
-        </netconf-client-parameters>
-      </ssh>
-    </endpoint>
-    <endpoint>
-      <name>Intranet-facing TLS listener</name>
-      <tls>
-        <tcp-server-parameters>
-          <local-address>192.0.2.7</local-address>
-        </tcp-server-parameters>
-        <tls-client-parameters>
-          <client-identity>
-            <certificate>
-              <keystore-reference>
-                <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
-                <certificate>ex-rsa-cert</certificate>
-              </keystore-reference>
-            </certificate>
-          </client-identity>
-          <server-authentication>
-            <ca-certs>
-              <truststore-reference>trusted-server-ca-certs</truststore-reference>
-            </ca-certs>
-            <ee-certs>
-              <truststore-reference>trusted-server-ee-certs</truststore-reference>
-            </ee-certs>
-          </server-authentication>
-          <keepalives>
-            <peer-allowed-to-send/>
-          </keepalives>
-        </tls-client-parameters>
-        <netconf-client-parameters>
-          <!-- nothing to configure -->
-        </netconf-client-parameters>
-      </tls>
-    </endpoint>
+    <endpoints>
+      <endpoint>
+        <name>Intranet-facing SSH listener</name>
+        <ssh>
+          <tcp-server-parameters>
+            <local-address>192.0.2.7</local-address>
+          </tcp-server-parameters>
+          <ssh-client-parameters>
+            <client-identity>
+              <username>foobar</username>
+              <public-key>
+                <central-keystore-reference>ssh-rsa-key</central-keystore-reference>
+              </public-key>
+            </client-identity>
+            <server-authentication>
+              <ca-certs>
+                <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
+              </ca-certs>
+              <ee-certs>
+                <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
+              </ee-certs>
+              <ssh-host-keys>
+                <central-truststore-reference>trusted-ssh-public-keys</central-truststore-reference>
+              </ssh-host-keys>
+            </server-authentication>
+          </ssh-client-parameters>
+        </ssh>
+      </endpoint>
+      <endpoint>
+        <name>Intranet-facing TLS listener</name>
+        <tls>
+          <tcp-server-parameters>
+            <local-address>192.0.2.7</local-address>
+          </tcp-server-parameters>
+          <tls-client-parameters>
+            <client-identity>
+              <certificate>
+                <central-keystore-reference>
+                  <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                  <certificate>ex-rsa-cert</certificate>
+                </central-keystore-reference>
+              </certificate>
+            </client-identity>
+            <server-authentication>
+              <ca-certs>
+                <central-truststore-reference>trusted-server-ca-certs</central-truststore-reference>
+              </ca-certs>
+              <ee-certs>
+                <central-truststore-reference>trusted-server-ee-certs</central-truststore-reference>
+              </ee-certs>
+            </server-authentication>
+            <keepalives>
+              <peer-allowed-to-send/>
+            </keepalives>
+          </tls-client-parameters>
+        </tls>
+      </endpoint>
+    </endpoints>
   </listen>
 </netconf-client>

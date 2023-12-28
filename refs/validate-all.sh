@@ -41,12 +41,12 @@ printf "okay.\n"
 
 
 printf "Testing ex-netconf-client.xml..."
-command="yanglint -m ../ietf-*\@*.yang ietf-origin.yang ex-netconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -ii -m ../ietf-*\@*.yang ietf-origin.yang ex-netconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-netconf-server.xml..."
-command="yanglint -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-netconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -ii -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-netconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 

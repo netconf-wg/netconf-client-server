@@ -68,8 +68,15 @@
           The text is not wrong as is, but it may be improved by stating more directly how
           many modules are defined.</t>
         <t>The "Relation to other RFCs" section <xref target="collective-effort"/> contains
-          a self-reference to this draft, along with a corresponding Informative Reference in
-          the Appendix.</t>
+          a self-reference to this draft, along with a corresponding reference in
+          the Appendix.  Please replace the self-reference in this section with "This RFC"
+          (or similar) and remove the self-reference in the "Normative/Informative References"
+          section, whichever it is in.</t>
+        <t>Tree-diagrams in this draft may use the '/' line-folding mode defined in RFC 8792.
+          However, nicer-to-the-eye is when the '//' line-folding mode is used.  The AD suggested
+          suggested putting a request here for the RFC Editor to help convert "ugly" '/' folded
+          examples to use the '//' folding mode.  "Help convert" may be interpreted as, identify
+          what looks ugly and ask the authors to make the adjustment.</t>
         <t>The following Appendix section is to be removed prior to publication:
           <list style="symbols">
             <t><xref target="change-log"/>.  Change Log</t>
@@ -147,20 +154,20 @@ Features:
           <section title="Groupings" toc="exclude">
             <t>The "ietf-netconf-client" module defines the following "grouping" statements:</t>
             <ul spacing="compact">
-              <li>netconf-client-grouping</li>
+              <!--<li>netconf-client-grouping</li>-->
               <li>netconf-client-initiate-stack-grouping</li>
               <li>netconf-client-listen-stack-grouping</li>
               <li>netconf-client-app-grouping</li>
             </ul>
             <t>Each of these groupings are presented in the following subsections.</t>
-
+            <!--
             <section title="The &quot;netconf-client-grouping&quot; Grouping" anchor="netconf-client-grouping">
               <t>The following tree diagram <xref target="RFC8340"/> illustrates the
                 "netconf-client-grouping" grouping:</t>
               <t>
                 <figure>
                  <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-grouping.no-expand.txt)
+HIDE_TEXT_FROM_FILE(refs/tree-netconf-client-grouping.no-expand.txt)
 ]]></artwork>
                 </figure>
               </t>
@@ -176,7 +183,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-grouping.no-expand.txt)
                   and <xref target="netconf-client-listen-stack-grouping"/>).</li>
               </ul>
             </section>
-
+            -->
             <section title="The &quot;netconf-client-initiate-stack-grouping&quot; Grouping" anchor="netconf-client-initiate-stack-grouping">
               <t>The following tree diagram <xref target="RFC8340"/> illustrates the
                 "netconf-client-initiate-stack-grouping" grouping:</t>
@@ -205,8 +212,8 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-initiate-stack-grouping.no-expand
                       <relref section="3.1.2.1" target="I-D.ietf-netconf-ssh-client-server"/>.</li>
                     <li>The "tls-client-grouping" grouping is discussed in
                       <relref section="3.1.2.1" target="I-D.ietf-netconf-tls-client-server"/>.</li>
-                    <li>The "netconf-client-grouping" grouping is discussed in
-                      <xref target="netconf-client-grouping"/> in this document.</li>
+                    <!--<li>The "netconf-client-grouping" grouping is discussed in
+                    <xref target="netconf-client-grouping"/> in this document.</li>-->
                   </ul>
                 </li>
               </ul>
@@ -239,8 +246,8 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-listen-stack-grouping.no-expand.t
                       <relref section="3.1.2.1" target="I-D.ietf-netconf-ssh-client-server"/>.</li>
                     <li>The "tls-client-grouping" grouping is discussed in
                       <relref section="3.1.2.1" target="I-D.ietf-netconf-tls-client-server"/>.</li>
-                    <li>The "netconf-client-grouping" grouping is discussed in
-                      <xref target="netconf-client-grouping"/> in this document.</li>
+                    <!--<li>The "netconf-client-grouping" grouping is discussed in
+                    <xref target="netconf-client-grouping"/> in this document.</li>-->
                   </ul>
                 </li>
               </ul>
@@ -262,7 +269,7 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-client-app-grouping.no-expand.txt)
                   for a NETCONF client that supports both initiating connections
                   to NETCONF servers as well as receiving call-home connections from
                   NETCONF servers.</li>
-                <li>Both the "initiate" and "listen" subtrees must be enabled by
+                <li>Both the "initiate" and "listen" subtrees are predicated by
                   "feature" statements.</li>
                 <li>For the referenced grouping statement(s):
                   <ul spacing="compact">
@@ -403,9 +410,8 @@ INSERT_TEXT_FROM_FILE(refs/tree-netconf-server-grouping.no-expand.txt)
                   define any configuration for the "TCP", "SSH" or "TLS" protocol layers
                   (for that, see <xref target="netconf-server-listen-stack-grouping"/>
                   and <xref target="netconf-server-callhome-stack-grouping"/>).</li>
-                <li>The "client-identity-mappings" node, which must be enabled by
-                  "feature" statements, defines a mapping from certificate fields
-                  to NETCONF user names.</li>
+                <li>The "client-identity-mappings" node defines a mapping
+                  from certificate fields to NETCONF user names.</li>
                 <li>For the referenced grouping statement(s):
                   <ul spacing="compact">
                     <li>The "cert-to-name" grouping is discussed in
@@ -589,7 +595,14 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             provides the means to restrict access for particular users to a
             pre-configured subset of all available protocol operations and
             content.</t>
-  
+
+          <t>Please be aware that this YANG module uses groupings from
+            other YANG modules that define nodes that may be considered
+            sensitive or vulnerable in network environments.  Please
+            review the Security Considerations for dependent YANG modules
+            for information as to which nodes may be considered sensitive
+            or vulnerable in network environments.</t>
+ 
           <t>None of the readable data nodes defined in this YANG module are
             considered sensitive or vulnerable in network environments.
             The NACM "default-deny-all" extension has not been set for
@@ -621,6 +634,13 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             pre-configured subset of all available protocol operations and
             content.</t>
   
+          <t>Please be aware that this YANG module uses groupings from
+            other YANG modules that define nodes that may be considered
+            sensitive or vulnerable in network environments.  Please
+            review the Security Considerations for dependent YANG modules
+            for information as to which nodes may be considered sensitive
+            or vulnerable in network environments.</t>
+ 
           <t>None of the readable data nodes defined in this YANG module are
             considered sensitive or vulnerable in network environments.
             The NACM "default-deny-all" extension has not been set for
@@ -991,6 +1011,19 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             <list style="symbols">
               <t>Updated (implicitly) via Tom Petch reviews.</t>
               <t>Fixed pattern statement for "leaf anchor-time".</t>
+            </list>
+          </t>
+        </section>
+        <section title="29 to 30">
+          <t>
+            <list style="symbols">
+              <t>Addresses AD review comments.</t>
+              <t>Added note to Editor to fix line foldings.</t>
+              <t>Removed netconf-client-grouping, since it was empty.</t>
+              <t>Removed erronious statement "client-identity-mappings" must be enabled by a "feature".</t>
+              <t>Added Security Considerations text to also look a SC-section from imported modules.</t>
+              <t>Removed "A wrapper around the foobar parameters to avoid name collisions" text.</t>
+              <t>Added container "endpoints" to wrap list "endpoint".</t>
             </list>
           </t>
         </section>

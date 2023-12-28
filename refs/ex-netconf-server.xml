@@ -4,72 +4,74 @@
 
   <!-- endpoints to listen for NETCONF connections on -->
   <listen>
-    <endpoint> <!-- listening for SSH connections -->
-      <name>netconf/ssh</name>
-      <ssh>
-        <tcp-server-parameters>
-          <local-address>192.0.2.7</local-address>
-        </tcp-server-parameters>
-        <ssh-server-parameters>
-          <server-identity>
-            <host-key>
-              <name>deployment-specific-certificate</name>
-              <public-key>
-                <keystore-reference>ssh-rsa-key</keystore-reference>
-              </public-key>
-            </host-key>
-          </server-identity>
-          <client-authentication>
-          </client-authentication>
-        </ssh-server-parameters>
-        <netconf-server-parameters>
-          <!-- nothing to configure -->
-        </netconf-server-parameters>
-      </ssh>
-    </endpoint>
-    <endpoint> <!-- listening for TLS sessions -->
-      <name>netconf/tls</name>
-      <tls>
-        <tcp-server-parameters>
-          <local-address>192.0.2.7</local-address>
-        </tcp-server-parameters>
-        <tls-server-parameters>
-          <server-identity>
-            <certificate>
-              <keystore-reference>
-                <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
-                <certificate>ex-rsa-cert</certificate>
-              </keystore-reference>
-            </certificate>
-          </server-identity>
-          <client-authentication>
-            <ca-certs>
-              <truststore-reference>trusted-client-ca-certs</truststore-reference>
-            </ca-certs>
-            <ee-certs>
-              <truststore-reference>trusted-client-ee-certs</truststore-reference>
-            </ee-certs>
-          </client-authentication>
-          <keepalives>
-            <peer-allowed-to-send/>
-          </keepalives>
-        </tls-server-parameters>
-        <netconf-server-parameters>
-          <client-identity-mappings>
-            <cert-to-name>
-              <id>1</id>
-              <fingerprint>11:0A:05:11:00</fingerprint>
-              <map-type>x509c2n:specified</map-type>
-              <name>scooby-doo</name>
-            </cert-to-name>
-            <cert-to-name>
-              <id>2</id>
-              <map-type>x509c2n:san-any</map-type>
-            </cert-to-name>
-          </client-identity-mappings>
-        </netconf-server-parameters>
-      </tls>
-    </endpoint>
+    <endpoints>
+      <endpoint> <!-- listening for SSH connections -->
+        <name>netconf/ssh</name>
+        <ssh>
+          <tcp-server-parameters>
+            <local-address>192.0.2.7</local-address>
+          </tcp-server-parameters>
+          <ssh-server-parameters>
+            <server-identity>
+              <host-key>
+                <name>deployment-specific-certificate</name>
+                <public-key>
+                  <central-keystore-reference>ssh-rsa-key</central-keystore-reference>
+                </public-key>
+              </host-key>
+            </server-identity>
+            <client-authentication>
+            </client-authentication>
+          </ssh-server-parameters>
+          <netconf-server-parameters>
+            <!-- nothing to configure -->
+          </netconf-server-parameters>
+        </ssh>
+      </endpoint>
+      <endpoint> <!-- listening for TLS sessions -->
+        <name>netconf/tls</name>
+        <tls>
+          <tcp-server-parameters>
+            <local-address>192.0.2.7</local-address>
+          </tcp-server-parameters>
+          <tls-server-parameters>
+            <server-identity>
+              <certificate>
+                <central-keystore-reference>
+                  <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
+                  <certificate>ex-rsa-cert</certificate>
+                </central-keystore-reference>
+              </certificate>
+            </server-identity>
+            <client-authentication>
+              <ca-certs>
+                <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
+              </ca-certs>
+              <ee-certs>
+                <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
+              </ee-certs>
+            </client-authentication>
+            <keepalives>
+              <peer-allowed-to-send/>
+            </keepalives>
+          </tls-server-parameters>
+          <netconf-server-parameters>
+            <client-identity-mappings>
+              <cert-to-name>
+                <id>1</id>
+                <fingerprint>11:0A:05:11:00</fingerprint>
+                <map-type>x509c2n:specified</map-type>
+                <name>scooby-doo</name>
+              </cert-to-name>
+              <cert-to-name>
+                <id>2</id>
+                <map-type>x509c2n:san-any</map-type>
+              </cert-to-name>
+            </client-identity-mappings>
+          </netconf-server-parameters>
+        </tls>
+      </endpoint>
+    </endpoints>
   </listen>
 
   <!-- calling home to SSH and TLS based NETCONF clients -->
@@ -83,9 +85,9 @@
             <tcp-client-parameters>
               <remote-address>east.config-mgr.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <ssh-server-parameters>
@@ -93,7 +95,7 @@
                 <host-key>
                   <name>deployment-specific-certificate</name>
                   <public-key>
-                    <keystore-reference>ssh-rsa-key</keystore-reference>
+                    <central-keystore-reference>ssh-rsa-key</central-keystore-reference>
                   </public-key>
                 </host-key>
               </server-identity>
@@ -114,7 +116,7 @@
                 <host-key>
                   <name>deployment-specific-certificate</name>
                   <public-key>
-                    <keystore-reference>ssh-rsa-key</keystore-reference>
+                    <central-keystore-reference>ssh-rsa-key</central-keystore-reference>
                   </public-key>
                 </host-key>
               </server-identity>
@@ -146,26 +148,26 @@
             <tcp-client-parameters>
               <remote-address>east.analytics.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </server-identity>
               <client-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-client-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-client-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
                 </ee-certs>
               </client-authentication>
               <keepalives>
@@ -197,26 +199,26 @@
             <tcp-client-parameters>
               <remote-address>west.analytics.example.com</remote-address>
               <keepalives>
-                <idle-time>15</idle-time>
-                <max-probes>3</max-probes>
-                <probe-interval>30</probe-interval>
+                <idle-time>7200</idle-time>
+                <max-probes>9</max-probes>
+                <probe-interval>75</probe-interval>
               </keepalives>
             </tcp-client-parameters>
             <tls-server-parameters>
               <server-identity>
                 <certificate>
-                  <keystore-reference>
+                  <central-keystore-reference>
                     <asymmetric-key>rsa-asymmetric-key</asymmetric-key>
                     <certificate>ex-rsa-cert</certificate>
-                  </keystore-reference>
+                  </central-keystore-reference>
                 </certificate>
               </server-identity>
               <client-authentication>
                 <ca-certs>
-                  <truststore-reference>trusted-client-ca-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ca-certs</central-truststore-reference>
                 </ca-certs>
                 <ee-certs>
-                  <truststore-reference>trusted-client-ee-certs</truststore-reference>
+                  <central-truststore-reference>trusted-client-ee-certs</central-truststore-reference>
                 </ee-certs>
               </client-authentication>
               <keepalives>
