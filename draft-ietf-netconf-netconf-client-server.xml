@@ -106,10 +106,11 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
 
         <section title="Conventions">
           <t>Various examples in this document use "BASE64VALUE=" as a
-            placeholder value for binary data has has been base64
-            encoded.  This placeholder value is used as real
-            base64 encoded structures are often many lines long and
-            hence distracting to the example being presented.</t>
+            placeholder value for binary data that has been base64
+            encoded (per <xref section="9.8" target="RFC7950"/>).  This
+            placeholder value is used because real base64 encoded structures
+            are often many lines long and hence distracting to the example
+            being presented.</t>
         </section>
 
       </section>
@@ -583,7 +584,9 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 
       <section title="Security Considerations">
 
-        <section title="The &quot;ietf-netconf-client&quot; YANG Module">
+        <section title="Template for the &quot;ietf-netconf-client&quot; YANG Module">
+          <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
+
           <t>The "ietf-netconf-client" YANG module defines data nodes
             that are designed to be accessed via YANG based management
             protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF
@@ -621,7 +624,9 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             and "default-deny-write" extensions.</t>
         </section>
 
-        <section title="The &quot;ietf-netconf-server&quot; YANG Module">
+        <section title="Template for the &quot;ietf-netconf-server&quot; YANG Module">
+          <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
+
           <t>The "ietf-netconf-server" YANG module defines data nodes
             that are designed to be accessed via YANG based management
             protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF
@@ -726,10 +731,12 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 
       <references title="Informative References">
         <?rfc include="reference.RFC.3688.xml"?>
+        <?rfc include="reference.RFC.4648.xml"?>
         <?rfc include="reference.RFC.8040.xml"?>
         <?rfc include="reference.RFC.8340.xml"?>
         <?rfc include="reference.RFC.8341.xml"?>
         <?rfc include="reference.RFC.8342.xml"?>
+        <?rfc include="reference.RFC.8407.xml"?>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-trust-anchors.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
@@ -1034,6 +1041,13 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t> 
         </section>
+        <section title="31 to 32">
+          <t>  
+            <list style="symbols">
+              <t>Addresses 1st-round of IESG reviews.</t>
+            </list>
+          </t> 
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">
@@ -1046,7 +1060,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         Benoit Claise,
         Bert Wijnen,
         David Lamparter,
-        Juergen Schoenwaelder,
+        Jürgen Schönwälder,
         Ladislav Lhotka,
         Martin Björklund,
         Mehmet Ersue,
