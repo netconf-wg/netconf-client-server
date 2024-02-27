@@ -32,7 +32,7 @@
       <area>Operations</area>
       <workgroup>NETCONF Working Group</workgroup>
       <abstract>
-          <t>This document defines two YANG modules, one module to
+          <t>This document presents two YANG modules, one module to
           configure a NETCONF client and the other module to configure 
           a NETCONF server.  Both modules support both the SSH and
           TLS transport protocols, and support both standard NETCONF
@@ -87,7 +87,7 @@
     <middle>
 
       <section title="Introduction">
-        <t>This document defines two YANG <xref target="RFC7950"/> modules, one module
+        <t>This document presents two YANG <xref target="RFC7950"/> modules, one module
         to configure a NETCONF <xref target="RFC6241"/> client and the other module 
         to configure a NETCONF server.  Both modules support both NETCONF over
         SSH <xref target="RFC6242"/> and NETCONF over TLS <xref target="RFC7589"/>
@@ -101,7 +101,8 @@ INSERT_TEXT_FROM_FILE(../common-intro-snippet.xml,150)
             described in <xref target="I-D.ietf-netconf-trust-anchors"/> and
             <xref target="I-D.ietf-netconf-keystore"/>, trust anchors and keys
             installed during manufacturing are expected to appear
-            in &lt;operational&gt;.</t>
+            in &lt;operational&gt; (<xref section="5.3" target="RFC8342"/>), and &lt;system&gt;
+            <xref target="I-D.ietf-netmod-system-config"/>, if implemented.</t>
         </section>
 
         <section title="Conventions">
@@ -584,7 +585,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 
       <section title="Security Considerations">
 
-        <section title="Template for the &quot;ietf-netconf-client&quot; YANG Module">
+        <section title="Considerations for the &quot;ietf-netconf-client&quot; YANG Module">
           <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
 
           <t>The "ietf-netconf-client" YANG module defines data nodes
@@ -624,7 +625,7 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             and "default-deny-write" extensions.</t>
         </section>
 
-        <section title="Template for the &quot;ietf-netconf-server&quot; YANG Module">
+        <section title="Considerations for the &quot;ietf-netconf-server&quot; YANG Module">
           <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
 
           <t>The "ietf-netconf-server" YANG module defines data nodes
@@ -742,9 +743,10 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-netconf-client-server.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-restconf-client-server.xml"/>
+        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netmod-system-config.xml"/>
       </references>
 
-      <section title="Change Log" removeInRFC="true" anchor="change-log">
+      <section title="Change Log" anchor="change-log">
         <section title="00 to 01">
           <t>
             <list style="symbols">
@@ -1048,10 +1050,20 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t> 
         </section>
+        <section title="32 to 34">
+          <t>  
+            <list style="symbols">
+              <t>Addresses issues found in OpsDir review of the ssh-client-server draft.</t>
+              <t>s/defines/presents/ in a few places.</t>
+              <t>Add refs to where the 'operational' and 'system' datastores are defined.</t>
+              <t>Renamed Security Considerations section s/Template for/Considerations for/</t>
+            </list>
+          </t> 
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">
-        <t>The authors would like to thank for following for
+        <t>The authors would like to thank the following for
         lively discussions on list and in the halls (ordered
         by first name):
         Alan Luchuk,
