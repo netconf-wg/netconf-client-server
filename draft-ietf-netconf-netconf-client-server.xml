@@ -1060,6 +1060,13 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t> 
         </section>
+        <section title="34 to 35">
+          <t>  
+            <list style="symbols">
+              <t>Nothing added.  Only bumped for automation...</t>
+            </list>
+          </t> 
+        </section>
       </section>
 
       <section title="Acknowledgements" numbered="no">
