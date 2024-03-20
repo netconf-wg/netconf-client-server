@@ -1060,10 +1060,10 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
             </list>
           </t> 
         </section>
-        <section title="34 to 35">
+        <section title="34 to 36">
           <t>  
             <list style="symbols">
-              <t>Nothing added.  Only bumped for automation...</t>
+              <t>Nothing changed.  Only bumped for automation...</t>
             </list>
           </t> 
         </section>
