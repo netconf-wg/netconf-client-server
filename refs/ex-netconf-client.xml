@@ -92,7 +92,9 @@
         <name>Intranet-facing SSH listener</name>
         <ssh>
           <tcp-server-parameters>
-            <local-address>192.0.2.7</local-address>
+            <local-bind>
+              <local-address>192.0.2.7</local-address>
+            </local-bind>
           </tcp-server-parameters>
           <ssh-client-parameters>
             <client-identity>
@@ -119,7 +121,9 @@
         <name>Intranet-facing TLS listener</name>
         <tls>
           <tcp-server-parameters>
-            <local-address>192.0.2.7</local-address>
+            <local-bind>
+              <local-address>192.0.2.7</local-address>
+            </local-bind>
           </tcp-server-parameters>
           <tls-client-parameters>
             <client-identity>
