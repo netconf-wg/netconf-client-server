@@ -20,33 +20,33 @@ run_unix_cmd() {
 }
 
 printf "Testing ietf-netconf-client\@*.yang (pyang)..."
-command="pyang -Werror --ietf --max-line-length=69 -p ../ ../ietf-netconf-client\@*.yang"
+command="pyang -Werror --ietf --max-line-length=69 ietf-netconf-client\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-netconf-server\@*.yang (pyang)..."
-command="pyang -Werror --ietf --max-line-length=69 -p ../ ../ietf-netconf-server\@*.yang"
+command="pyang -Werror --ietf --max-line-length=69 ietf-netconf-server\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-netconf-client\@*.yang (yanglint)..."
-command="yanglint -p ../ ../ietf-netconf-client\@*.yang"
+command="yanglint ietf-netconf-client\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ietf-netconf-server\@*.yang (yanglint)..."
-command="yanglint -p ../ ../ietf-netconf-server\@*.yang"
+command="yanglint ietf-netconf-server\@*.yang"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 
 printf "Testing ex-netconf-client.xml..."
-command="yanglint -t config -ii -m ../ietf-*\@*.yang ietf-origin.yang ex-netconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -t config -ii -m ietf-*\@*.yang ex-netconf-client.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 
 printf "Testing ex-netconf-server.xml..."
-command="yanglint -t config -ii -m ../ietf-*\@*.yang ietf-origin.yang ietf-x509-cert-to-name@2014-12-10.yang ex-netconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
+command="yanglint -t config -ii -m ietf-*\@*.yang ex-netconf-server.xml ../../trust-anchors/refs/ex-truststore.xml ../../keystore/refs/ex-keystore.xml"
 run_unix_cmd $LINENO "$command" 0
 printf "okay.\n"
 

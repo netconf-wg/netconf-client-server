@@ -127,18 +127,18 @@ module ietf-netconf-client {
 
   grouping netconf-client-grouping {
     description
-      "A reusable grouping for configuring a NETCONF client
-       without any consideration for how underlying transport
-       sessions are established.
+      "A grouping for configuring a NETCONF client without any
+       consideration for how underlying transport sessions are
+       established.
 
-       This grouping currently does not define any nodes. It
-       exists only so the model can be consistent with other
-       'client-server' models.";
+       As no NETCONF-specific client configuration needs to be
+       set, this node is empty, but retained for clarity and for
+       consistency with other 'client-server' models.";
   }
 
   grouping netconf-client-initiate-stack-grouping {
     description
-      "A reusable grouping for configuring a NETCONF client
+      "A grouping for configuring a NETCONF client
        'initiate' protocol stack for a single outbound connection.";
     choice transport {
       mandatory true;
@@ -224,7 +224,7 @@ module ietf-netconf-client {
 
   grouping netconf-client-listen-stack-grouping {
     description
-      "A reusable grouping for configuring a NETCONF client
+      "A grouping for configuring a NETCONF client
        'listen' protocol stack for listening on a single port.  The
        'listen' stack supports call home connections, as
        described in RFC 8071";
@@ -312,7 +312,7 @@ module ietf-netconf-client {
 
   grouping netconf-client-app-grouping {
     description
-      "A reusable grouping for configuring a NETCONF client
+      "A grouping for configuring a NETCONF client
        application that supports both 'initiate' and 'listen'
        protocol stacks for a multiplicity of connections.";
     container initiate {

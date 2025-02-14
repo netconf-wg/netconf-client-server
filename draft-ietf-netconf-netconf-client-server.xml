@@ -340,7 +340,7 @@ INSERT_TEXT_FROM_FILE(refs/ex-netconf-client.xml)
             <figure>
               <preamble>&lt;CODE BEGINS&gt; file "ietf-netconf-client@YYYY-MM-DD.yang"</preamble>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(ietf-netconf-client@YYYY-MM-DD.yang)
+INSERT_TEXT_FROM_FILE(refs/ietf-netconf-client@YYYY-MM-DD.yang)
 ]]></artwork>
               <postamble>&lt;CODE ENDS&gt;</postamble>
             </figure>
@@ -575,7 +575,7 @@ INSERT_TEXT_FROM_FILE(refs/ex-netconf-server.xml)
             <figure>
               <preamble>&lt;CODE BEGINS&gt; file "ietf-netconf-server@YYYY-MM-DD.yang"</preamble>
               <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
+INSERT_TEXT_FROM_FILE(refs/ietf-netconf-server@YYYY-MM-DD.yang)
 ]]></artwork>
               <postamble>&lt;CODE ENDS&gt;</postamble>
             </figure>
@@ -589,11 +589,12 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
 
           <t>The "ietf-netconf-client" YANG module defines data nodes
-            that are designed to be accessed via YANG based management
+            that are designed to be accessed via YANG-based management
             protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF
-            <xref target="RFC8040"/>.  Both of these protocols have
-            mandatory-to-implement secure transport layers (e.g., SSH, TLS)
-            with mutual authentication.</t>
+            <xref target="RFC8040"/>.  These protocols have mandatory-to-implement
+            secure transport layers (e.g., SSH <xref target="RFC4252"/>, 
+            TLS <xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and
+            mandatory-to-implement mutual authentication.</t>
   
           <t>The Network Access Control Model (NACM) <xref target="RFC8341"/>
             provides the means to restrict access for particular users to a
@@ -629,11 +630,12 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>This section follows the template defined in <xref section="3.7.1" target="RFC8407"/>.</t>
 
           <t>The "ietf-netconf-server" YANG module defines data nodes
-            that are designed to be accessed via YANG based management
+            that are designed to be accessed via YANG-based management
             protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF
-            <xref target="RFC8040"/>.  Both of these protocols have
-            mandatory-to-implement secure transport layers (e.g., SSH, TLS)
-            with mutual authentication.</t>
+            <xref target="RFC8040"/>.  These protocols have mandatory-to-implement
+            secure transport layers (e.g., SSH <xref target="RFC4252"/>, 
+            TLS <xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and
+            mandatory-to-implement mutual authentication.</t>
   
           <t>The Network Access Control Model (NACM) <xref target="RFC8341"/>
             provides the means to restrict access for particular users to a
@@ -732,11 +734,14 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
 
       <references title="Informative References">
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.4252.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8040.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8340.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8341.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8342.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8407.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8446.xml"/>
+        <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9000.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-crypto-types.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-trust-anchors.xml"/>
         <xi:include href="https://datatracker.ietf.org/doc/bibxml3/reference.I-D.ietf-netconf-http-client-server.xml"/>
@@ -1063,6 +1068,13 @@ INSERT_TEXT_FROM_FILE(ietf-netconf-server@YYYY-MM-DD.yang)
           <t>  
             <list style="symbols">
               <t>Nothing changed.  Only bumped for automation...</t>
+            </list>
+          </t> 
+        </section>
+        <section title="37 to 38">
+          <t>   
+            <list style="symbols">
+              <t>Updated 2nd paragraph in Security Considerations section to match RFC Editor's version for other drafts in the suite of client-server drafts.</t>
             </list>
           </t> 
         </section>
