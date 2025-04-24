@@ -45,7 +45,7 @@ module ietf-netconf-client {
     "This module contains a collection of YANG definitions
      for configuring NETCONF clients.
 
-     Copyright (c) 2024 IETF Trust and the persons identified
+     Copyright (c) 2025 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -70,7 +70,7 @@ module ietf-netconf-client {
     description
       "Initial version";
     reference
-      "RFC HHHH: NETCONF Client and Server Models";
+      "RFC HHHH: A YANG Data Model for NETCONF Clients and Server";
   }
 
   // Features
@@ -391,7 +391,7 @@ module ietf-netconf-client {
                    utilization, albeit with increased delay in
                    NETCONF server to NETCONF client interactions.
 
-                   The NETCONF client should close the underlying
+                   The NETCONF client SHOULD close the underlying
                    TCP connection upon completing planned activities.
 
                    Connections are established at the same start
@@ -460,26 +460,26 @@ module ietf-netconf-client {
             type enumeration {
               enum first-listed {
                 description
-                  "Indicates that reconnections should start with
+                  "Indicates that reconnections SHOULD start with
                    the first endpoint listed.";
               }
               enum last-connected {
                 description
-                  "Indicates that reconnections should start with
+                  "Indicates that reconnections SHOULD start with
                    the endpoint last connected to, if known.  If
                    no previous connection is known, then the
                    first endpoint configured is used.";
               }
               enum random-selection {
                 description
-                  "Indicates that reconnections should start with
+                  "Indicates that reconnections SHOULD start with
                    a random endpoint.";
               }
             }
             default "first-listed";
             description
               "Specifies which of the NETCONF server's endpoints
-               the NETCONF client should start with when trying
+               the NETCONF client SHOULD start with when trying
                to connect to the NETCONF server.";
           }
           leaf max-wait {
