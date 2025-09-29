@@ -1,0 +1,130 @@
+{
+  "ietf-netconf-client:netconf-client": {
+    "initiate": {
+      "netconf-server": [
+        {
+        "name": "corp-fw1",
+        "endpoints": {
+          "endpoint": [
+            {
+              "name": "corp-fw1.example.com",
+              "ssh": {
+                "tcp-client-parameters": {
+                  "remote-address": "corp-fw1.example.com",
+                  "keepalives": {
+                    "idle-time": 7200,
+                    "max-probes": 9,
+                    "probe-interval": 75
+                  }
+                },
+                "ssh-client-parameters": {
+                  "client-identity": {
+                    "username": "foobar",
+                    "public-key": {
+                      "inline-definition": {
+                        "public-key-format": "ietf-crypto-types:ssh-public-key-format",
+                        "public-key": "BASE64VALUE=",
+                        "private-key-format": "ietf-crypto-types:rsa-private-key-format",
+                        "cleartext-private-key": "BASE64VALUE="
+                      }
+                    }
+                  },
+                  "server-authentication": {
+                    "ssh-host-keys": {
+                      "inline-definition": {
+                        "public-key": [
+                          {
+                            "name": "corp-fw1",
+                            "public-key-format": "ietf-crypto-types:ssh-public-key-format",
+                            "public-key": "BASE64VALUE="
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "keepalives": {
+                    "max-wait": 30,
+                    "max-attempts": 3
+                  }
+                },
+                "netconf-client-parameters": {}
+              }
+            },
+
+            {
+              "name": "corp-fw2.example.com",
+              "tls": {
+                "tcp-client-parameters": {
+                  "remote-address": "corp-fw2.example.com",
+                  "keepalives": {
+                    "idle-time": 7200,
+                    "max-probes": 9,
+                    "probe-interval": 75
+                  }
+                },
+                "tls-client-parameters": {
+                  "client-identity": {
+                    "certificate": {
+                      "inline-definition": {
+                        "public-key-format": "ietf-crypto-types:subject-public-key-info-format",
+                        "public-key": "BASE64VALUE=",
+                        "private-key-format": "ietf-crypto-types:rsa-private-key-format",
+                        "cleartext-private-key": "BASE64VALUE=",
+                        "cert-data": "BASE64VALUE="
+                      }
+                    }
+                  },
+                  "server-authentication": {
+                    "ca-certs": {
+                      "inline-definition": {
+                        "certificate": [
+                          {
+                            "name": "Server Cert Issuer #1",
+                            "cert-data": "BASE64VALUE="
+                          },
+                          {
+                            "name": "Server Cert Issuer #2",
+                            "cert-data": "BASE64VALUE="
+                          }
+                        ]
+                      }
+                    },
+                    "ee-certs": {
+                      "inline-definition": {
+                        "certificate": [
+                          {
+                            "name": "My Application #1",
+                            "cert-data": "BASE64VALUE="
+                          },
+                          {
+                            "name": "My Application #2",
+                            "cert-data": "BASE64VALUE="
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "keepalives": {
+                    "test-peer-aliveness": {
+                      "max-wait": 30,
+                      "max-attempts": 3
+                    }
+                  }
+                },
+                "netconf-client-parameters": {}
+              }
+            }
+          ]
+        },
+        "connection-type": {
+          "persistent": {}
+        },
+        "reconnect-strategy": {
+          "start-with": "last-connected"
+        }
+      }
+      ]
+    }
+  }
+}
+

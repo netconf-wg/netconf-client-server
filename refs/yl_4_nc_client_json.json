@@ -1,0 +1,50 @@
+
+{
+  "ietf-netconf-client:netconf-client": {
+    "initiate": {
+      "netconf-server": [
+        {
+        "name": "yumapro-instance",
+        "endpoints": {
+          "endpoint": [
+            {
+              "name": "yumapro-instance",
+              "ssh": {
+                "tcp-client-parameters": {
+                  "remote-address": "192.168.56.102",
+                  "remote-port": 830
+                },
+                "ssh-client-parameters": {
+                  "client-identity": {
+                    "username": "kwatsen",
+                    "password": {
+                      "cleartext-password": "kwatsen"
+                    }
+                  },
+                  "server-authentication": {
+                    "ssh-host-keys": {
+                      "inline-definition": {
+                        "public-key": [
+                          {
+                            "name": "yumapro-instance-key",
+                            "public-key-format": "ietf-crypto-types:ssh-public-key-format",
+                            "public-key": "BASE64VALUE="
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "netconf-client-parameters": {}
+              }
+            }
+          ]
+        },
+        "connection-type": {
+          "persistent": {}
+        }
+      }
+      ]
+    }
+  }
+}
